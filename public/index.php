@@ -1,5 +1,6 @@
 <?php
 
+use App\Application;
 use Symfony\Component\Dotenv\Dotenv;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
@@ -18,5 +19,21 @@ $twig = new Environment($loader, [
 ]);
 $twig->addExtension(new DebugExtension());
 
+$app = new Application();
 
-echo $twig->render('index.html', ['name' => 'Fabien']);
+$app->router->get('/', function(){
+    return 'Hello World';
+});
+
+$app->router->get('/users', function(){
+    return 'Hello Users';
+});
+
+$app->router->get('/contact', function(){
+    return 'Hello Contact';
+});
+
+$app->run();
+
+
+//echo $twig->render('index.html', ['name' => 'Fabien']);
