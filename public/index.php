@@ -1,5 +1,10 @@
 <?php
 
+use App\Application;
+use App\Controllers\BlogController;
+use App\Controllers\ContactController;
+use App\Controllers\NotFoundController;
+use App\Controllers\PostController;
 use Symfony\Component\Dotenv\Dotenv;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
@@ -11,6 +16,7 @@ define("ROOT", dirname(__DIR__));
 
 $dotenv = new Dotenv();
 $dotenv->load(ROOT .'/.env');
+
 $loader = new FilesystemLoader(ROOT . '/templates');
 $twig = new Environment($loader, [
     //'cache' => '/path/to/compilation_cache',
@@ -18,5 +24,17 @@ $twig = new Environment($loader, [
 ]);
 $twig->addExtension(new DebugExtension());
 
+$app = new Application($twig);
 
-echo $twig->render('index.html', ['name' => 'Fabien']);
+$app->router->get('/', [BlogController::class, 'index']);
+$app->router->get('/contact', [ContactController::class, 'show']);
+$app->router->post('/contact', [ContactController::class, 'handleContact']);
+$app->router->get('/posts', [PostController::class, 'index']);
+$app->router->get('/posts/:id', [PostController::class, 'show']);
+$app->router->get('/404', [NotFoundController::class, 'show']);
+
+try {
+    $app->run();
+} catch (Exception $exception){
+    echo $exception->getMessage();
+}
