@@ -7,7 +7,7 @@ class ContactController extends Controller
 
     public function show()
     {
-        echo $this->render('/blog/contact.html.twig');
+        echo $this->render('general/contact.html.twig');
     }
 
     public function handleContact()
