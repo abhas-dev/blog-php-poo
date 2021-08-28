@@ -10,5 +10,4 @@ class PostController extends Controller
     {
         parent::__construct($twig);
     }
-
 }
