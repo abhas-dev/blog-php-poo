@@ -24,6 +24,7 @@ $twig = new Environment($loader, [
 ]);
 $twig->addExtension(new DebugExtension());
 
+
 $app = new Application($twig);
 
 $app->router->get('/', [BlogController::class, 'index']);
@@ -38,5 +39,3 @@ try {
 } catch (Exception $exception){
     echo $exception->getMessage();
 }
-
-
