@@ -27,10 +27,13 @@ $twig->addExtension(new DebugExtension());
 $app = new Application($twig);
 
 $app->router->get('/', [BlogController::class, 'index']);
+
 $app->router->get('/contact', [ContactController::class, 'show']);
 $app->router->post('/contact', [ContactController::class, 'handleContact']);
+
 $app->router->get('/posts', [PostController::class, 'index']);
 $app->router->get('/posts/:id', [PostController::class, 'show']);
+
 $app->router->get('/404', [NotFoundController::class, 'show']);
 
 try {

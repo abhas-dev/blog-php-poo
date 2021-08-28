@@ -48,7 +48,7 @@ class Router
         $method = $this->request->getMethod();
         // On test si notre route se trouve dans l'array des routes sinon on renvoi false
         $route = $this->routes[$method][$path] ?? false;
-
+        //var_dump($path);die();
         // Sinon on soulève une erreur
         if($route === false){
             $this->response->setStatusCode(404);
@@ -57,7 +57,7 @@ class Router
         }
         $this->controller = $route[0];
         $this->action = $route[1];
-
+        //var_dump($this->request);die();
         return $this->call();
     }
 
@@ -69,12 +69,10 @@ class Router
     public function call()
     {
         $controller = $this->controller;
-
         // On instancie dynamiquement le contrôleur
         $controller = new $controller();
         // call_user_func_array permet d'appeler une méthode d'une classe et de lui passer des arguments
-
-        return call_user_func_array([$controller, $this->action], $this->args);
+        return call_user_func([$controller, $this->action], $this->request);
     }
 
 
