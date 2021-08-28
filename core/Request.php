@@ -4,7 +4,6 @@ namespace App;
 
 class Request
 {
-
     public function __construct()
     {
         $this->bootstrapSelf();
@@ -13,8 +12,7 @@ class Request
     private function bootstrapSelf()
     {
         // Quid des performances de cette methode?
-        foreach($_SERVER as $key => $value)
-        {
+        foreach ($_SERVER as $key => $value) {
             $this->{$this->toCamelCase($key)} = $value;
         }
     }
@@ -25,8 +23,7 @@ class Request
 
         preg_match_all('/_[a-z]/', $result, $matches);
 
-        foreach($matches[0] as $match)
-        {
+        foreach ($matches[0] as $match) {
             $c = str_replace('_', '', strtoupper($match));
             $result = str_replace($match, $c, $result);
         }
@@ -43,7 +40,7 @@ class Request
     {
         $path = $this->requestUri ?? '/';
         $position = strpos($path, '?');
-        if($position === false){
+        if ($position === false) {
             return $path;
         }
 

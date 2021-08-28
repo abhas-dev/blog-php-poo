@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 class ContactController extends Controller
 {
-
     public function show()
     {
         echo $this->render('/blog/contact.html.twig');
