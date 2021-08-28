@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Data\Managers\PostManager;
+use App\Data\Models\PostModel;
+use App\Request;
 
 class PostController extends Controller
 {
@@ -32,15 +34,22 @@ class PostController extends Controller
         echo $this->render('blog/show.html.twig', compact('post'));
     }
 
-    public function insert(){
+    public function form()
+    {
+        echo $this->render('blog/postForm.html.twig');
+    }
+
+    public function insert(Request $request){
 
         $post = new PostModel();
+        $body = $request->getBody();
         $post
-            ->setTitle("Titre Test")
-            ->setContent("Contenu du post")
+            ->setTitle($body['title'])
+            ->setContent($body['content'])
             ->setCreatedAt(new \DateTimeImmutable());
         $this->postManager->create($post);
-        echo $this->render('blog/formpost.html.twig', compact('post'));
+        header("Location:");
+        return $this->render('blog/index.html.twig', compact('post'));
     }
 
 }
