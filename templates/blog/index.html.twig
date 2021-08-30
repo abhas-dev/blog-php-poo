@@ -1,7 +1,19 @@
-{% extends 'main.html.twig' %}
+{% extends 'layouts/main.html.twig' %}
 
 {% block title %}{{ parent() }} - Les articles{% endblock %}
 
 {% block body %}
+    <h1>Les derniers articles</h1>
 
+    {#    {{ createRoute("getPostById", post.id) }}#}
+    {% for post in posts %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2>{{ post.title }}</h2>
+                <small>{{ post.createdAt|date("m/d/Y") }}</small>
+                <p>{{ post.content }}<p>
+                    <a href="blog/{{ post.id }} " class="btn btn-primary">Lire plus</a>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -9,30 +9,48 @@ class Router
 {
     public Request $request;
     public Response $response;
-    protected array $routes = [];
-    private string $controller;
-    private string $action;
-    private array $args = [];
+    private string $path;
+    private array $routes = [];
 
     /**
      * @param Request $request
+     * @param Response $response
      */
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
+        $this->path = $this->request->getUri();
+    }
+
+
+    public function get($path, $action)
+    {
+        // On push la route dans l'array des routes
+        $route = new Route($path, $action);
+        $this->routes['get'][] = $route;
+        //this->routes['get'][$path] =$action;
     }
 
     // On push la route dans l'array des routes
-    public function get($path, $route)
+    public function post($path, $action)
     {
-        $this->routes['get'][$path] = $route;
+        $route = new Route($path, $action);
+        $this->routes['post'][] = $route;
+//        $this->routes['post'][$path] = $action;
     }
 
-    // On push la route dans l'array des routes
-    public function post($path, $route)
+    public function getRouteByRequest()
     {
-        $this->routes['post'][$path] = $route;
+        // Pour chaque route, on teste si elle correspond à la requête, si oui alors on renvoie cette route
+        foreach($this->routes[$this->request->getMethod()] as $route) {
+            if($route->match($this->path)){
+                return $route;
+            }
+        }
+
+        // Sinon on soulève une erreur
+        throw new RouterException("Aucune route ne correspond à la requete !");
     }
 
     /**
@@ -40,42 +58,21 @@ class Router
      * $method: Verbe HTTP
      * $path: Chemin dans l'url exemple /contact, /posts...
      *
-     * @return mixed
      */
-    public function resolve(): mixed
+    public function resolve()
     {
-        $path = $this->request->getPath();
         $method = $this->request->getMethod();
-        // On test si notre route se trouve dans l'array des routes sinon on renvoi false
-        $route = $this->routes[$method][$path] ?? false;
 
-        // Sinon on soulève une erreur
-        if($route === false){
-            $this->response->setStatusCode(404);
-            // A finir
-            throw new Exception("Cette route n'existe pas !");
+        if(!$this->routes[$method])
+        {
+            throw new RouterException("Aucun verbe ne correspond à cette requete !");
         }
-        $this->controller = $route[0];
-        $this->action = $route[1];
+        // On récupère la route correspondant à la requête
+        $route = $this->getRouteByRequest();
+        // On récupère une réponse en appelant dynamiquement l'action d'un contrôleur
+        $response = $route->call($route, $this->request);
 
-        return $this->call();
+//        // Soit ca, On test si notre route se trouve dans l'array des routes sinon on renvoi false
+//       $route = $this->routes[$method][$path] ?? false;
     }
-
-    /**
-     * Instancie le controller et execute la fonction necessaire
-     *
-     * @return false|mixed
-     */
-    public function call()
-    {
-        $controller = $this->controller;
-
-        // On instancie dynamiquement le contrôleur
-        $controller = new $controller();
-        // call_user_func_array permet d'appeler une méthode d'une classe et de lui passer des arguments
-
-        return call_user_func_array([$controller, $this->action], $this->args);
-    }
-
-
 }

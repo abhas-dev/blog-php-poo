@@ -2,13 +2,53 @@
 
 namespace App\Controllers;
 
-use Twig\Environment;
+use App\Data\Managers\PostManager;
+use App\Data\Models\PostModel;
+use App\Request;
 
 class PostController extends Controller
 {
-    public function __construct(Environment $twig)
+    private PostManager $postManager;
+
+    public function __construct()
     {
-        parent::__construct($twig);
+        $this->postManager = new PostManager();
+    }
+
+    public function welcome()
+    {
+        echo $this->render('blog/welcome.html.twig');
+    }
+
+    public function index()
+    {
+        $posts = $this->postManager->findAll();
+        echo $this->render('blog/index.html.twig', compact('posts'));
+    }
+
+    public function show($id)
+    {
+        $id = intval($id);
+        $post = $this->postManager->find($id);
+        echo $this->render('blog/show.html.twig', compact('post'));
+    }
+
+    public function form()
+    {
+        echo $this->render('blog/postForm.html.twig');
+    }
+
+    public function insert(Request $request){
+
+        $post = new PostModel();
+        $body = $request->getBody();
+        $post
+            ->setTitle($body['title'])
+            ->setContent($body['content'])
+            ->setCreatedAt(new \DateTimeImmutable());
+        $this->postManager->create($post);
+        header("Location:");
+        return $this->render('blog/index.html.twig', compact('post'));
     }
 
 }
