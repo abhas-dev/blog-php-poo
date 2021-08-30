@@ -4,52 +4,89 @@ namespace App;
 
 class Request
 {
+    private array $post;
+    private array $get;
+    private array $files;
+    private array $request;
+    private array $server;
 
     public function __construct()
     {
-        $this->bootstrapSelf();
+        $this->post = $_POST;
+        $this->get = $_GET;
+        $this->files = $_FILES;
+        $this->request = $_REQUEST;
+        $this->server = $_SERVER;
+        //$this->bootstrapSelf();
     }
 
-    private function bootstrapSelf()
+//    private function bootstrapSelf()
+//    {
+//        // Quid des performances de cette methode?
+//        foreach($_SERVER as $key => $value)
+//        {
+//            $this->{$this->toCamelCase($key)} = $value;
+//        }
+//    }
+
+    public function getUri()
     {
-        // Quid des performances de cette methode?
-        foreach($_SERVER as $key => $value)
-        {
-            $this->{$this->toCamelCase($key)} = $value;
-        }
+        return $this->server["REQUEST_URI"];
     }
 
-    private function toCamelCase(string $string): string
+    public function getCookie()
     {
-        $result = strtolower($string);
+        return $_COOKIE;
+    }
 
-        preg_match_all('/_[a-z]/', $result, $matches);
-
-        foreach($matches[0] as $match)
-        {
-            $c = str_replace('_', '', strtoupper($match));
-            $result = str_replace($match, $c, $result);
-        }
-
-        return $result;
+    public function setCookie($key, $value, $exp)
+    {
+        setcookie($key, $value, $exp);
     }
 
     /**
-     * Recupere le chemin demandé dans la requete sans les params
-     *
-     * @return string
+     * @return array
      */
-    public function getPath(): string
+    public function getSession()
     {
-        var_dump($this->requestUri);
-        $path = $this->requestUri ?? '/';
-        $position = strpos($path, '?');
-        if($position === false){
-            return $path;
-        }
-
-        return substr($path, 0, $position);
+        return $_SESSION;
     }
+
+    public function setSession($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
+//    private function toCamelCase(string $string): string
+//    {
+//        $result = strtolower($string);
+//
+//        preg_match_all('/_[a-z]/', $result, $matches);
+//
+//        foreach($matches[0] as $match)
+//        {
+//            $c = str_replace('_', '', strtoupper($match));
+//            $result = str_replace($match, $c, $result);
+//        }
+//
+//        return $result;
+//    }
+
+//    /**
+//     * Recupere le chemin demandé dans la requete sans les params
+//     *
+//     * @return string
+//     */
+//    public function getPath(): string
+//    {
+//        return $this->getUri();
+////        $position = strpos($path, '?');
+////        if($position === false){
+////            return $path;
+////        }
+////
+////        return substr($path, 0, $position);
+//    }
 
     /**
      * Recupere la methode HTTP de la requete
@@ -58,7 +95,7 @@ class Request
      */
     public function getMethod(): string
     {
-        return strtolower($this->requestMethod);
+        return strtolower($this->server['REQUEST_METHOD']);
     }
 
     public function getBody(): array
@@ -77,4 +114,6 @@ class Request
 
         return $body;
     }
+
+
 }

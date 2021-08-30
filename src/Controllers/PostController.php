@@ -12,7 +12,6 @@ class PostController extends Controller
 
     public function __construct()
     {
-        parent::__construct();
         $this->postManager = new PostManager();
     }
 
@@ -27,10 +26,10 @@ class PostController extends Controller
         echo $this->render('blog/index.html.twig', compact('posts'));
     }
 
-    public function show(int $id)
+    public function show($id)
     {
+        $id = intval($id);
         $post = $this->postManager->find($id);
-        var_dump($post);
         echo $this->render('blog/show.html.twig', compact('post'));
     }
 

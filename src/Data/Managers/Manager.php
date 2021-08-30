@@ -25,12 +25,14 @@ abstract class Manager{
     {
         $this->database = Database::getPDO();
 
-        $modelName =  str_replace("App\Data\Managers\\", "", get_class($this));
-        $modelName = 'App\Data\Models\\' . str_replace("Manager", "", $modelName) . "Model";
-        $this->modelName = $modelName;
+//        $modelName =  str_replace("App\Data\Managers\\", "", get_class($this));
+//        $modelName = 'App\Data\Models\\' . str_replace("Manager", "", $modelName) . "Model";
+        $this->modelName = $this->getModelName();
 
         $this->metadata = $this->modelName::metadata();
     }
+
+    abstract public function getModelName();
 
     /**
      * Requete en bdd et retourne un tableau d'objet Model

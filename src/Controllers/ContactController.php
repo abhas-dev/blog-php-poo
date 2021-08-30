@@ -12,9 +12,9 @@ class ContactController extends Controller
         echo $this->render('general/contact.html.twig');
     }
 
-    public function handleContact(Request $request)
+    public function handleContact()
     {
-        $body = $request->getBody();
+        $body = $this->request->getBody();
         var_dump($body);
         return 'Traitement des données envoyées';
     }
