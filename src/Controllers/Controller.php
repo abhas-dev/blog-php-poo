@@ -13,7 +13,7 @@ abstract class Controller
 {
     protected Request $request;
     protected Environment $twig;
-    
+
 
     protected function render(string $path, array $params = []): string
     {

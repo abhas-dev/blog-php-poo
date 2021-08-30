@@ -20,18 +20,19 @@ class Request
         //$this->bootstrapSelf();
     }
 
-//    private function bootstrapSelf()
-//    {
-//        // Quid des performances de cette methode?
-//        foreach($_SERVER as $key => $value)
-//        {
-//            $this->{$this->toCamelCase($key)} = $value;
-//        }
-//    }
-
     public function getUri()
     {
         return $this->server["REQUEST_URI"];
+    }
+
+    /**
+     * Recupere la methode HTTP de la requete
+     *
+     * @return string
+     */
+    public function getMethod(): string
+    {
+        return strtolower($this->server['REQUEST_METHOD']);
     }
 
     public function getCookie()
@@ -55,47 +56,6 @@ class Request
     public function setSession($key, $value)
     {
         $_SESSION[$key] = $value;
-    }
-
-//    private function toCamelCase(string $string): string
-//    {
-//        $result = strtolower($string);
-//
-//        preg_match_all('/_[a-z]/', $result, $matches);
-//
-//        foreach($matches[0] as $match)
-//        {
-//            $c = str_replace('_', '', strtoupper($match));
-//            $result = str_replace($match, $c, $result);
-//        }
-//
-//        return $result;
-//    }
-
-//    /**
-//     * Recupere le chemin demandé dans la requete sans les params
-//     *
-//     * @return string
-//     */
-//    public function getPath(): string
-//    {
-//        return $this->getUri();
-////        $position = strpos($path, '?');
-////        if($position === false){
-////            return $path;
-////        }
-////
-////        return substr($path, 0, $position);
-//    }
-
-    /**
-     * Recupere la methode HTTP de la requete
-     *
-     * @return string
-     */
-    public function getMethod(): string
-    {
-        return strtolower($this->server['REQUEST_METHOD']);
     }
 
     public function getBody(): array
