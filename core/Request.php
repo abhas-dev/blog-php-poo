@@ -41,6 +41,7 @@ class Request
      */
     public function getPath(): string
     {
+        var_dump($this->requestUri);
         $path = $this->requestUri ?? '/';
         $position = strpos($path, '?');
         if($position === false){

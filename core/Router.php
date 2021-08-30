@@ -12,10 +12,10 @@ class Router
     private array $routes = [];
     private string $controller;
     private string $action;
-    private array $args = [];
 
     /**
      * @param Request $request
+     * @param Response $response
      */
     public function __construct(Request $request, Response $response)
     {
@@ -23,15 +23,18 @@ class Router
         $this->response = $response;
     }
 
-    // On push la route dans l'array des routes
+
     public function get($path, $action)
     {
+        // On push la route dans l'array des routes
+        $route = new Route($path, $action);
         $this->routes['get'][$path] = $action;
     }
 
     // On push la route dans l'array des routes
     public function post($path, $action)
     {
+        $route = new Route($path, $action);
         $this->routes['post'][$path] = $action;
     }
 
@@ -45,44 +48,48 @@ class Router
     {
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
+
+        if(!$method)
+        {
+            throw new RouterException("Cette route n'existe pas !");
+
+        }
+
         // On test si notre route se trouve dans l'array des routes sinon on renvoi false
         $route = $this->routes[$method][$path] ?? false;
-//        $patha = preg_replace('#:([\w]+)#', '([^/]+)', $path);
-//        $pathToMatch = "#^$patha$#";
-//        var_dump($path, $pathToMatch);die();
+
         // Sinon on soulève une erreur
         if($route === false){
             $this->response->setStatusCode(404);
-            // A finir
-            throw new Exception("Cette route n'existe pas !");
+            throw new RouterException("Cette route n'existe pas !");
         }
+
         $this->controller = $route[0];
         $this->action = $route[1];
-        //var_dump($this->request);die();
         return $this->call();
     }
 
-    public function match($requestUri)
-    {
-        // On génère un nouveau chemin en remplaçant les paramètres par des regexp
-        $path = preg_replace_callback("/:(\w+)/", [$this, "parameterMatch"], $this->path);
-        // On échappe chaque "/" pour que notre regexp puisse reconnaître le "/"
-        $path = str_replace("/","\/", $path);
-        // Si notre requpete actuelle ne correspond pas à la regexp alons on renvoie false
-        if(!preg_match("/^$path$/i", $requestUri, $matches)){
-            return false;
-        }
-        // Sinon on remplit notre tableau d'arguments avec les valeurs de chaque paramètre de notre route
-        $this->args = array_slice($matches,1);
-        $defaultsArgs = array_keys($this->defaults);
-        foreach($this->args as $key => &$value) {
-            $index = array_search($key,$defaultsArgs);
-            if($index !== FALSE && $value === ""){
-                $value = $this->defaults[$defaultsArgs[$index]];
-            }
-        }
-        return true;
-    }
+//    public function match($requestUri)
+//    {
+//        // On génère un nouveau chemin en remplaçant les paramètres par des regexp
+//        $path = preg_replace_callback("/:(\w+)/", [$this, "parameterMatch"], $this->path);
+//        // On échappe chaque "/" pour que notre regexp puisse reconnaître le "/"
+//        $path = str_replace("/","\/", $path);
+//        // Si notre requete actuelle ne correspond pas à la regexp alons on renvoie false
+//        if(!preg_match("/^$path$/i", $requestUri, $matches)){
+//            return false;
+//        }
+//        // Sinon on remplit notre tableau d'arguments avec les valeurs de chaque paramètre de notre route
+//        $this->args = array_slice($matches,1);
+//        $defaultsArgs = array_keys($this->defaults);
+//        foreach($this->args as $key => &$value) {
+//            $index = array_search($key,$defaultsArgs);
+//            if($index !== FALSE && $value === ""){
+//                $value = $this->defaults[$defaultsArgs[$index]];
+//            }
+//        }
+//        return true;
+//    }
 
     /**
      * Instancie le controller et execute la fonction necessaire
