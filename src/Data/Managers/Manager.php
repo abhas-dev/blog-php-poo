@@ -149,28 +149,5 @@ abstract class Manager{
         return $query;
     }
 
-//    protected function hydrate(array $datas): self{
-//        foreach ($datas as $key => $value) {
-//            //UTILISER LE MAPPING
-//            // On recupere le nom du setter correspondant a la clé
-////            if($key !== 'created_at' || $key !== 'updated_at'){
-//                $setter = 'set' . ucfirst($key);
-////            } else{
-////                // chercher le _ et la lettre qui le suit puis supprimer le _ et transformer la lettre en Uppercase
-////                $pos = str_pos($key, "_");
-////                var_dump($pos);die();
-////                //$newKey = str_replace("_");
-////                $setter = 'set' . ucfirst($key);
-////            }
-//            // On verifie si le setter existe
-//            if (method_exists($this, $setter)) {
-//                // On appelle le setter
-//                $this->$setter($value);
-//            }
-//        }
-//
-//        return $this;
-//    }
-
 
 }
