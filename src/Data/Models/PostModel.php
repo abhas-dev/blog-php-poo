@@ -15,16 +15,12 @@ class PostModel extends Model
     /** @var string  */
     private string $content;
 
-    /** @var \DateTimeImmutable  */
-    private \DateTimeImmutable $createdAt;
+    /** @var \DateTimeImmutable|null */
+    protected ?\DateTimeImmutable $createdAt = null;
 
-//    private $databaseMapping = [
-//        "id" => "post_id",
-//        "title" => "title",
-//        "content" => "content",
-//        "createdAt" => "created_at"
-//    ];
-
+    /**
+     * @return array
+     */
     public static function metadata(): array
     {
         return [

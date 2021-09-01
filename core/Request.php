@@ -17,7 +17,6 @@ class Request
         $this->files = $_FILES;
         $this->request = $_REQUEST;
         $this->server = $_SERVER;
-        //$this->bootstrapSelf();
     }
 
     public function getUri()
@@ -73,6 +72,16 @@ class Request
         }
 
         return $body;
+    }
+
+    public function isGet(): bool
+    {
+        return $this->getMethod() === 'get';
+    }
+
+    public function isPost(): bool
+    {
+        return $this->getMethod() === 'post';
     }
 
 

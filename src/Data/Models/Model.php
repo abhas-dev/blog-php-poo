@@ -44,6 +44,14 @@ abstract class Model
         foreach($datas as $column => $value) {
             $this->hydrateProperty($column, $value);
         }
+        if(property_exists($this, 'createdAt') && $this->createdAt === null)
+        {
+            //$createdAt = (new \DateTimeImmutable)->format(("d/m/Y H:i:s"));
+            //$datetime = \DateTimeImmutable::createFromFormat("d/m/Y H:i:s", $createdAt);
+            $this->setCreatedAt((new \DateTimeImmutable));
+            //$this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
+        }
+
         return $this;
     }
 
@@ -68,5 +76,13 @@ abstract class Model
                 $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
                 break;
         }
+    }
+    public function loadData($data)
+    {
+
+    }
+
+    public function validate()
+    {
     }
 }

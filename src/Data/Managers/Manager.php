@@ -83,7 +83,7 @@ abstract class Manager{
         return (new $this->modelName)->hydrate($data);
     }
 
-    public function create(Model &$model)
+    public function save(Model &$model)
     {
         // Exemple: INSERT INTO annonces (titre,description,actif) VALUES(?,?,?)
         $champs = [];

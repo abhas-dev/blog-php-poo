@@ -10,7 +10,7 @@
         <div class="card mb-3">
             <div class="card-body">
                 <h2>{{ post.title }}</h2>
-                <small>{{ post.createdAt|date("m/d/Y") }}</small>
+                <small>{{ post.createdAt|date("d/m/Y") }}</small>
                 <p>{{ post.content }}<p>
                     <a href="blog/{{ post.id }} " class="btn btn-primary">Lire plus</a>
             </div>

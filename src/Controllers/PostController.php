@@ -26,7 +26,7 @@ class PostController extends Controller
         echo $this->render('blog/index.html.twig', compact('posts'));
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $id = intval($id);
         $post = $this->postManager->find($id);
@@ -41,14 +41,12 @@ class PostController extends Controller
     public function insert(Request $request){
 
         $post = new PostModel();
+//        var_dump($post);
         $body = $request->getBody();
-        $post
-            ->setTitle($body['title'])
-            ->setContent($body['content'])
-            ->setCreatedAt(new \DateTimeImmutable());
-        $this->postManager->create($post);
+        $post->hydrate($body);
+        $this->postManager->save($post);
         header("Location:");
-        return $this->render('blog/index.html.twig', compact('post'));
+        echo $this->render('blog/index.html.twig', compact('post'));
     }
 
 }
