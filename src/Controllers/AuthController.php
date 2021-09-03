@@ -37,7 +37,8 @@ class AuthController extends Controller
                 return 'Show success page';
             }
 //            var_dump($registerModel->getErrors());
-            echo $this->render('auth/register.html.twig', compact('registerModel'));
+            $errors = $registerModel->getErrors();
+            echo $this->render('auth/register.html.twig', compact('errors'));
         }
         //echo $this->render('auth/register.html.twig', compact('registerModel'));
     }

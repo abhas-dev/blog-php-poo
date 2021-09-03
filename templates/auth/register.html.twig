@@ -1,58 +1,23 @@
 {% extends 'layouts/auth_layout.html.twig' %}
 
+{% import 'layouts/form.html.twig' as form %}
+
 {% block title %} {{ parent() }} - Inscription{% endblock %}
 
 {% block body %}
+    {{ dump(errors) }}
     <h1>Inscription</h1>
 
     <form action="" method="post" class="row g-3">
-        <div class="col-md-6">
-            <label for="firstname" class="form-label">Prenom</label>
-            <input type="text" class="form-control" id="firstname" name="firstname">
-        </div>
-        <div class="col-md-6">
-            <label for="lastname" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="lastname" name="lastname">
-        </div>
-        <div class="col-12">
-            <label for="username" class="form-label">Nom d'utilisateur</label>
-            <input type="text" class="form-control" id="email" name="username">
-        </div>
-        <div class="col-12">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email">
-        </div>
-        <div class="col-md-6">
-            <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-        <div class="col-md-6">
-            <label for="confirmationPassword" class="form-label">Confirmation</label>
-            <input type="password" class="form-control" id="confirmationPassword" name="confirmationPassword">
-        </div>
-        <div class="col-sm-3">
-            <label for="gender" class="form-label">Genre</label>
-            <fieldset class="row mb-3">
-                <div class="col-sm-10">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="male" value="male">
-                        <label class="form-check-label" for="male">
-                            Homme
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gender" id="female" value="female">
-                        <label class="form-check-label" for="female">
-                            Femme
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="col-9">
-            <label for="avatar" class="form-label">Avatar</label>
-            <input type="file" class="form-control" id="avatar">
-        </div>
+
+        {{ form.inputSemiText('firstname', 'Prenom') }}
+        {{ form.inputSemiText('lastname', 'Nom') }}
+        {{ form.inputLongText('username', 'Nom d\'utilisateur') }}
+        {{ form.inputLongEmail('email', 'Email') }}
+        {{ form.inputSemiPassword('password', 'Mot de passe') }}
+        {{ form.inputSemiPassword('confirmationPassword', 'Confirmation') }}
+        {{ form.inputGenderRadio('gender', 'Genre') }}
+        {{ form.inputFile('avatar', 'Avatar') }}
         <div class="col-sm-2">
             <button type="submit" class="btn btn-primary">Envoyer</button>
         </div>

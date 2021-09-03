@@ -1,0 +1,85 @@
+{% macro inputLongEmail (name, label) %}
+<div class="col-12">
+    <label for="{{ name }}" class="form-label">{{ label }}</label>
+    <input type="email" class="form-control" id="{{ name }}" name="{{ name }}">
+</div>
+
+{% endmacro %}
+
+{% macro inputLongText(name, label) %}
+    <div class="col-12">
+        <label for="{{ name }}" class="form-label">{{ label }}</label>
+        <input type="text" class="form-control" id="{{ name }}" name="{{ name }}">
+    </div>
+
+{% endmacro %}
+
+{% macro inputLongPassword(name, label) %}
+    <div class="col-12">
+        <label for="{{ name }}" class="form-label">{{ label }}</label>
+        <input type="password" class="form-control" id="{{ name }}" name="{{ name }}">
+    </div>
+
+{% endmacro %}
+
+{% macro inputSemiEmail (name, label) %}
+    <div class="col-md-6">
+        <label for="{{ name }}" class="form-label">{{ label }}</label>
+        <input type="email" class="form-control" id="{{ name }}" name="{{ name }}">
+    </div>
+
+{% endmacro %}
+
+{% macro inputSemiText(name, label) %}
+    <div class="col-md-6">
+        <label for="{{ name }}" class="form-label">{{ label }}</label>
+        <input type="text" class="form-control" id="{{ name }}" name="{{ name }}">
+    </div>
+
+{% endmacro %}
+
+{% macro inputSemiPassword(name, label) %}
+    <div class="col-md-6">
+        <label for="{{ name }}" class="form-label">{{ label }}</label>
+        <input type="password" class="form-control" id="{{ name }}" name="{{ name }}">
+    </div>
+
+{% endmacro %}
+
+{% macro inputGenderRadio(name, label) %}
+    <div class="col-sm-3">
+        <label for="{{ name }}" class="form-label">{{ label }}</label>
+        <fieldset class="row mb-3">
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ name }}" id="male" value="male">
+                    <label class="form-check-label" for="male">
+                        Homme
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="{{ name }}" id="female" value="female">
+                    <label class="form-check-label" for="female">
+                        Femme
+                    </label>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+{% endmacro %}
+
+{% macro inputFile(name, label) %}
+    <div class="col-9">
+        <label for="{{ name }}" class="form-label">{{ label }}</label>
+        <input type="file" class="form-control" id="{{ name }}" name="{{ name }}">
+    </div>
+{% endmacro %}
+
+
+
+
+
+{% macro textarea(name, label) %}
+
+{% endmacro %}

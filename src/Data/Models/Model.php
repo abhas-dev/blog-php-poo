@@ -27,6 +27,14 @@ abstract class Model
     abstract public function rules(): array;
 
     /**
+     * @return array
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    /**
      * Genere le nom du getter correspond au nom de la colonne bdd puis recupere la valeur dans le Model
      *
      * @param $column
@@ -149,19 +157,12 @@ abstract class Model
             self::RULE_UNIQUE => 'Cette valeur {field} existe deja',
         ];
     }
-
-    /**
-     * @return array
-     */
-    public function getErrors(): array
-    {
-        return $this->errors;
-    }
-
-    public function errorMessage($rule)
-    {
-        return $this->errorMessages()[$rule];
-    }
+//
+//
+//    public function errorMessage($rule)
+//    {
+//        return $this->errorMessages()[$rule];
+//    }
 
     public function addErrorByRule(string $attribute, string $rule, array $params = [])
     {
