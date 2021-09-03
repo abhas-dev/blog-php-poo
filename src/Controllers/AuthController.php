@@ -23,23 +23,22 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $errors = [];
         $registerModel = new UserModel();
 
         if ($request->getMethod() == 'post') {
             $body = $request->getBody();
             // TODO: Validation
             // TODO: check password and confirmation
-            unset($body['confirmationPassword']);
             $registerModel->hydrate($body);
+            //$registerModel->validate();
             if ($registerModel->validate() && $this->userManager->save($registerModel)) {
 //                Application::$app->session->setFlash('success', 'Thanks for registering');
 //                Application::$app->response->redirect('/');
                 return 'Show success page';
             }
-            var_dump($registerModel);
-            echo 'Show success page';
+//            var_dump($registerModel->getErrors());
+            echo $this->render('auth/register.html.twig', compact('registerModel'));
         }
-        echo $this->render('auth/register.html.twig', compact('errors'));
+        //echo $this->render('auth/register.html.twig', compact('registerModel'));
     }
 }

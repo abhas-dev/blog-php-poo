@@ -74,6 +74,11 @@ class Request
         return $body;
     }
 
+    public static function validationDataBody()
+    {
+
+    }
+
     public function isGet(): bool
     {
         return $this->getMethod() === 'get';

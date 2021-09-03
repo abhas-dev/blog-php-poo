@@ -8,31 +8,34 @@ class UserModel extends Model
     private ?int $id = null;
 
     /** @var string  */
-    private string $username;
+    protected ?string $username = null;
 
     /** @var string  */
-    private string $email;
+    protected ?string $email = null;
 
     /** @var string  */
-    private string $password;
+    protected ?string $password = null;
 
     /** @var string  */
-    private string $firstname;
+    protected ?string $confirmationPassword = null;
 
     /** @var string  */
-    private string $lastname;
+    protected ?string $firstname = null;
 
     /** @var string  */
-    private string $role = "user";
+    protected ?string $lastname = null;
+
+    /** @var string  */
+    protected string $role = "user";
 
     /** @var bool */
-    private bool $isActive = false;
+    protected bool $isActive = false;
 
     /** @var string|null */
-    private ?string $avatar = null;
+    protected ?string $avatar = null;
 
     /** @var string  */
-    private string $gender;
+    protected ?string $gender = null;
 
     /** @var \DateTimeImmutable|null */
     protected ?\DateTimeImmutable $createdAt = null;
@@ -62,6 +65,10 @@ class UserModel extends Model
                 "password"        => [
                     "type"     => "string",
                     "property" => "password"
+                ],
+                "confirmationPassword"        => [
+                    "type"     => "string",
+                    "property" => "confirmationPassword"
                 ],
                 "firstname"        => [
                     "type"     => "string",
@@ -115,7 +122,7 @@ class UserModel extends Model
     /**
      * @return string
      */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
         return $this->username;
     }
@@ -123,7 +130,7 @@ class UserModel extends Model
     /**
      * @param string $username
      */
-    public function setUsername(string $username): void
+    public function setUsername(?string $username): void
     {
         $this->username = $username;
     }
@@ -131,7 +138,7 @@ class UserModel extends Model
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -139,7 +146,7 @@ class UserModel extends Model
     /**
      * @param string $email
      */
-    public function setEmail(string $email): void
+    public function setEmail(?string $email): void
     {
         $this->email = $email;
     }
@@ -147,7 +154,7 @@ class UserModel extends Model
     /**
      * @return string
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -155,7 +162,7 @@ class UserModel extends Model
     /**
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPassword(?string $password): void
     {
         $this->password = $password;
     }
@@ -163,7 +170,23 @@ class UserModel extends Model
     /**
      * @return string
      */
-    public function getFirstname(): string
+    public function getConfirmationPassword(): ?string
+    {
+        return $this->confirmationPassword;
+    }
+
+    /**
+     * @param string $confirmationPassword
+     */
+    public function setConfirmationPassword(?string $confirmationPassword): void
+    {
+        $this->confirmationPassword = $confirmationPassword;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
@@ -171,7 +194,7 @@ class UserModel extends Model
     /**
      * @param string $firstname
      */
-    public function setFirstname(string $firstname): void
+    public function setFirstname(?string $firstname): void
     {
         $this->firstname = $firstname;
     }
@@ -179,7 +202,7 @@ class UserModel extends Model
     /**
      * @return string
      */
-    public function getLastname(): string
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
@@ -187,7 +210,7 @@ class UserModel extends Model
     /**
      * @param string $lastname
      */
-    public function setLastname(string $lastname): void
+    public function setLastname(?string $lastname): void
     {
         $this->lastname = $lastname;
     }
@@ -211,7 +234,7 @@ class UserModel extends Model
     /**
      * @return bool
      */
-    public function isActive(): bool
+    public function getIsActive(): bool
     {
         return $this->isActive;
     }
@@ -243,7 +266,7 @@ class UserModel extends Model
     /**
      * @return string
      */
-    public function getGender(): string
+    public function getGender(): ?string
     {
         return $this->gender;
     }
@@ -251,7 +274,7 @@ class UserModel extends Model
     /**
      * @param string $gender
      */
-    public function setGender(string $gender): void
+    public function setGender(?string $gender): void
     {
         $this->gender = $gender;
     }
@@ -272,6 +295,18 @@ class UserModel extends Model
         $this->createdAt = $createdAt;
     }
 
+
+    public function rules(): array
+    {
+        return [
+            'username' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 4]],
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+            'firstname' => [self::RULE_REQUIRED],
+            'lastname' => [self::RULE_REQUIRED],
+            'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8], [self::RULE_MAX, 'max' => 24]],
+            'confirmationPassword' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
+        ];
+    }
 
 
 }

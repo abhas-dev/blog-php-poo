@@ -119,4 +119,10 @@ class PostModel extends Model
         return $this;
     }
 
+    public function rules(): array
+    {
+        // TODO: Implement rules() method.
+    }
+
+
 }
