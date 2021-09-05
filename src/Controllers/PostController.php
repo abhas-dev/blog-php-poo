@@ -30,6 +30,8 @@ class PostController extends Controller
     {
         $id = intval($id);
         $post = $this->postManager->find($id);
+//        $comment = $this->commentManager->findByPostId($post_id, $page);
+        // TODO: definir si les comments font partie du Post (methode getComment) ou si c'est independant et donc faire une sous vue
         echo $this->render('blog/show.html.twig', compact('post'));
     }
 
@@ -45,7 +47,7 @@ class PostController extends Controller
         $body = $request->getBody();
         $post->hydrate($body);
         $this->postManager->save($post);
-        header("Location:");
+        header("Location:/blog");
         echo $this->render('blog/index.html.twig', compact('post'));
     }
 

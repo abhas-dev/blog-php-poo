@@ -47,7 +47,7 @@ class UserModel extends Model
     public static function metadata(): array
     {
         return [
-            "table"            => "users",
+            "table"            => "User",
             "primaryKey"       => "id",
             "columns"          => [
                 "id"           => [

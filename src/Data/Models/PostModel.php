@@ -9,14 +9,30 @@ class PostModel extends Model
     /** @var int|null */
     private ?int $id = null;
 
+    /** @var string|null  */
+    private ?string $introduction = '';
+
+    /** @var string|null  */
+    private ?string $slug = '';
+
     /** @var string */
     private string $title;
 
     /** @var string  */
     private string $content;
 
+    /** @var string  */
+    private int $idUser;
+
+
+    private array $tag = [];
+
+
     /** @var \DateTimeImmutable|null */
     protected ?\DateTimeImmutable $createdAt = null;
+
+    /** @var \DateTimeImmutable|null */
+    protected ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * @return array
@@ -24,10 +40,10 @@ class PostModel extends Model
     public static function metadata(): array
     {
         return [
-            "table"            => "posts",
+            "table"            => "Post",
             "primaryKey"       => "id",
             "columns"          => [
-                "id"           => [
+                "id_post"      => [
                     "type"     => "integer",
                     "property" => "id"
                 ],
@@ -35,13 +51,33 @@ class PostModel extends Model
                     "type"     => "string",
                     "property" => "title"
                 ],
+                "introduction"        => [
+                    "type"     => "string",
+                    "property" => "introduction"
+                ],
+                "slug"        => [
+                    "type"     => "string",
+                    "property" => "slug"
+                ],
                 "content"      => [
                     "type"     => "string",
                     "property" => "content"
                 ],
+                "id_user"      => [
+                    "type"     => "integer",
+                    "property" => "idUser"
+                ],
+                "tag"          => [
+                    "type"     => "array",
+                    "property" => "tag"
+                ],
                 "created_at"        => [
                     "type"     => "datetime",
                     "property" => "createdAt"
+                ],
+                "updated_at"        => [
+                    "type"     => "datetime",
+                    "property" => "updatedAt"
                 ]
             ]
         ];
@@ -102,6 +138,38 @@ class PostModel extends Model
     }
 
     /**
+     * @return array
+     */
+    public function getTag(): array
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param array $tag
+     */
+    public function setTag(array $tag): void
+    {
+        $this->tag = $tag;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdUser(): int|string
+    {
+        return $this->idUser;
+    }
+
+    /**
+     * @param string $idUser
+     */
+    public function setIdUser(int|string $idUser): void
+    {
+        $this->idUser = $idUser;
+    }
+
+    /**
      * @return \DateTimeImmutable
      */
     public function getCreatedAt(): \DateTimeImmutable
@@ -122,6 +190,60 @@ class PostModel extends Model
     public function rules(): array
     {
         // TODO: Implement rules() method.
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIntroduction(): ?string
+    {
+        return $this->introduction;
+    }
+
+    /**
+     * @param string|null $introduction
+     */
+    public function setIntroduction(?string $introduction): void
+    {
+        $this->introduction = $introduction;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string|null $slug
+     */
+    public function setSlug(?string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return \DateTimeImmutable|null
+     */
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable|null $updatedAt
+     */
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    public function getAuthorName()
+    {
+        // appel a userMamanager pour recuperer l'user par rapport a l'id
+        return "test";
     }
 
 

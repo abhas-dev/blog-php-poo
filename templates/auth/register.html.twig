@@ -7,25 +7,36 @@
 {% block body %}
     {{ dump(errors) }}
     <h1>Inscription</h1>
-
-    <form action="" method="post" class="row g-3">
-
-        {{ form.inputSemiText('firstname', 'Prenom') }}
-        {{ form.inputSemiText('lastname', 'Nom') }}
-        {{ form.inputLongText('username', 'Nom d\'utilisateur') }}
-        {{ form.inputLongEmail('email', 'Email') }}
-        {{ form.inputSemiPassword('password', 'Mot de passe') }}
-        {{ form.inputSemiPassword('confirmationPassword', 'Confirmation') }}
-        {{ form.inputGenderRadio('gender', 'Genre') }}
-        {{ form.inputFile('avatar', 'Avatar') }}
-        <div class="col-sm-2">
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-        </div>
-    </form>
+        <form action="" method="post" class="row g-3" novalidate>
+            {{ form.inputSemiText('firstname', 'Prenom') }}
+            {{ form.inputSemiText('lastname', 'Nom') }}
+            {{ form.inputLongText('username', 'Nom d\'utilisateur') }}
+            {{ form.inputLongEmail('email', 'Email') }}
+            {{ form.inputSemiPassword('password', 'Mot de passe') }}
+            {{ form.inputSemiPassword('confirmationPassword', 'Confirmation') }}
+            {{ form.inputGenderRadio('gender', 'Genre') }}
+            {{ form.inputFile('avatar', 'Avatar') }}
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            </div>
+        </form>
 
 
+{#    {% if errors %}#}
+{#        <ul>#}
+{#            {% for attribute,error in errors %}#}
+{#                <li>{{ attribute }}</li>#}
+{#                {% for value in error %}#}
+{#                    <li>{{ value }}</li>#}
+{#                {% endfor %}#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    {% endif %}#}
 
-{#        <div class="row mb-3">#}
+
+
+
+    {#        <div class="row mb-3">#}
 {#            <label for="username" class="col-sm-2 col-form-label">Nom d'utilisateur</label>#}
 {#            <div class="col-sm-5">#}
 {#                <input type="text" class="form-control" id="username">#}
