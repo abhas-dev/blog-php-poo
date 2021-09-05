@@ -43,7 +43,7 @@ class PostModel extends Model
             "table"            => "Post",
             "primaryKey"       => "id",
             "columns"          => [
-                "id_post"      => [
+                "id"           => [
                     "type"     => "integer",
                     "property" => "id"
                 ],
