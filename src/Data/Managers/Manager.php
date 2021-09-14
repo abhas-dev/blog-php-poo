@@ -105,8 +105,7 @@ abstract class Manager{
 
         }
         $sql = sprintf("INSERT INTO %s (%s) VALUES (%s)", $this->metadata["table"], implode(', ', $champs), implode(", ", $question));
-
-        //$model->setPrimaryKey($this->pdo->lastInsertId());
+        $model->setPrimaryKey($this->database->lastInsertId());
 
         return $query = $this->createQuery($sql, $values);
     }

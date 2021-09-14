@@ -42,15 +42,19 @@ class PostController extends Controller
     }
 
     public function insert(Request $request){
-
-        $post = new PostModel();
-//        var_dump($post);
-        $body = $request->getBody();
-        $post->objectifyForm($body);
+        try {
+            $post = new PostModel();
+            $body = $request->getBody();
+            $post->objectifyForm($body);
 //        $post->hydrate($body);
-        $this->postManager->save($post);
-        header("Location:/blog");
-        echo $this->render('blog/index.html.twig', compact('post'));
+            $this->postManager->save($post);
+            header("Location:/blog");
+            echo $this->render('blog/index.html.twig', compact('post'));
+        }catch (\Exception $e)
+        {
+            var_dump($e);
+        }
+
     }
 
 }

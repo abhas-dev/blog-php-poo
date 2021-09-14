@@ -8,7 +8,7 @@ class CommentModel extends Model
 
     private ?string $content = '';
 
-    private bool $isApprouved;
+    private int $isApprouved = 0;
 
     private ?int $idPost = null;
 
@@ -18,7 +18,7 @@ class CommentModel extends Model
     {
 
         return [
-            "table"            => "Post",
+            "table"            => "Comment",
             "primaryKey"       => "id",
             "columns"          => [
                 "id"           => [
@@ -34,7 +34,7 @@ class CommentModel extends Model
                     "property" => "createdAt"
                 ],
                 "is_approuved"        => [
-                    "type"     => "bool",
+                    "type"     => "int",
                     "property" => "isApprouved"
                 ],
                 "id_post"        => [
@@ -48,7 +48,7 @@ class CommentModel extends Model
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -78,17 +78,17 @@ class CommentModel extends Model
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function isApprouved(): bool
+    public function getIsApprouved(): int
     {
         return $this->isApprouved;
     }
 
     /**
-     * @param bool $isApprouved
+     * @param int $isApprouved
      */
-    public function setIsApprouved(bool $isApprouved): void
+    public function setIsApprouved(int $isApprouved): void
     {
         $this->isApprouved = $isApprouved;
     }
@@ -114,6 +114,22 @@ class CommentModel extends Model
         // TODO: Implement rules() method.
 
         return [];
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getIdPost(): ?int
+    {
+        return $this->idPost;
+    }
+
+    /**
+     * @param int|null $idPost
+     */
+    public function setIdPost(?int $idPost): void
+    {
+        $this->idPost = $idPost;
     }
 
 }

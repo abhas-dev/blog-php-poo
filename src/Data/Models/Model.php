@@ -35,6 +35,24 @@ abstract class Model
     }
 
     /**
+     * @param $value
+     */
+    public function setPrimaryKey($value)
+    {
+        $this->hydrateProperty($this->metadata()["primaryKey"], $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryKey()
+    {
+        $primaryKeyColumn = $this->metadata()["primaryKey"];
+        $property = $this->metadata()["columns"][$primaryKeyColumn]["property"];
+        return $this->{sprintf("get%s", ucfirst($property))}();
+    }
+
+    /**
      * Genere le nom du getter correspond au nom de la colonne bdd puis recupere la valeur dans le Model
      *
      * @param $column
@@ -52,11 +70,11 @@ abstract class Model
 
     public function objectifyForm($data): self
     {
-        if(empty($datas)){
+        if(empty($data)){
             throw new \Exception("Aucun resultat n'a été trouvé ! ");
         }
-        $this->originalData = $datas;
-        foreach($datas as $column => $value) {
+        $this->originalData = $data;
+        foreach($data as $column => $value) {
             $this->hydrateProperty($column, $value);
         }
         $this->setCreatedAt((new \DateTimeImmutable));
