@@ -24,9 +24,11 @@ class PostModel extends Model
     /** @var string  */
     private int $idUser;
 
-
+    /** @var array  */
     private array $tag = [];
 
+    /** @var array  */
+    private array $comments = [];
 
     /** @var \DateTimeImmutable|null */
     protected ?\DateTimeImmutable $createdAt = null;
@@ -190,6 +192,8 @@ class PostModel extends Model
     public function rules(): array
     {
         // TODO: Implement rules() method.
+
+        return true;
     }
 
     /**
@@ -224,6 +228,25 @@ class PostModel extends Model
         $this->slug = $slug;
     }
 
+
+    /**
+     * @return array
+     */
+    public function getComments(): array
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param CommentModel $comments
+     */
+    public function setComments(CommentModel $comments): void
+    {
+        $this->comments[] = $comments;
+    }
+
+
+
     /**
      * @return \DateTimeImmutable|null
      */
@@ -244,6 +267,11 @@ class PostModel extends Model
     {
         // appel a userMamanager pour recuperer l'user par rapport a l'id
         return "test";
+    }
+
+    public function getTags()
+    {
+
     }
 
 

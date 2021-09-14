@@ -54,7 +54,6 @@ abstract class Manager{
 
     public function find(int $id): Model
     {
-        var_dump($id);
         $sql = "SELECT * FROM $this->table WHERE id = ?";
         $query = $this->createQuery($sql, [$id]);
         $data = $query->fetchObject();
