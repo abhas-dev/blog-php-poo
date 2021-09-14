@@ -31,7 +31,7 @@ class PostManager extends Manager
         $sql = "SELECT * FROM $this->table WHERE id = ?";
         $query = $this->createQuery($sql, [$id]);
         $data = $query->fetchObject();
-        return (new $this->modelName)->hydrate($data);
+        return (new $this->modelName())->hydrate($data);
     }
 
     public function findPostBySlugWithValidatedComments(int $id): PostModel
@@ -40,9 +40,9 @@ class PostManager extends Manager
         $sql = "SELECT `id`, `content`, `is_approuved`,`created_at`,`id_post` FROM `comment` WHERE id_post = ?";
         $query = $this->createQuery($sql, [$id]);
         $data = $query->fetchAll();
-        if ($data){
-            foreach ($data as $comment){
-                $post->setComments((new CommentModel)->hydrate($comment));
+        if ($data) {
+            foreach ($data as $comment) {
+                $post->setComments((new CommentModel())->hydrate($comment));
             }
         }
 

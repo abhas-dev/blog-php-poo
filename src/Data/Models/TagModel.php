@@ -4,11 +4,8 @@ namespace App\Data\Models;
 
 class TagModel extends Model
 {
-
-
     public static function metadata(): array
     {
-
         return [];
     }
 
@@ -18,5 +15,4 @@ class TagModel extends Model
 
         return [];
     }
-
 }
