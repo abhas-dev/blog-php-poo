@@ -50,6 +50,19 @@ abstract class Model
         return $value;
     }
 
+    public function objectifyForm($data): self
+    {
+        if(empty($datas)){
+            throw new \Exception("Aucun resultat n'a été trouvé ! ");
+        }
+        $this->originalData = $datas;
+        foreach($datas as $column => $value) {
+            $this->hydrateProperty($column, $value);
+        }
+        $this->setCreatedAt((new \DateTimeImmutable));
+        return $this;
+    }
+
     /**
      * On save le resultat dans la proprieté et on boucle pour hydrater
      *
@@ -66,13 +79,13 @@ abstract class Model
         foreach($datas as $column => $value) {
             $this->hydrateProperty($column, $value);
         }
-        if(property_exists($this, 'createdAt') && $this->createdAt === null)
-        {
-            //$createdAt = (new \DateTimeImmutable)->format(("d/m/Y H:i:s"));
-            //$datetime = \DateTimeImmutable::createFromFormat("d/m/Y H:i:s", $createdAt);
-            $this->setCreatedAt((new \DateTimeImmutable));
-            //$this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
-        }
+//        if(property_exists($this, 'createdAt') && $this->createdAt === null)
+//        {
+//            //$createdAt = (new \DateTimeImmutable)->format(("d/m/Y H:i:s"));
+//            //$datetime = \DateTimeImmutable::createFromFormat("d/m/Y H:i:s", $createdAt);
+//            $this->setCreatedAt((new \DateTimeImmutable));
+//            //$this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
+//        }
 
         return $this;
     }

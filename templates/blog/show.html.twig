@@ -9,5 +9,24 @@
 
 {#    {{ post.getAuthorName() }}#}
     <p>{{ post.content }}</p>
+{#    {{ dump(post.comments) }}#}
+
+    <h2>Commentaires</h2>
+
+    <form action="" method="post">
+        <div class="mb-3">
+            <textarea class="form-control" id="content" name="content"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+    </form>
+
+    {% for comment in post.comments %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <p>{{ comment.content }}</p>
+                <small class="">Publié le {{ comment.createdAt|date("d/m/Y à h:i") }}</small>
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock %}
