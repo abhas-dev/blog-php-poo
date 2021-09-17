@@ -37,6 +37,8 @@ class PostManager extends Manager
     public function findPostBySlugWithValidatedComments(int $id): PostModel
     {
         $post = $this->findPostBySlug($id);
+        $tags = $this->getTags($id);
+        $post->setTags($tags);
         $sql = "SELECT `id`, `content`, `is_approuved`,`created_at`,`id_post` FROM `comment` WHERE id_post = ?";
         $query = $this->createQuery($sql, [$id]);
         $data = $query->fetchAll();
@@ -48,4 +50,16 @@ class PostManager extends Manager
 
         return $post;
     }
+
+    public function getTags(int $id)
+    {
+        $sql = "
+                SELECT `t`.* from `tag` t
+                INNER JOIN  `post_tag` `pt` ON pt.`tag_id` = `t`.`id`
+                INNER  JOIN `post` p ON `pt`.`post_id` = `p`.`id`
+                WHERE p.id = ?";
+        $query = $this->createQuery($sql, [$id]);
+        return $query->fetchAll();
+    }
+
 }

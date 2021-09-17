@@ -25,7 +25,7 @@ class PostModel extends Model
     private int $idUser;
 
     /** @var array  */
-    private array $tag = [];
+    private array $tags = [];
 
     /** @var array  */
     private array $comments = [];
@@ -71,7 +71,7 @@ class PostModel extends Model
                 ],
                 "tag"          => [
                     "type"     => "array",
-                    "property" => "tag"
+                    "property" => "tags"
                 ],
                 "created_at"        => [
                     "type"     => "datetime",
@@ -142,17 +142,17 @@ class PostModel extends Model
     /**
      * @return array
      */
-    public function getTag(): array
+    public function getTags(): array
     {
-        return $this->tag;
+        return $this->tags;
     }
 
     /**
      * @param array $tag
      */
-    public function setTag(array $tag): void
+    public function setTags(array $tags): void
     {
-        $this->tag = $tag;
+        $this->tags = $tags;
     }
 
     /**
@@ -193,7 +193,7 @@ class PostModel extends Model
     {
         // TODO: Implement rules() method.
 
-        return true;
+        return [];
     }
 
     /**
@@ -268,11 +268,5 @@ class PostModel extends Model
         // appel a userMamanager pour recuperer l'user par rapport a l'id
         return "test";
     }
-
-    public function getTags()
-    {
-
-    }
-
 
 }
