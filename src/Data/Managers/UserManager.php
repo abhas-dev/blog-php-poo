@@ -7,7 +7,6 @@ use App\Data\Models\UserModel;
 
 class UserManager extends Manager
 {
-
     public function getModelName()
     {
         return UserModel::class;
