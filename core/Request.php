@@ -84,5 +84,3 @@ class Request
 //    {
 //        return $this->getMethod() === 'post';
 //    }
-
-
