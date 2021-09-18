@@ -6,11 +6,8 @@ use App\Data\Models\CommentModel;
 
 class CommentManager extends Manager
 {
-
     public function getModelName()
     {
         return CommentModel::class;
     }
-
-
 }
