@@ -22,6 +22,7 @@ class AuthController extends Controller
 
     public function login(Request $request, Response $response)
     {
+        unset($_SESSION['error']);
         $loginModel = new LoginModel();
         if ($request->getMethod() == 'post') {
             $body = $request->getBody();
@@ -32,14 +33,13 @@ class AuthController extends Controller
                 if(!$user)
                 {
                     // TODO: faire une fonction setError dans Session
-                    $_SESSION['error'] = "L'adresse et/ou le mot de passe est incorrect ";
+                    $_SESSION['error']['login'] = "L'adresse et/ou le mot de passe est incorrect ";
                     $response->redirect('/login');
                     exit;
                 }
                 if(password_verify($loginModel->getPassword(), $user->getPassword()))
                 {
                     Session::setUserSession($user);
-                    var_dump($_SESSION);
                     $response->redirect('/');
 
                 } else{

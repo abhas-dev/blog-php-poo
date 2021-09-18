@@ -1,9 +1,14 @@
 {% extends 'layouts/auth_layout.html.twig' %}
 
 
-{% block title %} {{ parent() }} - Inscription{% endblock %}
+{% block title %} {{ parent() }} - Connexion{% endblock %}
 
 {% block body %}
+    {% if not session['error'] is empty %}
+    <div class="alert alert-danger" role="alert">
+        {{ session['error'] }}
+    </div>
+    {% endif %}
     <h1>Connexion</h1>
 
     <form action="" method="post" class="g-3" novalidate>
