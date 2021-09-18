@@ -3,6 +3,7 @@
 use App\Application;
 use App\Controllers\AuthController;
 use App\Controllers\BlogController;
+use App\Controllers\CommentController;
 use App\Controllers\ContactController;
 use App\Controllers\NotFoundController;
 use App\Controllers\PostController;
@@ -35,6 +36,7 @@ $app->router->post('/contact', [ContactController::class, 'handleContact']);
 
 $app->router->get('/blog', [PostController::class, 'index']);
 $app->router->get('/blog/:id', [PostController::class, 'show']);
+$app->router->post('/blog/:id/comment', [CommentController::class, 'insert']);
 $app->router->get('/blog-create', [PostController::class, 'form']);
 $app->router->post('/blog-create', [PostController::class, 'insert']);
 

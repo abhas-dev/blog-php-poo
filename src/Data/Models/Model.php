@@ -38,6 +38,24 @@ abstract class Model
     }
 
     /**
+     * @param $value
+     */
+    public function setPrimaryKey($value)
+    {
+        $this->hydrateProperty($this->metadata()["primaryKey"], $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryKey()
+    {
+        $primaryKeyColumn = $this->metadata()["primaryKey"];
+        $property = $this->metadata()["columns"][$primaryKeyColumn]["property"];
+        return $this->{sprintf("get%s", ucfirst($property))}();
+    }
+
+    /**
      * Genere le nom du getter correspond au nom de la colonne bdd puis recupere la valeur dans le Model
      *
      * @param $column
