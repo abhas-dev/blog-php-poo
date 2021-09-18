@@ -13,6 +13,7 @@ abstract class Model
     protected const RULE_MAX = 'max';
     protected const RULE_MATCH = 'match';
     protected const RULE_UNIQUE = 'unique';
+    protected const RULE_LOGIN = 'login';
     protected array $errors = [];
 
 
@@ -80,7 +81,7 @@ abstract class Model
         foreach($data as $column => $value) {
             $this->hydrateProperty($column, $value);
         }
-        $this->setCreatedAt((new \DateTimeImmutable));
+
         return $this;
     }
 
@@ -177,8 +178,6 @@ abstract class Model
                 }
                 if($ruleName === self::RULE_UNIQUE)
                 {
-                    $classname = $rule['class'];
-                    //var_dump(get_class($this));
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $tableName = $this->metadata()["table"];
                     $database = Database::getPDO();
@@ -205,14 +204,9 @@ abstract class Model
             self::RULE_MAX => 'La longueur maximum doit etre {max}',
             self::RULE_MATCH => "Ce champs doit etre identique au champ {match}",
             self::RULE_UNIQUE => 'Cette valeur est deja enregistrée',
+            self::RULE_LOGIN => 'Ces valeurs ne correspondent à aucune entrée dans la base de donnée'
         ];
     }
-//
-//
-//    public function errorMessage($rule)
-//    {
-//        return $this->errorMessages()[$rule];
-//    }
 
     public function addErrorByRule(string $attribute, string $rule, array $params = [])
     {

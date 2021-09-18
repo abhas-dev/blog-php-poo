@@ -79,7 +79,7 @@ abstract class Manager{
         $query = $this->createQuery($sql, $values);
         //$query->fetchAll(PDO::FETCH_CLASS, $modelName)    Hydratation par PDO
 
-        $data = $query->fetchAll();
+        $data = $query->fetch();
         return (new $this->modelName)->hydrate($data);
     }
 

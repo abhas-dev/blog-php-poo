@@ -35,6 +35,8 @@ class UserModel extends Model
     /** @var bool */
     protected bool $isActive = false;
 
+    protected bool $isAdmin = false;
+
     /** @var int  */
     protected int $status = self::STATUS_INACTIVE;
 
@@ -92,6 +94,10 @@ class UserModel extends Model
                 "status"        => [
                     "type"     => "int",
                     "property" => "status"
+                ],
+                "is_admin"        => [
+                    "type"     => "int",
+                    "property" => "isAdmin"
                 ],
                 "avatar"        => [
                     "type"     => "string",
@@ -219,22 +225,6 @@ class UserModel extends Model
     }
 
     /**
-     * @return bool
-     */
-    public function getIsActive(): bool
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * @param bool $isActive
-     */
-    public function setIsActive(bool $isActive): void
-    {
-        $this->isActive = $isActive;
-    }
-
-    /**
      * @return int
      */
     public function getStatus(): int
@@ -248,6 +238,22 @@ class UserModel extends Model
     public function setStatus(int $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param bool $isAdmin
+     */
+    public function setIsAdmin(bool $isAdmin): void
+    {
+        $this->isAdmin = $isAdmin;
     }
 
 
@@ -304,6 +310,12 @@ class UserModel extends Model
         return $this->password = password_hash($this->password, PASSWORD_ARGON2I);
     }
 
+    public function objectifyForm($data): self
+    {
+        $this->setCreatedAt((new \DateTimeImmutable));
+        return parent::objectifyForm($data);
+    }
+
 
     public function rules(): array
     {
@@ -316,6 +328,5 @@ class UserModel extends Model
             'confirmationPassword' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
         ];
     }
-
 
 }

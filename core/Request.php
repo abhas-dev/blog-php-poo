@@ -9,14 +9,16 @@ class Request
     private array $files;
     private array $request;
     private array $server;
+    private array $session;
 
     public function __construct()
     {
         $this->post = $_POST;
         $this->get = $_GET;
-//        $this->files = $_FILES;
-//        $this->request = $_REQUEST;
+        $this->files = $_FILES;
+        $this->request = $_REQUEST;
         $this->server = $_SERVER;
+        $this->session = $_SESSION;
     }
 
     public function getUri()
@@ -55,6 +57,24 @@ class Request
 
         return $body;
     }
+
+        /**
+     * @return array
+     */
+    public function getSession()
+    {
+        return $_SESSION;
+    }
+
+    public function setSession($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
+    public function getReferer()
+    {
+        return $this->server['HTTP_REFERER'];
+    }
 }
 //
 //    public function setCookie($key, $value, $exp)
@@ -62,18 +82,7 @@ class Request
 //        setcookie($key, $value, $exp);
 //    }
 //
-//    /**
-//     * @return array
-//     */
-//    public function getSession()
-//    {
-//        return $_SESSION;
-//    }
-//
-//    public function setSession($key, $value)
-//    {
-//        $_SESSION[$key] = $value;
-//    }
+
 //
 //    public function isGet(): bool
 //    {
