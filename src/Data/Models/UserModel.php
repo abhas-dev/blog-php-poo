@@ -4,6 +4,10 @@ namespace App\Data\Models;
 
 class UserModel extends Model
 {
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_DELETED = 2;
+
     /** @var int|null  */
     private ?int $id = null;
 
@@ -17,19 +21,22 @@ class UserModel extends Model
     protected ?string $password = null;
 
     /** @var string  */
-    protected ?string $confirmationPassword = null;
+    public ?string $confirmationPassword = null;
 
     /** @var string  */
     protected ?string $firstname = null;
 
     /** @var string  */
     protected ?string $lastname = null;
-
-    /** @var string  */
-    protected string $role = "user";
+//
+//    /** @var string  */
+//    protected string $role = "user";
 
     /** @var bool */
     protected bool $isActive = false;
+
+    /** @var int  */
+    protected int $status = self::STATUS_INACTIVE;
 
     /** @var string|null */
     protected ?string $avatar = null;
@@ -78,21 +85,17 @@ class UserModel extends Model
                     "type"     => "string",
                     "property" => "lastname"
                 ],
-                "role"        => [
-                    "type"     => "string",
-                    "property" => "role"
-                ],
                 "gender"        => [
                     "type"     => "string",
                     "property" => "gender"
                 ],
+                "status"        => [
+                    "type"     => "int",
+                    "property" => "status"
+                ],
                 "avatar"        => [
                     "type"     => "string",
                     "property" => "avatar"
-                ],
-                "is_active"      => [
-                    "type"     => "string",
-                    "property" => "isActive"
                 ],
                 "created_at"        => [
                     "type"     => "datetime",
@@ -216,22 +219,6 @@ class UserModel extends Model
     }
 
     /**
-     * @return string
-     */
-    public function getRole(): string
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param string $role
-     */
-    public function setRole(string $role): void
-    {
-        $this->role = $role;
-    }
-
-    /**
      * @return bool
      */
     public function getIsActive(): bool
@@ -246,6 +233,23 @@ class UserModel extends Model
     {
         $this->isActive = $isActive;
     }
+
+    /**
+     * @return int
+     */
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus(int $status): void
+    {
+        $this->status = $status;
+    }
+
 
     /**
      * @return string|null
@@ -295,12 +299,17 @@ class UserModel extends Model
         $this->createdAt = $createdAt;
     }
 
+    public function encryptPassword(): string
+    {
+        return $this->password = password_hash($this->password, PASSWORD_ARGON2I);
+    }
+
 
     public function rules(): array
     {
         return [
             'username' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 4]],
-            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
+            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => self::class]],
             'firstname' => [self::RULE_REQUIRED],
             'lastname' => [self::RULE_REQUIRED],
             'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8], [self::RULE_MAX, 'max' => 24]],

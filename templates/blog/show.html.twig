@@ -6,8 +6,11 @@
 {% block body %}
 
     <h1>{{ post.title }}</h1>
+    {% for tag in post.tags %}
+    <small class="badge bg-success">{{ tag.name }}</small>
+    {% endfor %}
 
-{#    {{ post.getAuthorName() }}#}
+    {#    {{ post.getAuthorName() }}#}
     <p>{{ post.content }}</p>
 {#    {{ dump(post.comments) }}#}
 

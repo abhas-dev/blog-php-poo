@@ -27,19 +27,16 @@ class AuthController extends Controller
 
         if ($request->getMethod() == 'post') {
             $body = $request->getBody();
-            $registerModel->hydrate($body);
-            //$registerModel->validate();
-            // TODO: Generer formulaire a partir du php
-            // TODO: Envoyer l'objet registerModel a la vue pour le generer?
-            // TODO: Ou seulement afficher mes erreurs en js
-            if ($registerModel->validate() && $this->userManager->save($registerModel)) {
+            $registerModel->objectifyForm($body);
+            if ($registerModel->validate()) {
+                $this->userManager->save($registerModel);
 //                Application::$app->session->setFlash('success', 'Thanks for registering');
 //                Application::$app->response->redirect('/');
                 return 'Show success page';
             }
-//            var_dump($registerModel->getErrors());
+
             $errors = $registerModel->getErrors();
-            echo $this->render('auth/register.html.twig', compact('errors'));
+            echo $this->render('auth/register.html.twig', compact('errors', 'registerModel'));
         }
 
         if ($request->getMethod() == 'get'){

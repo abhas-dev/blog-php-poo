@@ -2,6 +2,9 @@
 
 namespace App\Data\Models;
 
+
+use App\Database;
+
 abstract class Model
 {
     protected const RULE_REQUIRED = 'required';
@@ -52,11 +55,11 @@ abstract class Model
 
     public function objectifyForm($data): self
     {
-        if(empty($datas)){
+        if(empty($data)){
             throw new \Exception("Aucun resultat n'a été trouvé ! ");
         }
-        $this->originalData = $datas;
-        foreach($datas as $column => $value) {
+        $this->originalData = $data;
+        foreach($data as $column => $value) {
             $this->hydrateProperty($column, $value);
         }
         $this->setCreatedAt((new \DateTimeImmutable));
@@ -152,7 +155,23 @@ abstract class Model
                 }
                 if($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']})
                 {
-                    $this->addErrorByRule($attribute, self::RULE_MATCH);
+                    $this->addErrorByRule($attribute, self::RULE_MATCH, $rule);
+                }
+                if($ruleName === self::RULE_UNIQUE)
+                {
+                    $classname = $rule['class'];
+                    //var_dump(get_class($this));
+                    $uniqueAttr = $rule['attribute'] ?? $attribute;
+                    $tableName = $this->metadata()["table"];
+                    $database = Database::getPDO();
+                    $query = $database->prepare("SELECT * from $tableName WHERE $uniqueAttr = :attr");
+                    $query->bindValue(":attr", $value);
+                    $query->execute();
+                    $data = $query->fetchObject();
+                    if($data)
+                    {
+                        $this->addErrorByRule($attribute, self::RULE_UNIQUE);
+                    }
                 }
             }
         }
@@ -166,8 +185,8 @@ abstract class Model
             self::RULE_EMAIL => 'L\'adresse email n\'est pas valide',
             self::RULE_MIN => 'La longueur minimum doit etre {min}',
             self::RULE_MAX => 'La longueur maximum doit etre {max}',
-            self::RULE_MATCH => 'Ce champs doit etre identique au champ {match}',
-            self::RULE_UNIQUE => 'Cette valeur {field} existe deja',
+            self::RULE_MATCH => "Ce champs doit etre identique au champ {match}",
+            self::RULE_UNIQUE => 'Cette valeur est deja enregistrée',
         ];
     }
 //

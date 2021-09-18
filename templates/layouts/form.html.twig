@@ -9,12 +9,12 @@
 
 {% endmacro %}
 
-{% macro inputLongText(name, label, options = []) %}
+{% macro inputLongText(name, label, object = {}) %}
     <div class="col-12">
         <label for="{{ name }}" class="form-label">{{ label }}</label>
-        <input type="text" class="form-control {{ options.class }}" id="{{ name }}" name="{{ name }}" required>
+        <input type="text" class="form-control {{ registerModel.hasError(name) ? ' is-invalid' : '' }}" id="{{ name }}" name="{{ name }}" value = "{{ object.name ?? '' }}" required>
         <div id="validationServerUsernameFeedback" class="invalid-feedback">
-            {{ message }}
+            {{ object.getFirstError(name) }}
         </div>
     </div>
 

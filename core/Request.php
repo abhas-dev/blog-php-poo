@@ -14,8 +14,8 @@ class Request
     {
         $this->post = $_POST;
         $this->get = $_GET;
-        $this->files = $_FILES;
-        $this->request = $_REQUEST;
+//        $this->files = $_FILES;
+//        $this->request = $_REQUEST;
         $this->server = $_SERVER;
     }
 
@@ -39,24 +39,6 @@ class Request
         return $_COOKIE;
     }
 
-    public function setCookie($key, $value, $exp)
-    {
-        setcookie($key, $value, $exp);
-    }
-
-    /**
-     * @return array
-     */
-    public function getSession()
-    {
-        return $_SESSION;
-    }
-
-    public function setSession($key, $value)
-    {
-        $_SESSION[$key] = $value;
-    }
-
     public function getBody(): array
     {
         $body = [];
@@ -73,21 +55,34 @@ class Request
 
         return $body;
     }
-
-    public static function validationDataBody()
-    {
-
-    }
-
-    public function isGet(): bool
-    {
-        return $this->getMethod() === 'get';
-    }
-
-    public function isPost(): bool
-    {
-        return $this->getMethod() === 'post';
-    }
-
-
 }
+//
+//    public function setCookie($key, $value, $exp)
+//    {
+//        setcookie($key, $value, $exp);
+//    }
+//
+//    /**
+//     * @return array
+//     */
+//    public function getSession()
+//    {
+//        return $_SESSION;
+//    }
+//
+//    public function setSession($key, $value)
+//    {
+//        $_SESSION[$key] = $value;
+//    }
+//
+//    public function isGet(): bool
+//    {
+//        return $this->getMethod() === 'get';
+//    }
+//
+//    public function isPost(): bool
+//    {
+//        return $this->getMethod() === 'post';
+//    }
+
+

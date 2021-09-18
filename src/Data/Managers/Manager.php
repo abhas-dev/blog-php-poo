@@ -91,18 +91,18 @@ abstract class Manager{
         $values = [];
         foreach(array_keys($this->metadata["columns"]) as $column)
         {
-
-            // On rempli les ? dans un array
-            $question[] = "?";
-            // On recupere les getters puis la valeur
-            $sqlValue = $model->getSQLValueByColumn($column);
-            // On enregistre les datas qu'on va mettre en bdd dans un array
-            $model->orignalData[$column] = $sqlValue;
-            // On mets les valeurs dans un array
-            $values[] = $sqlValue;
-            // On enregistre le nom des champs
-            $champs[] = $column;
-
+            if($column !== 'confirmationPassword'){
+                // On rempli les ? dans un array
+                $question[] = "?";
+                // On recupere les getters puis la valeur
+                $sqlValue = $model->getSQLValueByColumn($column);
+                // On enregistre les datas qu'on va mettre en bdd dans un array
+                $model->orignalData[$column] = $sqlValue;
+                // On mets les valeurs dans un array
+                $values[] = $sqlValue;
+                // On enregistre le nom des champs
+                $champs[] = $column;
+            }
         }
         $sql = sprintf("INSERT INTO %s (%s) VALUES (%s)", $this->metadata["table"], implode(', ', $champs), implode(", ", $question));
 
@@ -148,6 +148,5 @@ abstract class Manager{
         $query->execute($params);
         return $query;
     }
-
 
 }
