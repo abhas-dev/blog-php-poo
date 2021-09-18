@@ -49,9 +49,12 @@ class AuthController extends Controller
                     Application::$app->response->redirect('/login');
                 }
             }
+            $errors = $loginModel->getErrors();
+            echo $this->render('auth/login.html.twig', compact('errors', 'loginModel'));
         }
-        $errors = $loginModel->getErrors();
-        echo $this->render('auth/login.html.twig', compact('errors', 'loginModel'));
+        if ($request->getMethod() == 'get') {
+            echo $this->render('auth/login.html.twig');
+        }
     }
 
     public function register(Request $request, Response $response)
