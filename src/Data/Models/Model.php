@@ -13,6 +13,7 @@ abstract class Model
     protected const RULE_MAX = 'max';
     protected const RULE_MATCH = 'match';
     protected const RULE_UNIQUE = 'unique';
+    protected const RULE_LOGIN = 'login';
     protected array $errors = [];
 
 
@@ -74,13 +75,13 @@ abstract class Model
     public function objectifyForm($data): self
     {
         if(empty($data)){
-            throw new \Exception("Aucun resultat n'a été trouvé ! ");
+            throw new \Exception("Le formulaire n'est pas correct ! ");
         }
         $this->originalData = $data;
         foreach($data as $column => $value) {
-            $this->hydrateProperty($column, $value);
+            $this->objectifyFormProperty($column, $value);
         }
-        $this->setCreatedAt((new \DateTimeImmutable));
+
         return $this;
     }
 
@@ -94,7 +95,7 @@ abstract class Model
     public function hydrate($datas): self
     {
         if(empty($datas)){
-            throw new \Exception("Aucun resultat n'a été trouvé ! ");
+            throw new \Exception("Les données sont incorrects ! ");
         }
         $this->originalData = $datas;
         foreach($datas as $column => $value) {
@@ -118,6 +119,29 @@ abstract class Model
      * @param mixed $value
      */
     private function hydrateProperty($column, $value): void
+    {
+        // On verifie le type de la data puis on appel le setter dynamiquement
+        switch($this::metadata()["columns"][$column]["type"]) {
+            case "integer":
+                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}((int) $value);
+                break;
+            case "string":
+                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($value);
+                break;
+            case "datetime":
+                $datetime = \DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $value);
+                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
+                break;
+        }
+    }
+
+    /**
+     * On "definie" le setter correspondant et on affecte la valeur
+     *
+     * @param string $column
+     * @param mixed $value
+     */
+    private function objectifyFormProperty($column, $value): void
     {
         // On verifie le type de la data puis on appel le setter dynamiquement
         switch($this::metadata()["columns"][$column]["type"]) {
@@ -177,8 +201,6 @@ abstract class Model
                 }
                 if($ruleName === self::RULE_UNIQUE)
                 {
-                    $classname = $rule['class'];
-                    //var_dump(get_class($this));
                     $uniqueAttr = $rule['attribute'] ?? $attribute;
                     $tableName = $this->metadata()["table"];
                     $database = Database::getPDO();
@@ -205,14 +227,9 @@ abstract class Model
             self::RULE_MAX => 'La longueur maximum doit etre {max}',
             self::RULE_MATCH => "Ce champs doit etre identique au champ {match}",
             self::RULE_UNIQUE => 'Cette valeur est deja enregistrée',
+            self::RULE_LOGIN => 'Ces valeurs ne correspondent à aucune entrée dans la base de donnée'
         ];
     }
-//
-//
-//    public function errorMessage($rule)
-//    {
-//        return $this->errorMessages()[$rule];
-//    }
 
     public function addErrorByRule(string $attribute, string $rule, array $params = [])
     {

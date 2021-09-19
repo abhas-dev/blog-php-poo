@@ -2,9 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Application;
 use App\Data\Managers\UserManager;
+use App\Data\Models\LoginModel;
 use App\Data\Models\UserModel;
 use App\Request;
+use App\Response;
+use App\Session;
 
 class AuthController extends Controller
 {
@@ -16,12 +20,43 @@ class AuthController extends Controller
         $this->userManager = new UserManager();
     }
 
-    public function login()
+    public function login(Request $request, Response $response)
     {
-        echo $this->render('auth/login.html.twig');
+        unset($_SESSION['error']);
+        $loginModel = new LoginModel();
+        if ($request->getMethod() == 'post') {
+            $body = $request->getBody();
+//            $body['password'] = password_hash($body['password'], PASSWORD_ARGON2I);
+            $loginModel->objectifyForm($body);
+            if ($loginModel->validate()) {
+                $user = $this->userManager->findBy(['email' => $loginModel->getEmail()]);
+                if(!$user)
+                {
+                    // TODO: faire une fonction setError dans Session
+                    $_SESSION['error'] = "L'adresse et/ou le mot de passe est incorrect ";
+                    $response->redirect('/login');
+                }
+                if(password_verify($loginModel->getPassword(), $user->getPassword()))
+                {
+                    Session::setUserSession($user);
+                    $response->redirect('/');
+
+                } else{
+                    // Mauvais mot de passe
+                    // TODO: faire une fonction setError dans Session
+                    $_SESSION['error'] = "L'adresse et/ou le mot de passe est incorrect ";
+                    Application::$app->response->redirect('/login');
+                }
+            }
+            $errors = $loginModel->getErrors();
+            echo $this->render('auth/login.html.twig', compact('errors', 'loginModel'));
+        }
+        if ($request->getMethod() == 'get') {
+            echo $this->render('auth/login.html.twig');
+        }
     }
 
-    public function register(Request $request)
+    public function register(Request $request, Response $response)
     {
         $registerModel = new UserModel();
 
@@ -30,9 +65,7 @@ class AuthController extends Controller
             $registerModel->objectifyForm($body);
             if ($registerModel->validate()) {
                 $this->userManager->save($registerModel);
-//                Application::$app->session->setFlash('success', 'Thanks for registering');
-//                Application::$app->response->redirect('/');
-                return 'Show success page';
+                $response->redirect('/');
             }
 
             $errors = $registerModel->getErrors();
@@ -42,5 +75,12 @@ class AuthController extends Controller
         if ($request->getMethod() == 'get'){
             echo $this->render('auth/register.html.twig');
         }
+    }
+
+    public function logout(Request $request,Response $response)
+    {
+        unset($_SESSION['auth']);
+        // On redirige a l'endroit ou on se trouvais lors de la deconnexion
+        $response->redirect($request->getReferer());
     }
 }

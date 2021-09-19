@@ -51,7 +51,7 @@ class PostManager extends Manager
         return $post;
     }
 
-    public function getTags(int $id)
+    private function getTags(int $id)
     {
         $sql = "
                 SELECT `t`.* from `tag` t

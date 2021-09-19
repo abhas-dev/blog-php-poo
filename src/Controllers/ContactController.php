@@ -15,7 +15,6 @@ class ContactController extends Controller
     public function handleContact(Request $request)
     {
         $body = $request->getBody();
-        var_dump($body);
         return 'Traitement des données envoyées';
     }
 }

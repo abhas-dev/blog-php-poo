@@ -41,7 +41,7 @@ class Route
      * @param Route $route
      * @return false|mixed
      */
-    public function call(self $route, Request $request)
+    public function call(self $route, Request $request, Response $response)
     {
 
         $controller = $this->action[0];
@@ -49,6 +49,7 @@ class Route
         // On instancie dynamiquement le contrôleur
         $controller = new $controller();
         $this->params[] = $request;
+        $this->params[] = $response;
         // call_user_func_array permet d'appeler une méthode d'une classe et de lui passer des arguments
         return call_user_func_array([$controller, $action], $this->params);
     }
