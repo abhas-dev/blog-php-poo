@@ -6,7 +6,6 @@ use App\Request;
 
 class ContactController extends Controller
 {
-
     public function show()
     {
         echo $this->render('general/contact.html.twig');

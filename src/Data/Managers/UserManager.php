@@ -28,5 +28,4 @@ class UserManager extends Manager
 //        $model->setStatus($model::STATUS_INACTIVE);
         return parent::save($model);
     }
-
 }

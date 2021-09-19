@@ -31,6 +31,5 @@ class Session
 
     public function getFlash($key)
     {
-
     }
 }
