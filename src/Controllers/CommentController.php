@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Data\Managers\CommentManager;
 use App\Data\Models\CommentModel;
 use App\Request;
+use App\Response;
 
 class CommentController extends Controller
 {
@@ -16,7 +17,7 @@ class CommentController extends Controller
         $this->commentManager = new CommentManager();
     }
 
-    public function insert(int $id, Request $request)
+    public function insert(int $id, Request $request, Response $response)
     {
         try {
             $comment = new CommentModel();
@@ -24,8 +25,7 @@ class CommentController extends Controller
             $comment->objectifyForm($body);
             $comment->setIdPost($id);
             $this->commentManager->save($comment);
-            header("Location:/blog/$id");
-
+            $response->redirect('/blog/$id');
         } catch (\Exception $e) {
             var_dump($e);
         }

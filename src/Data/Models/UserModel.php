@@ -35,7 +35,7 @@ class UserModel extends Model
     /** @var bool */
     protected bool $isActive = false;
 
-    protected bool $isAdmin = false;
+    protected int $isAdmin = 0;
 
     /** @var int  */
     protected int $status = self::STATUS_INACTIVE;
@@ -51,6 +51,8 @@ class UserModel extends Model
 
 
     /**
+     *
+     *
      * @inheritDoc
      */
     public static function metadata(): array
@@ -243,7 +245,7 @@ class UserModel extends Model
     /**
      * @return bool
      */
-    public function isAdmin(): bool
+    public function getIsAdmin(): bool
     {
         return $this->isAdmin;
     }

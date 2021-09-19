@@ -33,9 +33,8 @@ class AuthController extends Controller
                 if(!$user)
                 {
                     // TODO: faire une fonction setError dans Session
-                    $_SESSION['error']['login'] = "L'adresse et/ou le mot de passe est incorrect ";
+                    $_SESSION['error'] = "L'adresse et/ou le mot de passe est incorrect ";
                     $response->redirect('/login');
-                    exit;
                 }
                 if(password_verify($loginModel->getPassword(), $user->getPassword()))
                 {
