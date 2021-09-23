@@ -228,7 +228,6 @@ class PostModel extends Model
 
     public function rules(): array
     {
-        // TODO: Implement rules() method.
         return [
             'title' => [self::RULE_REQUIRED],
             'content' => [self::RULE_REQUIRED]

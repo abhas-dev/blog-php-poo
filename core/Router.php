@@ -70,7 +70,7 @@ class Router
         // On récupère la route correspondant à la requête
         $route = $this->getRouteByRequest();
         // On récupère une réponse en appelant dynamiquement l'action d'un contrôleur
-        $response = $route->call($route, $this->request);
+        $response = $route->call($route, $this->request, $this->response);
 
 //        // Soit ca, On test si notre route se trouve dans l'array des routes sinon on renvoi false
 //       $route = $this->routes[$method][$path] ?? false;

@@ -41,7 +41,7 @@ class Route
      * @param Route $route
      * @return false|mixed
      */
-    public function call(self $route, Request $request)
+    public function call(self $route, Request $request, Response $response)
     {
 
         $controller = $this->action[0];
