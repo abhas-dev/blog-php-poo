@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Data\Managers\UserManager;
+use App\Data\Models\LoginModel;
 use App\Data\Models\UserModel;
 use App\Request;
 use App\Response;
