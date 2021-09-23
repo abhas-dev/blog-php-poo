@@ -7,6 +7,11 @@ use App\Data\Models\UserModel;
 
 class UserManager extends Manager
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->table = "user";
+    }
 
     public function getModelName()
     {

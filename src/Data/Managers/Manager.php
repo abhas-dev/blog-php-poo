@@ -73,11 +73,11 @@ abstract class Manager{
         $keyList = implode(' AND ', $keys);
 
         // On execute la requete
-        $sql = "SELECT * FROM $this->metadata['table'] WHERE $keyList";
+        $sql = "SELECT * FROM $this->table WHERE $keyList";
         $query = $this->createQuery($sql, $values);
         //$query->fetchAll(PDO::FETCH_CLASS, $modelName)    Hydratation par PDO
 
-        $data = $query->fetchAll();
+        $data = $query->fetch();
         return (new $this->modelName)->hydrate($data);
     }
 

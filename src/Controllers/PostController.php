@@ -45,26 +45,20 @@ class PostController extends Controller
         {
                 if($request->getMethod() == 'post')
                 {
-                        try {
-                            $post = new PostModel();
-                            $body = $request->getBody();
-                            $post->objectifyForm($body);
-                            $post->setIdUser($_SESSION['auth']['id']);
-                            if(!$post->validate())
-                            {
-                                $errors = $post->getErrors();
-                                echo $this->render('/blog/postForm.html.twig', compact('errors', 'post'));
-                            }
-                            $this->postManager->save($post);
-                            Session::setFlash('success', "L'article a été crée avec succes");
-                            $response->redirect('/blog');
-
-                        }
-                        catch (\Exception $e)
-                        {
-                          var_dump($e);
-                        }
+                    $post = new PostModel();
+                    $body = $request->getBody();
+                    $post->objectifyForm($body);
+                    $post->setIdUser($_SESSION['auth']['id']);
+                    if(!$post->validate())
+                    {
+                        $errors = $post->getErrors();
+                        echo $this->render('/blog/postForm.html.twig', compact('errors', 'post'));
                     }
+                    $this->postManager->save($post);
+                    Session::setFlash('success', "L'article a été crée avec succes");
+                    $response->redirect('/blog');
+                }
+
                 if($request->getMethod() == 'get')
                 {
                     echo $this->render('blog/postForm.html.twig');
