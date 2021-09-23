@@ -4,9 +4,9 @@
 {% block title %} {{ parent() }} - Connexion{% endblock %}
 
 {% block body %}
-    {% if not session['error'] is empty %}
+    {% if not session['flash_messages']['error'] is empty %}
     <div class="alert alert-danger" role="alert">
-        {{ session['error'] }}
+        {{ session['flash_messages']['error'] }}
     </div>
     {% endif %}
     <h1>Connexion</h1>
@@ -27,6 +27,8 @@
                 {{ loginModel.getFirstError('password') }}
             </div>
         </div>
+
+        <input type="hidden" name="token" value="{{ session['token'] }}"/>
         <br />
         <div class="col-sm-2">
             <button type="submit" class="btn btn-primary">Envoyer</button>

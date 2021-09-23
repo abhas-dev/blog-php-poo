@@ -22,38 +22,45 @@ class AuthController extends Controller
 
     public function login(Request $request, Response $response)
     {
-        unset($_SESSION['error']);
-        $loginModel = new LoginModel();
-        if ($request->getMethod() == 'post') {
-            $body = $request->getBody();
+        if(!isset($_SESSION['auth'])){
+            unset($_SESSION['flash_messages']['error']);
+            $loginModel = new LoginModel();
+            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+                $body = $request->getBody();
 //            $body['password'] = password_hash($body['password'], PASSWORD_ARGON2I);
-            $loginModel->objectifyForm($body);
-            if ($loginModel->validate()) {
-                $user = $this->userManager->findBy(['email' => $loginModel->getEmail()]);
-                if(!$user)
-                {
-                    // TODO: faire une fonction setError dans Session
-                    $_SESSION['error'] = "L'adresse et/ou le mot de passe est incorrect ";
-                    $response->redirect('/login');
-                }
-                if(password_verify($loginModel->getPassword(), $user->getPassword()))
-                {
-                    Session::setUserSession($user);
-                    $response->redirect('/');
+                $loginModel->objectifyForm($body);
+                if ($loginModel->validate()) {
+                    $user = $this->userManager->findBy(['email' => $loginModel->getEmail()]);
+                    if(!$user)
+                    {
+                        // TODO: faire une fonction setError dans Session
+                        Session::setFlash('error',"L'adresse et/ou le mot de passe est incorrect ");
+                        $response->redirect('/login');
+                    }
+                    if(password_verify($loginModel->getPassword(), $user->getPassword()))
+                    {
+                        Session::setUserSession($user);
+                        Session::setFlash('success', 'Bienvenue '. $user->getUsername());
+                        $response->redirect('/',302);
 
-                } else{
-                    // Mauvais mot de passe
-                    // TODO: faire une fonction setError dans Session
-                    $_SESSION['error'] = "L'adresse et/ou le mot de passe est incorrect ";
-                    Application::$app->response->redirect('/login');
+                    } else{
+                        // Mauvais mot de passe
+                        // TODO: faire une fonction setError dans Session
+                        Session::setFlash('error',"L'adresse et/ou le mot de passe est incorrect " );
+                        Application::$app->response->redirect('/login');
+                    }
                 }
+                $errors = $loginModel->getErrors();
+                echo $this->render('auth/login.html.twig', compact('errors', 'loginModel'));
             }
-            $errors = $loginModel->getErrors();
-            echo $this->render('auth/login.html.twig', compact('errors', 'loginModel'));
+            if ($request->getMethod() == 'get') {
+                echo $this->render('auth/login.html.twig');
+            }
         }
-        if ($request->getMethod() == 'get') {
-            echo $this->render('auth/login.html.twig');
+        else{
+            $response->redirect('/');
         }
+
     }
 
     public function register(Request $request, Response $response)
@@ -65,6 +72,7 @@ class AuthController extends Controller
             $registerModel->objectifyForm($body);
             if ($registerModel->validate()) {
                 $this->userManager->save($registerModel);
+                Session::setFlash('success', 'Le compte a bien été enregistré');
                 $response->redirect('/');
             }
 

@@ -1,18 +1,24 @@
 {% extends 'layouts/main.html.twig' %}
 
-{% block title %} {{ parent() }} - Contact{% endblock %}
+{% block title %} {{ parent() }} - Edition d'un Article{% endblock %}
 
 {% block body %}
-    <h1>Ajouter un article</h1>
+    <h1>{{ post.title ?  'Modifier' : 'Ajouter'}} un article</h1>
 
     <form action="" method="post">
         <div class="mb-3">
             <label for="title" class="form-label">Titre de l'article</label>
-            <input type="text" class="form-control" id="title" name="title">
+            <input type="text" class="form-control {{ post.hasError('title') ? ' is-invalid' : '' }}" id="title" name="title" value="{{ post.title ?? '' }}">
+            <div id="validationFirstname" class="invalid-feedback">
+                {{ post.getFirstError('title') }}
+            </div>
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">Contenu</label>
-            <textarea class="form-control" id="content" name="content"></textarea>
+            <textarea class="form-control {{ post.hasError('content') ? ' is-invalid' : '' }}" id="content" name="content">{{ post.content ?? '' }}</textarea>
+            <div id="validationFirstname" class="invalid-feedback">
+                {{ post.getFirstError('content') }}
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Envoyer</button>
     </form>

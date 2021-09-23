@@ -2,9 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Application;
 use App\Data\Managers\PostManager;
 use App\Data\Models\PostModel;
 use App\Request;
+use App\Response;
+use App\Session;
 
 class PostController extends Controller
 {
@@ -22,6 +25,7 @@ class PostController extends Controller
 
     public function index()
     {
+        unset($_SESSION['flash_messages']);
         $posts = $this->postManager->findAll();
         echo $this->render('blog/index.html.twig', compact('posts'));
     }
@@ -36,25 +40,86 @@ class PostController extends Controller
         echo $this->render('blog/show.html.twig', compact('post'));
     }
 
-    public function form()
-    {
-        echo $this->render('blog/postForm.html.twig');
-    }
-
-    public function insert(Request $request){
-        try {
-            $post = new PostModel();
-            $body = $request->getBody();
-            $post->objectifyForm($body);
-//        $post->hydrate($body);
-            $this->postManager->save($post);
-            header("Location:/blog");
-            echo $this->render('blog/index.html.twig', compact('post'));
-        }catch (\Exception $e)
+    public function insert(Request $request, Response $response){
+        if(isset($_SESSION['auth']) && $_SESSION['auth']['id'] !== null)
         {
-            var_dump($e);
+                if($request->getMethod() == 'post')
+                {
+                        try {
+                            $post = new PostModel();
+                            $body = $request->getBody();
+                            $post->objectifyForm($body);
+                            $post->setIdUser($_SESSION['auth']['id']);
+                            if(!$post->validate())
+                            {
+                                $errors = $post->getErrors();
+                                echo $this->render('/blog/postForm.html.twig', compact('errors', 'post'));
+                            }
+                            $this->postManager->save($post);
+                            Session::setFlash('success', "L'article a été crée avec succes");
+                            $response->redirect('/blog');
+
+                        }
+                        catch (\Exception $e)
+                        {
+                          var_dump($e);
+                        }
+                    }
+                if($request->getMethod() == 'get')
+                {
+                    echo $this->render('blog/postForm.html.twig');
+                }
+            }
+        else{
+            Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
+            Application::$app->response->redirect('/', 401);
+        }
+
+        }
+
+
+    public function modify(int $id, Request $request, Response $response)
+    {
+        if(isset($_SESSION['auth']) && $_SESSION['auth']['id'] !== null)
+        {
+            $id = intval($id);
+            $post = new PostModel();
+            $post = $this->postManager->findPostBySlugWithValidatedComments($id);
+            if(!$post)
+            {
+                Session::setFlash('error', "Ce post n'existe pas");
+                $response->redirect('/', 404);
+            }
+            if($post->getIdUser() !== $_SESSION['auth']['id'])
+            {
+                Session::setFlash('error', "Vous n'avez pas acces à cette page");
+                $response->redirect('/');
+            }
+
+            if($request->getMethod() == 'post')
+            {
+                $body = $request->getBody();
+                $updatedPost = new PostModel();
+                $updatedPost->objectifyForm($body);
+                $updatedPost->setId($post->getId());
+                $updatedPost->setIdUser($post->getIdUser());
+                // TODO: Validation
+                if($updatedPost->validate())
+                {
+                    $this->postManager->update($updatedPost);
+                    Session::setFlash('success', "L'article a été modifiée avec succes");
+                    echo $this->render('blog/index.html.twig', compact('post'));
+                }
+
+            }
+
+            echo $this->render('blog/postForm.html.twig', compact('post'));
+
+        }
+        else{
+            Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
+            Application::$app->response->redirect('/', 401);
         }
 
     }
-
 }
