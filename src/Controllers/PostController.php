@@ -103,7 +103,6 @@ class PostController extends Controller
                 $updatedPost->objectifyForm($body);
                 $updatedPost->setId($post->getId());
                 $updatedPost->setIdUser($post->getIdUser());
-                // TODO: Validation
                 if($updatedPost->validate())
                 {
                     $this->postManager->update($updatedPost);

@@ -43,7 +43,7 @@ class AuthController extends Controller
                     } else{
                         // Mauvais mot de passe
                         Session::setFlash('error',"L'adresse et/ou le mot de passe est incorrect " );
-                        Application::$app->response->redirect('/login');
+                        $response->redirect('/login');
                     }
                 }
                 $errors = $loginModel->getErrors();
