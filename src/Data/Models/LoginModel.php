@@ -10,6 +10,8 @@ class LoginModel extends Model
     /** @var string  */
     protected string $password;
 
+    protected \DateTimeImmutable $createdAt;
+
     public static function metadata(): array
     {
         return [
@@ -60,6 +62,22 @@ class LoginModel extends Model
         $this->password = $password;
     }
 
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function getCreatedAt(): \DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTimeImmutable $createdAt
+     */
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
     public function getPropsToArray() {
         return get_object_vars($this);
     }
@@ -71,4 +89,5 @@ class LoginModel extends Model
             'password' => [self::RULE_REQUIRED]
         ];
     }
+
 }

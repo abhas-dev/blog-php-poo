@@ -18,18 +18,16 @@ abstract class Manager{
     protected string $modelName;
 
     /** @var array  */
-    private array $metadata;
+    protected array $metadata;
 
 
     public function __construct()
     {
         $this->database = Database::getPDO();
-
+        $this->modelName = $this->getModelName();
+        $this->metadata = $this->modelName::metadata();
 //        $modelName =  str_replace("App\Data\Managers\\", "", get_class($this));
 //        $modelName = 'App\Data\Models\\' . str_replace("Manager", "", $modelName) . "Model";
-        $this->modelName = $this->getModelName();
-
-        $this->metadata = $this->modelName::metadata();
     }
 
     abstract public function getModelName();
@@ -75,7 +73,7 @@ abstract class Manager{
         $keyList = implode(' AND ', $keys);
 
         // On execute la requete
-        $sql = "SELECT * FROM $this->table WHERE $keyList";
+        $sql = "SELECT * FROM $this->metadata['table'] WHERE $keyList";
         $query = $this->createQuery($sql, $values);
         //$query->fetchAll(PDO::FETCH_CLASS, $modelName)    Hydratation par PDO
 
