@@ -64,11 +64,12 @@ abstract class Model
      */
     public function getSQLValueByColumn($column)
     {
-        // On recupere le getter
-        $value = $this->{sprintf("get%s", ucfirst($this::metadata()["columns"][$column]["property"]))}();
-        if($value instanceof \DateTimeImmutable){
-            return $value->format("Y-m-d H:i:s");
+        if($column === 'created_at'){
+            $value = $this->{sprintf("get%s", ucfirst($this::metadata()["columns"][$column]["property"]))}();
+            $date = $value->format("Y-m-d H:i:s");
+            return $date;
         }
+        $value = $this->{sprintf("get%s", ucfirst($this::metadata()["columns"][$column]["property"]))}();
         return $value;
     }
 
@@ -78,11 +79,43 @@ abstract class Model
             throw new \Exception("Le formulaire n'est pas correct ! ");
         }
         $this->originalData = $data;
+//        var_dump($this);die();
+        if(property_exists($this, 'createdAt'))
+        {
+            $datetime = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+//            var_dump($datetime->format("Y-m-d H:i:s"));die();
+            $this->setCreatedAt($datetime);
+        }
         foreach($data as $column => $value) {
-            $this->objectifyFormProperty($column, $value);
+            if($column !== 'token'){
+                $this->objectifyFormProperty($column, $value);
+            }
         }
 
         return $this;
+    }
+
+    /**
+     * On "definie" le setter correspondant et on affecte la valeur
+     *
+     * @param string $column
+     * @param mixed $value
+     */
+    private function objectifyFormProperty($column, $value): void
+    {
+        // On verifie le type de la data puis on appel le setter dynamiquement
+        switch($this::metadata()["columns"][$column]["type"]) {
+            case "integer":
+                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}((int) $value);
+                break;
+            case "string":
+                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($value);
+                break;
+            case "datetime":
+                $datetime = \DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $value);
+                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
+                break;
+        }
     }
 
     /**
@@ -129,31 +162,11 @@ abstract class Model
                 $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($value);
                 break;
             case "datetime":
-                $datetime = \DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $value);
-                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
-                break;
-        }
-    }
-
-    /**
-     * On "definie" le setter correspondant et on affecte la valeur
-     *
-     * @param string $column
-     * @param mixed $value
-     */
-    private function objectifyFormProperty($column, $value): void
-    {
-        // On verifie le type de la data puis on appel le setter dynamiquement
-        switch($this::metadata()["columns"][$column]["type"]) {
-            case "integer":
-                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}((int) $value);
-                break;
-            case "string":
-                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($value);
-                break;
-            case "datetime":
-                $datetime = \DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $value);
-                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
+                if($value)
+                {
+                    $datetime = \DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $value);
+                    $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
+                }
                 break;
         }
     }

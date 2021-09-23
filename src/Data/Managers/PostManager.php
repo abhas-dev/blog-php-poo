@@ -18,14 +18,6 @@ class PostManager extends Manager
         return PostModel::class;
     }
 
-//    public function findPostBySlug(string $slug): self
-//    {
-//        $sql = "SELECT * FROM $this->table WHERE slug = ?";
-//        $query = $this->createQuery($sql, [$slug]);
-//        $data = $query->fetchObject();
-//        return (new $this->modelName)->hydrate($data);
-//    }
-
     public function findPostBySlug(int $id): PostModel
     {
         $sql = "SELECT * FROM $this->table WHERE id = ?";

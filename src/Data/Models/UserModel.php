@@ -35,16 +35,13 @@ class UserModel extends Model
     /** @var bool */
     protected bool $isActive = false;
 
-    protected int $isAdmin = 0;
+    protected ?int $isAdmin = 0;
 
     /** @var int  */
     protected int $status = self::STATUS_INACTIVE;
 
     /** @var string|null */
     protected ?string $avatar = null;
-
-    /** @var string  */
-    protected ?string $gender = null;
 
     /** @var \DateTimeImmutable|null */
     protected ?\DateTimeImmutable $createdAt = null;
@@ -89,16 +86,12 @@ class UserModel extends Model
                     "type"     => "string",
                     "property" => "lastname"
                 ],
-                "gender"        => [
-                    "type"     => "string",
-                    "property" => "gender"
-                ],
                 "status"        => [
-                    "type"     => "int",
+                    "type"     => "integer",
                     "property" => "status"
                 ],
                 "is_admin"        => [
-                    "type"     => "int",
+                    "type"     => "integer",
                     "property" => "isAdmin"
                 ],
                 "avatar"        => [
@@ -243,17 +236,17 @@ class UserModel extends Model
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function getIsAdmin(): bool
+    public function getIsAdmin(): int
     {
         return $this->isAdmin;
     }
 
     /**
-     * @param bool $isAdmin
+     * @param int $isAdmin
      */
-    public function setIsAdmin(bool $isAdmin): void
+    public function setIsAdmin(int $isAdmin): void
     {
         $this->isAdmin = $isAdmin;
     }
@@ -273,22 +266,6 @@ class UserModel extends Model
     public function setAvatar(?string $avatar): void
     {
         $this->avatar = $avatar;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    /**
-     * @param string $gender
-     */
-    public function setGender(?string $gender): void
-    {
-        $this->gender = $gender;
     }
 
     /**

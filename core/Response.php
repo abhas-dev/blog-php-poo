@@ -9,9 +9,9 @@ class Response
         http_response_code($code);
     }
 
-    public function redirect(string $url)
+    public function redirect(string $url, int $statuscode = 303)
     {
-        header('Location: ' . $url);
+        header('Location: ' . $url,true, $statuscode);
         exit;
     }
 }
