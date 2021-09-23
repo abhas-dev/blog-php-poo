@@ -81,4 +81,11 @@ class AuthController extends Controller
             echo $this->render('auth/register.html.twig');
         }
     }
+
+    public function logout(Request $request,Response $response)
+    {
+        unset($_SESSION['auth']);
+        // On redirige a l'endroit ou on se trouvais lors de la deconnexion
+        $response->redirect($request->getReferer());
+    }
 }
