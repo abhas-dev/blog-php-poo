@@ -9,6 +9,7 @@ class Request
     private array $files;
     private array $request;
     private array $server;
+    private array $session;
 
     public function __construct()
     {
@@ -54,6 +55,24 @@ class Request
         }
 
         return $body;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSession()
+    {
+        return $_SESSION;
+    }
+
+    public function setSession($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
+    public function getReferer()
+    {
+        return $this->server['HTTP_REFERER'];
     }
 }
 //
