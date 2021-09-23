@@ -111,7 +111,7 @@ abstract class Manager{
     }
 
 
-    public function update(int $id, Manager $model){
+    public function update(Model $model){
         $keys = [];
         $values = [];
 

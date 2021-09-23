@@ -4,7 +4,40 @@
 {% block title %} {{ parent() }} - Inscription{% endblock %}
 
 {% block body %}
+<<<<<<< Updated upstream
     <h1>Connexion</h1>
 
+=======
+    {% if not session['flash_messages']['error'] is empty %}
+    <div class="alert alert-danger" role="alert">
+        {{ session['flash_messages']['error'] }}
+    </div>
+    {% endif %}
+    <h1>Connexion</h1>
+
+    <form action="" method="post" class="g-3" novalidate>
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control {{ loginModel.hasError('email') ? ' is-invalid' : '' }}" id="email" name="email" value = "{{ loginModel.email ?? '' }}" required>
+            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                {{ loginModel.getFirstError('email') }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" class="form-control {{ loginModel.hasError('password') ? ' is-invalid' : '' }}" id="password" name="password" value = "{{ loginModel.password ?? '' }}" required>
+            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                {{ loginModel.getFirstError('password') }}
+            </div>
+        </div>
+
+        <input type="hidden" name="token" value="{{ session['token'] }}"/>
+        <br />
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </div>
+    </form>
+>>>>>>> Stashed changes
 
 {% endblock %}

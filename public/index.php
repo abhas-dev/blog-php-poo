@@ -37,8 +37,10 @@ $app->router->post('/contact', [ContactController::class, 'handleContact']);
 $app->router->get('/blog', [PostController::class, 'index']);
 $app->router->get('/blog/:id', [PostController::class, 'show']);
 $app->router->post('/blog/:id/comment', [CommentController::class, 'insert']);
-$app->router->get('/blog-create', [PostController::class, 'form']);
+$app->router->get('/blog-create', [PostController::class, 'insert']);
 $app->router->post('/blog-create', [PostController::class, 'insert']);
+$app->router->get('/blog/:id/update', [PostController::class, 'modify']);
+$app->router->post('/blog/:id/update', [PostController::class, 'modify']);
 
 
 $app->router->get('/login', [AuthController::class, 'login']);

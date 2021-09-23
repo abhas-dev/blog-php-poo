@@ -35,14 +35,16 @@ class UserModel extends Model
     /** @var bool */
     protected bool $isActive = false;
 
+<<<<<<< Updated upstream
+=======
+    protected ?int $isAdmin = 0;
+
+>>>>>>> Stashed changes
     /** @var int  */
     protected int $status = self::STATUS_INACTIVE;
 
     /** @var string|null */
     protected ?string $avatar = null;
-
-    /** @var string  */
-    protected ?string $gender = null;
 
     /** @var \DateTimeImmutable|null */
     protected ?\DateTimeImmutable $createdAt = null;
@@ -85,14 +87,17 @@ class UserModel extends Model
                     "type"     => "string",
                     "property" => "lastname"
                 ],
-                "gender"        => [
-                    "type"     => "string",
-                    "property" => "gender"
-                ],
                 "status"        => [
-                    "type"     => "int",
+                    "type"     => "integer",
                     "property" => "status"
                 ],
+<<<<<<< Updated upstream
+=======
+                "is_admin"        => [
+                    "type"     => "integer",
+                    "property" => "isAdmin"
+                ],
+>>>>>>> Stashed changes
                 "avatar"        => [
                     "type"     => "string",
                     "property" => "avatar"
@@ -237,15 +242,25 @@ class UserModel extends Model
     /**
      * @return int
      */
+<<<<<<< Updated upstream
     public function getStatus(): int
+=======
+    public function getIsAdmin(): int
+>>>>>>> Stashed changes
     {
         return $this->status;
     }
 
     /**
+<<<<<<< Updated upstream
      * @param int $status
      */
     public function setStatus(int $status): void
+=======
+     * @param int $isAdmin
+     */
+    public function setIsAdmin(int $isAdmin): void
+>>>>>>> Stashed changes
     {
         $this->status = $status;
     }
@@ -265,22 +280,6 @@ class UserModel extends Model
     public function setAvatar(?string $avatar): void
     {
         $this->avatar = $avatar;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    /**
-     * @param string $gender
-     */
-    public function setGender(?string $gender): void
-    {
-        $this->gender = $gender;
     }
 
     /**

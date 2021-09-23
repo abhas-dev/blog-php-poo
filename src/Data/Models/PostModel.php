@@ -7,28 +7,25 @@ use PDO;
 class PostModel extends Model
 {
     /** @var int|null */
-    private ?int $id = null;
+    protected ?int $id = null;
 
     /** @var string|null  */
-    private ?string $introduction = '';
-
-    /** @var string|null  */
-    private ?string $slug = '';
+    protected ?string $introduction = '';
 
     /** @var string */
-    private string $title;
+    protected string $title;
 
     /** @var string  */
-    private string $content;
+    protected string $content;
 
-    /** @var string  */
-    private int $idUser;
+    /** @var int  */
+    protected int $idUser;
+
+    /** @var array|null */
+    protected ?array $tags = [];
 
     /** @var array  */
-    private array $tags = [];
-
-    /** @var array  */
-    private array $comments = [];
+    protected array $comments = [];
 
     /** @var \DateTimeImmutable|null */
     protected ?\DateTimeImmutable $createdAt = null;
@@ -57,10 +54,6 @@ class PostModel extends Model
                     "type"     => "string",
                     "property" => "introduction"
                 ],
-                "slug"        => [
-                    "type"     => "string",
-                    "property" => "slug"
-                ],
                 "content"      => [
                     "type"     => "string",
                     "property" => "content"
@@ -68,10 +61,6 @@ class PostModel extends Model
                 "id_user"      => [
                     "type"     => "integer",
                     "property" => "idUser"
-                ],
-                "tag"          => [
-                    "type"     => "array",
-                    "property" => "tags"
                 ],
                 "created_at"        => [
                     "type"     => "datetime",
@@ -189,13 +178,6 @@ class PostModel extends Model
         return $this;
     }
 
-    public function rules(): array
-    {
-        // TODO: Implement rules() method.
-
-        return [];
-    }
-
     /**
      * @return string|null
      */
@@ -213,23 +195,6 @@ class PostModel extends Model
     }
 
     /**
-     * @return string|null
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @param string|null $slug
-     */
-    public function setSlug(?string $slug): void
-    {
-        $this->slug = $slug;
-    }
-
-
-    /**
      * @return array
      */
     public function getComments(): array
@@ -244,8 +209,6 @@ class PostModel extends Model
     {
         $this->comments[] = $comments;
     }
-
-
 
     /**
      * @return \DateTimeImmutable|null
@@ -263,10 +226,13 @@ class PostModel extends Model
         $this->updatedAt = $updatedAt;
     }
 
-    public function getAuthorName()
+    public function rules(): array
     {
-        // appel a userMamanager pour recuperer l'user par rapport a l'id
-        return "test";
+        // TODO: Implement rules() method.
+        return [
+            'title' => [self::RULE_REQUIRED],
+            'content' => [self::RULE_REQUIRED]
+        ];
     }
 
 }
