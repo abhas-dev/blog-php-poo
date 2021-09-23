@@ -28,13 +28,23 @@
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
                 </ul>
-                <ul class="navbar-nav">
+
+                <ul class="navbar-nav ms-auto">
+                    {% if not session['auth']['id'] is empty %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profil">Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Deconnexion</a>
+                    </li>
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Connexion</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/register">Inscription</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

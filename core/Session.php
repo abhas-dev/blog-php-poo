@@ -39,8 +39,9 @@ class Session
 
     public function getFlash($key)
     {
-
+        return $_SESSION[self::FLASH_KEY];
     }
+
     public static function setCsrfToken()
     {
         if($_SESSION['token'] === null)
