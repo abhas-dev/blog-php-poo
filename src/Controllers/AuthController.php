@@ -31,7 +31,6 @@ class AuthController extends Controller
                     $user = $this->userManager->findBy(['email' => $loginModel->getEmail()]);
                     if(!$user)
                     {
-                        // TODO: faire une fonction setError dans Session
                         Session::setFlash('error',"L'adresse et/ou le mot de passe est incorrect ");
                         $response->redirect('/login');
                     }
@@ -43,7 +42,6 @@ class AuthController extends Controller
 
                     } else{
                         // Mauvais mot de passe
-                        // TODO: faire une fonction setError dans Session
                         Session::setFlash('error',"L'adresse et/ou le mot de passe est incorrect " );
                         Application::$app->response->redirect('/login');
                     }

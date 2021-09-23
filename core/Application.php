@@ -10,11 +10,13 @@ class Application
     public Request $request;
     public Response $response;
     public Environment $twig;
+    public Session $session;
     public static Application $app;
 
     public function __construct(Environment $twig)
     {
         self::$app = $this;
+        $this->session = new Session();
         $this->request = new Request();
         $this->response = new Response();
         $this->twig = $twig;

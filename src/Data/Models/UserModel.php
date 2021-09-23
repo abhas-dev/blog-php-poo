@@ -28,18 +28,12 @@ class UserModel extends Model
 
     /** @var string  */
     protected ?string $lastname = null;
-//
-//    /** @var string  */
-//    protected string $role = "user";
 
     /** @var bool */
     protected bool $isActive = false;
 
-<<<<<<< Updated upstream
-=======
     protected ?int $isAdmin = 0;
 
->>>>>>> Stashed changes
     /** @var int  */
     protected int $status = self::STATUS_INACTIVE;
 
@@ -91,13 +85,10 @@ class UserModel extends Model
                     "type"     => "integer",
                     "property" => "status"
                 ],
-<<<<<<< Updated upstream
-=======
                 "is_admin"        => [
                     "type"     => "integer",
                     "property" => "isAdmin"
                 ],
->>>>>>> Stashed changes
                 "avatar"        => [
                     "type"     => "string",
                     "property" => "avatar"
@@ -178,22 +169,6 @@ class UserModel extends Model
     /**
      * @return string
      */
-    public function getConfirmationPassword(): ?string
-    {
-        return $this->confirmationPassword;
-    }
-
-    /**
-     * @param string $confirmationPassword
-     */
-    public function setConfirmationPassword(?string $confirmationPassword): void
-    {
-        $this->confirmationPassword = $confirmationPassword;
-    }
-
-    /**
-     * @return string
-     */
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -226,7 +201,7 @@ class UserModel extends Model
     /**
      * @return bool
      */
-    public function getIsActive(): bool
+    public function isActive(): bool
     {
         return $this->isActive;
     }
@@ -240,31 +215,36 @@ class UserModel extends Model
     }
 
     /**
+     * @return int|null
+     */
+    public function getIsAdmin(): ?int
+    {
+        return $this->isAdmin;
+    }
+
+    /**
+     * @param int|null $isAdmin
+     */
+    public function setIsAdmin(?int $isAdmin): void
+    {
+        $this->isAdmin = $isAdmin;
+    }
+
+    /**
      * @return int
      */
-<<<<<<< Updated upstream
     public function getStatus(): int
-=======
-    public function getIsAdmin(): int
->>>>>>> Stashed changes
     {
         return $this->status;
     }
 
     /**
-<<<<<<< Updated upstream
      * @param int $status
      */
     public function setStatus(int $status): void
-=======
-     * @param int $isAdmin
-     */
-    public function setIsAdmin(int $isAdmin): void
->>>>>>> Stashed changes
     {
         $this->status = $status;
     }
-
 
     /**
      * @return string|null

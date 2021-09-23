@@ -107,7 +107,7 @@ class PostController extends Controller
                 if($updatedPost->validate())
                 {
                     $this->postManager->update($updatedPost);
-                    Session::setFlash('success', "L'article a été modifiée avec succes");
+                    Session::setFlash('success', "L'article a été modifié avec succes");
                     echo $this->render('blog/index.html.twig', compact('post'));
                 }
 
