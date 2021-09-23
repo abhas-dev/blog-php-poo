@@ -169,6 +169,22 @@ class UserModel extends Model
     /**
      * @return string
      */
+    public function getConfirmationPassword(): ?string
+    {
+        return $this->confirmationPassword;
+    }
+
+    /**
+     * @param string $confirmationPassword
+     */
+    public function setConfirmationPassword(?string $confirmationPassword): void
+    {
+        $this->confirmationPassword = $confirmationPassword;
+    }
+
+    /**
+     * @return string
+     */
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -295,6 +311,5 @@ class UserModel extends Model
             'confirmationPassword' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
         ];
     }
-
 
 }
