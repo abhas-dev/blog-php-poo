@@ -1,6 +1,7 @@
 <?php
 
 use App\Application;
+use App\Controllers\AdminController;
 use App\Controllers\AuthController;
 use App\Controllers\BlogController;
 use App\Controllers\CommentController;
@@ -31,25 +32,30 @@ $app = new Application($twig);
 
 $app->router->get('/', [BlogController::class, 'index']);
 
+// Contact
 $app->router->get('/contact', [ContactController::class, 'show']);
 $app->router->post('/contact', [ContactController::class, 'handleContact']);
-
+// Post
 $app->router->get('/blog', [PostController::class, 'index']);
 $app->router->get('/blog/:id', [PostController::class, 'show']);
 $app->router->post('/blog/:id/comment', [CommentController::class, 'insert']);
-$app->router->get('/blog-create', [PostController::class, 'insert']);
-$app->router->post('/blog-create', [PostController::class, 'insert']);
-$app->router->get('/blog/:id/update', [PostController::class, 'modify']);
-$app->router->post('/blog/:id/update', [PostController::class, 'modify']);
-
-
+// Auth
 $app->router->get('/login', [AuthController::class, 'login']);
 $app->router->post('/login', [AuthController::class, 'login']);
 $app->router->get('/logout', [AuthController::class, 'logout']);
 $app->router->get('/register', [AuthController::class, 'register']);
 $app->router->post('/register', [AuthController::class, 'register']);
-
-
+// Admin
+$app->router->get('/secadmin', [AdminController::class, 'index']);
+$app->router->get('/secadmin/users', [AdminController::class, 'users']);
+$app->router->get('/secadmin/comments', [AdminController::class, 'comments']);
+// Admin Post
+$app->router->get('/secadmin/posts', [AdminController::class, 'posts']);
+$app->router->get('/secadmin/:id/post-create', [PostController::class, 'insert']);
+$app->router->post('/secadmin/:id/post-create', [PostController::class, 'insert']);
+$app->router->get('/secadmin/:id/post-update', [PostController::class, 'modify']);
+$app->router->post('/secadmin/:id/post-update', [PostController::class, 'modify']);
+// 404
 $app->router->get('/404', [NotFoundController::class, 'show']);
 
 try {

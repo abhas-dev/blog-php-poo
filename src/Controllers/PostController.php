@@ -55,10 +55,11 @@ class PostController extends Controller
                                 $errors = $post->getErrors();
                                 echo $this->render('/blog/postForm.html.twig', compact('errors', 'post'));
                             }
-                            $this->postManager->save($post);
-                            Session::setFlash('success', "L'article a été crée avec succes");
-                            $response->redirect('/blog');
-
+                            else{
+                                $this->postManager->save($post);
+                                Session::setFlash('success', "L'article a été crée avec succes");
+                                $response->redirect('/blog');
+                            }
                         }
                         catch (\Exception $e)
                         {

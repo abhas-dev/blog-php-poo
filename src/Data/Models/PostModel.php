@@ -230,8 +230,8 @@ class PostModel extends Model
     {
         // TODO: Implement rules() method.
         return [
-            'title' => [self::RULE_REQUIRED],
-            'content' => [self::RULE_REQUIRED]
+            'title' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 5]],
+            'content' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 100]]
         ];
     }
 
