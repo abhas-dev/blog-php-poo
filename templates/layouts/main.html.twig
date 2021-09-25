@@ -30,7 +30,12 @@
                 </ul>
                 <ul class="navbar-nav ms-auto">
 {#                    {{ dump(session) }}#}
-                    {% if  session['auth'] is defined and not session['auth']['id'] is empty%}
+                    {% if session['auth'] is defined and not session['auth']['id'] is empty%}
+                    {% if session['auth']['admin'] is defined and session['auth']['admin'] == 1%}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/secadmin">Administration</a>
+                        </li>
+                    {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="/profil">Profil</a>
                         </li>

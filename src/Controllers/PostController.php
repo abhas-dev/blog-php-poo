@@ -29,9 +29,6 @@ class PostController extends Controller
     {
         $id = intval($id);
         $post = $this->postManager->findPostBySlugWithValidatedComments($id);
-        //$post = $this->postManager->find($id);
-//        $comment = $this->commentManager->findByPostId($post_id, $page);
-        // TODO: definir si les comments font partie du Post (methode getComment) ou si c'est independant et donc faire une sous vue
         echo $this->render('blog/show.html.twig', compact('post'));
     }
 }

@@ -19,14 +19,6 @@ class AdminController extends Controller
         }
     }
 
-    public function posts(Request $request, Response $response)
-    {
-        $postManager = new PostManager();
-        $posts = $postManager->findAll();
-        echo $this->render('/admin/posts.html.twig', compact('posts'));
-
-    }
-
     public function users(Request $request, Response $response)
     {
         $userManager = new UserManager();
@@ -41,8 +33,6 @@ class AdminController extends Controller
         echo $this->render('/admin/users.html.twig', compact('comments'));
     }
 
-
-
     protected function isAdmin(Response $response)
     {
         if(isset($_SESSION['auth']) && $_SESSION['auth']['admin'] === 1)
@@ -51,7 +41,7 @@ class AdminController extends Controller
         }
         else{
             Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
-            $response->redirect('/', 401);
+            $response->redirect('/');
         }
     }
 }

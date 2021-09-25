@@ -88,5 +88,6 @@ class AuthController extends Controller
         unset($_SESSION['auth']);
         // On redirige a l'endroit ou on se trouvais lors de la deconnexion
         $response->redirect($request->getReferer());
+//        $response->redirect('/');
     }
 }

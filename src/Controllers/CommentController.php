@@ -25,7 +25,7 @@ class CommentController extends Controller
             $comment->objectifyForm($body);
             $comment->setIdPost($id);
             $this->commentManager->save($comment);
-            $response->redirect('/blog/$id');
+            $response->redirect("/blog/$id");
         } catch (\Exception $e) {
             var_dump($e);
         }

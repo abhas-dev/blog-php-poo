@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Admin;
 
-use App\Application;
 use App\Controllers\AdminController;
 use App\Data\Managers\CommentManager;
 use App\Data\Managers\PostManager;
@@ -21,16 +20,21 @@ class PostAdminController extends AdminController
 
     public function index(Request $request, Response $response)
     {
+        unset($_SESSION['flash_messages']);
         if($this->isAdmin($response))
         {
             $postManager = new PostManager();
             $posts = $postManager->findAll();
             echo $this->render('/admin/posts.html.twig', compact('posts'));
         }
+        else{
+            Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
+            $response->redirect('/');
+        }
     }
 
     public function insert(Request $request, Response $response){
-        if(isset($_SESSION['auth']) && $_SESSION['auth']['id'] !== null)
+        if($this->isAdmin($response))
         {
             if($request->getMethod() == 'post')
             {
@@ -47,7 +51,7 @@ class PostAdminController extends AdminController
                     else{
                         $this->postManager->save($post);
                         Session::setFlash('success', "L'article a été crée avec succes");
-                        $response->redirect('/blog');
+                        $response->redirect('/secadmin/posts');
                     }
                 }
                 catch (\Exception $e)
@@ -69,7 +73,7 @@ class PostAdminController extends AdminController
 
     public function modify(int $id, Request $request, Response $response)
     {
-        if(isset($_SESSION['auth']) && $_SESSION['auth']['id'] !== null && $_SESSION['auth']['admin'])
+        if($this->isAdmin($response))
         {
             $id = intval($id);
             $post = new PostModel();
@@ -115,6 +119,7 @@ class PostAdminController extends AdminController
         if($this->isAdmin($response))
         {
             $this->postManager->delete($id);
+            Session::setFlash('success', "L'article à été supprimé avec succes");
             $response->redirect('/secadmin/posts');
 
         }
