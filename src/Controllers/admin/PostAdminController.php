@@ -23,8 +23,7 @@ class PostAdminController extends AdminController
         unset($_SESSION['flash_messages']);
         if($this->isAdmin($response))
         {
-            $postManager = new PostManager();
-            $posts = $postManager->findAll();
+            $posts = $this->postManager->findAll();
             echo $this->render('/admin/posts.html.twig', compact('posts'));
         }
         else{
@@ -77,7 +76,7 @@ class PostAdminController extends AdminController
         {
             $id = intval($id);
             $post = new PostModel();
-            $post = $this->postManager->findPostBySlugWithValidatedComments($id);
+            $post = $this->postManager->find($id);
             if(!$post)
             {
                 Session::setFlash('error', "Ce post n'existe pas");
@@ -94,19 +93,24 @@ class PostAdminController extends AdminController
                 $body = $request->getBody();
                 $updatedPost = new PostModel();
                 $updatedPost->objectifyForm($body);
+                $updatedPost->setIntroduction('aaa');
                 $updatedPost->setId($post->getId());
                 $updatedPost->setIdUser($post->getIdUser());
+                $updatedPost->setCreatedAt($post->getCreatedAt());
+                $updatedPost->setUpdatedAt((new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'))));
                 if($updatedPost->validate())
                 {
                     $this->postManager->update($updatedPost);
-                    Session::setFlash('success', "L'article a été modifiée avec succes");
-                    echo $this->render('blog/index.html.twig', compact('post'));
+                    Session::setFlash('success', "L'article a été modifié avec succes");
+                    $response->redirect('/secadmin/posts');
+//                    echo $this->render('blog/index.html.twig', compact('post'));
                 }
 
             }
-
-            echo $this->render('blog/postForm.html.twig', compact('post'));
-
+            if($request->getMethod() == 'get')
+            {
+                echo $this->render('blog/postForm.html.twig', compact('post'));
+            }
         }
         else{
             Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");

@@ -3,6 +3,7 @@
 namespace App\Data\Managers;
 
 use App\Data\Models\CommentModel;
+use App\Data\Models\Model;
 use App\Data\Models\PostModel;
 
 class PostManager extends Manager
@@ -31,7 +32,7 @@ class PostManager extends Manager
         $post = $this->findPostBySlug($id);
         $tags = $this->getTags($id);
         $post->setTags($tags);
-        $sql = "SELECT `id`, `content`, `is_approuved`,`created_at`,`id_post` FROM `comment` WHERE id_post = ?";
+        $sql = "SELECT `id`, `content`, `username`,`is_approuved`,`created_at`,`id_post` FROM `comment` WHERE id_post = ?";
         $query = $this->createQuery($sql, [$id]);
         $data = $query->fetchAll();
         if ($data){
@@ -53,5 +54,22 @@ class PostManager extends Manager
         $query = $this->createQuery($sql, [$id]);
         return $query->fetchAll();
     }
+
+//    public function update(Model $model){
+//        $sql = 'UPDATE post SET id = :id, title = :title, introduction = :introduction, content = :content, id_user = id_user, created_at = :created_at, updated_at = :updated_at WHERE `id` = :id';
+//        $values = [
+//            'id' => $model->getId(),
+//            'title' => $model->getTitle(),
+//            'introduction' => $model->getIntroduction(),
+//            'content' => $model->getContent(),
+//            'id_user' => $model->getIdUser(),
+//            'created_at' => $model->getCreatedAt()->format(("Y-m-d H:i:s")),
+//            'updated_at' => $model->getUpdatedAt()->format(("Y-m-d H:i:s"))
+//        ];
+//
+////       var_dump($query = $this->createQuery($sql, $values));
+//
+//        return $query = $this->createQuery($sql, $values);
+//    }
 
 }

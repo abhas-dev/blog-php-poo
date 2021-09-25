@@ -26,12 +26,12 @@ class AdminController extends Controller
         echo $this->render('/admin/users.html.twig', compact('users'));
     }
 
-    public function comments(Request $request, Response $response)
-    {
-        $commentManager = new CommentManager();
-        $comments = $commentManager->findAll();
-        echo $this->render('/admin/users.html.twig', compact('comments'));
-    }
+//    public function comments(Request $request, Response $response)
+//    {
+//        $commentManager = new CommentManager();
+//        $comments = $commentManager->findAll();
+//        echo $this->render('/admin/users.html.twig', compact('comments'));
+//    }
 
     protected function isAdmin(Response $response)
     {
