@@ -59,7 +59,7 @@ $app->router->post('/secadmin/:id/post-update', [PostAdminController::class, 'mo
 $app->router->post('/secadmin/:id/post-remove', [PostAdminController::class, 'remove']);
 // Admin Comments
 $app->router->get('/secadmin/comments', [CommentAdminController::class, 'index']);
-$app->router->post('/secadmin/:id/comment-approuve', [CommentAdminController::class, 'approuveComment']);
+$app->router->post('/secadmin/:id/comment-approuve', [CommentAdminController::class, 'approuve']);
 $app->router->post('/secadmin/:id/comment-remove', [CommentAdminController::class, 'remove']);
 // 404
 $app->router->get('/404', [NotFoundController::class, 'show']);

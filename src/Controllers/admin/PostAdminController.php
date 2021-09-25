@@ -96,7 +96,7 @@ class PostAdminController extends AdminController
             }
         } else {
             Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
-            Application::$app->response->redirect('/', 401);
+            $response->redirect('/', 401);
         }
     }
 
