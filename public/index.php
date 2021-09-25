@@ -62,6 +62,6 @@ $app->router->get('/404', [NotFoundController::class, 'show']);
 
 try {
     $app->run();
-} catch (Exception $exception){
+} catch (Exception $exception) {
     echo $exception->getMessage();
 }
