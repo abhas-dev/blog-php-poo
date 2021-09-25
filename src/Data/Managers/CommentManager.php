@@ -16,6 +16,4 @@ class CommentManager extends Manager
     {
         return CommentModel::class;
     }
-
-
 }
