@@ -22,36 +22,25 @@
                         <a class="nav-link" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog">Les articles</a>
+                        <a class="nav-link" aria-current="page" href="/secadmin">Administration</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link" href="/secadmin/posts">Articles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/secadmin/users">Utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/secadmin/comments">Commentaires</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-{#                    {{ dump(session) }}#}
-                    {% if session['auth'] is defined and not session['auth']['id'] is empty%}
-                    {% if session['auth']['admin'] is defined and session['auth']['admin'] == 1%}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/secadmin">Administration</a>
-                        </li>
-                    {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="/profil">Profil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Deconnexion</a>
                         </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Connexion</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Inscription</a>
-                        </li>
-                    {% endif %}
-
                 </ul>
             </div>
         </div>
