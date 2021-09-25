@@ -5,16 +5,12 @@ namespace App\Controllers;
 use App\Data\Managers\CommentManager;
 use App\Data\Managers\PostManager;
 use App\Data\Managers\UserManager;
-use App\Data\Models\CommentModel;
-use App\Data\Models\PostModel;
-use App\Data\Models\UserModel;
 use App\Request;
 use App\Response;
 use App\Session;
 
 class AdminController extends Controller
 {
-
     public function index(Request $request, Response $response)
     {
         if($this->isAdmin($response))
@@ -45,7 +41,9 @@ class AdminController extends Controller
         echo $this->render('/admin/users.html.twig', compact('comments'));
     }
 
-    private function isAdmin(Response $response)
+
+
+    protected function isAdmin(Response $response)
     {
         if(isset($_SESSION['auth']) && $_SESSION['auth']['admin'] === 1)
         {

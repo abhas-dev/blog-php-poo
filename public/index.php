@@ -1,6 +1,7 @@
 <?php
 
 use App\Application;
+use App\Controllers\Admin\PostAdminController;
 use App\Controllers\AdminController;
 use App\Controllers\AuthController;
 use App\Controllers\BlogController;
@@ -50,11 +51,12 @@ $app->router->get('/secadmin', [AdminController::class, 'index']);
 $app->router->get('/secadmin/users', [AdminController::class, 'users']);
 $app->router->get('/secadmin/comments', [AdminController::class, 'comments']);
 // Admin Post
-$app->router->get('/secadmin/posts', [AdminController::class, 'posts']);
-$app->router->get('/secadmin/:id/post-create', [PostController::class, 'insert']);
-$app->router->post('/secadmin/:id/post-create', [PostController::class, 'insert']);
-$app->router->get('/secadmin/:id/post-update', [PostController::class, 'modify']);
-$app->router->post('/secadmin/:id/post-update', [PostController::class, 'modify']);
+$app->router->get('/secadmin/posts', [PostAdminController::class, 'posts']);
+$app->router->get('/secadmin/:id/post-create', [PostAdminController::class, 'insert']);
+$app->router->post('/secadmin/:id/post-create', [PostAdminController::class, 'insert']);
+$app->router->get('/secadmin/:id/post-update', [PostAdminController::class, 'modify']);
+$app->router->post('/secadmin/:id/post-update', [PostAdminController::class, 'modify']);
+$app->router->get('/secadmin/:id/remove', [PostAdminController::class, 'remove']);
 // 404
 $app->router->get('/404', [NotFoundController::class, 'show']);
 
