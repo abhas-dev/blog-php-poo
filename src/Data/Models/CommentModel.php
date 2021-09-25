@@ -44,11 +44,11 @@ class CommentModel extends Model
                     "property" => "createdAt"
                 ],
                 "is_approuved"        => [
-                    "type"     => "int",
+                    "type"     => "integer",
                     "property" => "isApprouved"
                 ],
                 "id_post"        => [
-                    "type"     => "int",
+                    "type"     => "integer",
                     "property" => "idPost"
                 ]
             ]
@@ -144,9 +144,9 @@ class CommentModel extends Model
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getIdPost(): ?int
+    public function getIdPost(): int
     {
         return $this->idPost;
     }

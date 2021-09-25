@@ -37,8 +37,9 @@ class CommentAdminController extends AdminController
         {
             $comment = $this->commentManager->find($id);
             $comment->setIsApprouved($comment->getIsApprouved() ? 0 : 1);
-
             $this->commentManager->update($comment);
+//            Session::setFlash('success', "Vous n'etes pas autorisés à acceder a cette page");
+            $response->redirect('/secadmin/comments');
         }
         else{
             Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
