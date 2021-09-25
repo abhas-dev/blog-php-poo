@@ -18,8 +18,19 @@
 
 {#    <form action="/blog/{{ article.slug }}/{{ article.id }}/comment" method="post">#}
     <form action="/blog/{{ post.id }}/comment" method="post">
-        <div class="mb-3">
-            <textarea class="form-control" id="content" name="content"></textarea>
+        <div class="mb-3 col-4">
+            <label for="username" class="form-label">Nom d'utilisateur</label>
+            <input type="text" class="form-control {{ commentModel.hasError('username') ? ' is-invalid' : '' }}" id="username" name="username" value = "{{ commentModel.username ?? '' }}" required>
+            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                {{ commentModel.getFirstError('username') }}
+            </div>
+        </div>
+        <div class="mb-3 col-4">
+            <label for="content" class="form-label">Contenu</label>
+            <textarea class="form-control {{ comment.hasError('content') ? ' is-invalid' : '' }}" id="content" name="content">{{ comment.content ?? '' }}</textarea>
+            <div id="validationFirstname" class="invalid-feedback">
+                {{ comment.getFirstError('content') }}
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Envoyer</button>
     </form>
@@ -28,7 +39,7 @@
         <div class="card mb-3">
             <div class="card-body">
                 <p>{{ comment.content }}</p>
-                <small class="">Publié le {{ comment.createdAt|date("d/m/Y à h:i") }}</small>
+                <p><small>Par</small> {{ comment.username }} <small class="">Publié le {{ comment.createdAt|date("d/m/Y à h:i") }}</small></p>
             </div>
         </div>
     {% endfor %}

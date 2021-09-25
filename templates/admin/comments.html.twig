@@ -1,0 +1,56 @@
+{% extends 'layouts/admin_layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Admin{% endblock %}
+
+{% block body %}
+    <h1>Les commentaires</h1>
+    {% if not session['flash_messages']['error'] is empty %}
+        <div class="alert alert-danger" role="alert">
+            {{ session['flash_messages']['error'] }}
+        </div>
+    {% elseif not session['flash_messages']['success'] is empty %}
+        <div class="alert alert-success" role="alert">
+            {{ session['flash_messages']['success'] }}
+        </div>
+    {% endif %}
+
+    <table class="table table-striped table-hover">
+        <thead>
+        <th>#</th>
+        <th>Auteur</th>
+        <th>Commentaire</th>
+        <th>Publié le</th>
+        <th>Approuvé</th>
+        <th>Actions</th>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.id }}</td>
+                <td>{{ comment.username }}</td>
+                <td>{{ comment.content }}</td>
+                <td>{{ comment.createdAt|date("d/m/Y") }}</td>
+                <td>{{ comment.isApprouved }}</td>
+                <td>
+                    <form action="/secadmin/{{ comment.id }}/comment-approuve" method="post" class="d-inline">
+                        <button type="submit" name="delete" class="btn btn-warning">Approuver</button>
+                    </form>
+                    <form action="/secadmin/{{ comment.id }}/comment-remove" method="post" class="d-inline">
+                        <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+
+{#                    <form action="/secadmin/{{ post.id }}/post-update" method="post">#}
+{#                        <button type="submit" name="modify" class="btn btn-warning">Modifier</button>#}
+{#                    </form>#}
+{#                    <form action="/secadmin/{{ post.id }}/post-remove" method="post" class="d-inline">#}
+{#                        <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>#}
+{#                    </form>#}

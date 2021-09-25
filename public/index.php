@@ -1,6 +1,7 @@
 <?php
 
 use App\Application;
+use App\Controllers\Admin\CommentAdminController;
 use App\Controllers\Admin\PostAdminController;
 use App\Controllers\AdminController;
 use App\Controllers\AuthController;
@@ -49,7 +50,6 @@ $app->router->post('/register', [AuthController::class, 'register']);
 // Admin
 $app->router->get('/secadmin', [AdminController::class, 'index']);
 $app->router->get('/secadmin/users', [AdminController::class, 'users']);
-$app->router->get('/secadmin/comments', [AdminController::class, 'comments']);
 // Admin Post
 $app->router->get('/secadmin/posts', [PostAdminController::class, 'index']);
 $app->router->get('/secadmin/post-create', [PostAdminController::class, 'insert']);
@@ -57,11 +57,15 @@ $app->router->post('/secadmin/post-create', [PostAdminController::class, 'insert
 $app->router->get('/secadmin/:id/post-update', [PostAdminController::class, 'modify']);
 $app->router->post('/secadmin/:id/post-update', [PostAdminController::class, 'modify']);
 $app->router->post('/secadmin/:id/post-remove', [PostAdminController::class, 'remove']);
+// Admin Comments
+$app->router->get('/secadmin/comments', [CommentAdminController::class, 'index']);
+$app->router->post('/secadmin/:id/comment-approuve', [CommentAdminController::class, 'approuveComment']);
+$app->router->post('/secadmin/:id/comment-remove', [CommentAdminController::class, 'remove']);
 // 404
 $app->router->get('/404', [NotFoundController::class, 'show']);
 
 try {
     $app->run();
-} catch (Exception $exception){
+} catch (Exception $exception) {
     echo $exception->getMessage();
 }

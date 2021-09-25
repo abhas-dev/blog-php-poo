@@ -4,9 +4,15 @@ namespace App\Data\Models;
 
 class CommentModel extends Model
 {
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_DELETED = 2;
+
     private ?int $id = null;
 
     private ?string $content = '';
+
+    private ?string $username = '';
 
     private int $isApprouved = 0;
 
@@ -29,16 +35,20 @@ class CommentModel extends Model
                     "type"     => "string",
                     "property" => "content"
                 ],
+                "username"      => [
+                    "type"     => "string",
+                    "property" => "username"
+                ],
                 "created_at"        => [
                     "type"     => "datetime",
                     "property" => "createdAt"
                 ],
                 "is_approuved"        => [
-                    "type"     => "int",
+                    "type"     => "integer",
                     "property" => "isApprouved"
                 ],
                 "id_post"        => [
-                    "type"     => "int",
+                    "type"     => "integer",
                     "property" => "idPost"
                 ]
             ]
@@ -76,6 +86,23 @@ class CommentModel extends Model
     {
         $this->content = $content;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param string|null $username
+     */
+    public function setUsername(?string $username): void
+    {
+        $this->username = $username;
+    }
+
 
     /**
      * @return int
@@ -117,9 +144,9 @@ class CommentModel extends Model
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getIdPost(): ?int
+    public function getIdPost(): int
     {
         return $this->idPost;
     }

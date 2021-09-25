@@ -64,7 +64,7 @@ abstract class Model
      */
     public function getSQLValueByColumn($column)
     {
-        if($column === 'created_at'){
+        if($column === 'created_at' || $column === 'updated_at'){
             $value = $this->{sprintf("get%s", ucfirst($this::metadata()["columns"][$column]["property"]))}();
             $date = $value->format("Y-m-d H:i:s");
             return $date;
@@ -79,11 +79,9 @@ abstract class Model
             throw new \Exception("Le formulaire n'est pas correct ! ");
         }
         $this->originalData = $data;
-//        var_dump($this);die();
         if(property_exists($this, 'createdAt'))
         {
             $datetime = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
-//            var_dump($datetime->format("Y-m-d H:i:s"));die();
             $this->setCreatedAt($datetime);
         }
         foreach($data as $column => $value) {

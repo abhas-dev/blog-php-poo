@@ -13,8 +13,7 @@ class AdminController extends Controller
 {
     public function index(Request $request, Response $response)
     {
-        if($this->isAdmin($response))
-        {
+        if ($this->isAdmin($response)) {
             echo $this->render('/admin/index.html.twig');
         }
     }
@@ -26,20 +25,18 @@ class AdminController extends Controller
         echo $this->render('/admin/users.html.twig', compact('users'));
     }
 
-    public function comments(Request $request, Response $response)
-    {
-        $commentManager = new CommentManager();
-        $comments = $commentManager->findAll();
-        echo $this->render('/admin/users.html.twig', compact('comments'));
-    }
+//    public function comments(Request $request, Response $response)
+//    {
+//        $commentManager = new CommentManager();
+//        $comments = $commentManager->findAll();
+//        echo $this->render('/admin/users.html.twig', compact('comments'));
+//    }
 
     protected function isAdmin(Response $response)
     {
-        if(isset($_SESSION['auth']) && $_SESSION['auth']['admin'] === 1)
-        {
+        if (isset($_SESSION['auth']) && $_SESSION['auth']['admin'] === 1) {
             return true;
-        }
-        else{
+        } else {
             Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
             $response->redirect('/');
         }

@@ -112,24 +112,26 @@ abstract class Manager{
 
 
     public function update(Model $model){
-        $keys = [];
+        $champs = [];
         $values = [];
 
         // On boucle pour eclater le tableau
-        foreach($model as $key => $value){
-            // UPDATE annonces SET titre = ?,description = ?,actif = ? WHERE id = ?
-            if($value !== null && $key != 'db' && $key != 'table'){
-                $keys[] = "$key = ?";
-                $values[] = $value;
+        foreach(array_keys($this->metadata["columns"]) as $column)
+        {
+            if($column !== 'confirmationPassword'){
+                // On recupere les getters puis la valeur
+                $sqlValue = $model->getSQLValueByColumn($column);
+                // On enregistre les datas qu'on va mettre en bdd dans un array
+                $model->orignalData[$column] = $sqlValue;
+                // On mets les valeurs dans un array
+                $values[$column] = $sqlValue;
+                // On enregistre le nom des champs
+                $champs[] = sprintf("%s = :%s", $column, $column);
             }
         }
+//        $values['id'] = $model->getId();
 
-        $values[] = $id;
-        // On transforme le tableau "keys" en une string
-        $keyList = implode(', ', $keys);
-
-        // On execute la requete
-        $sql = "UPDATE $this->table SET $keyList WHERE id = ?";
+        $sql = sprintf("UPDATE %s SET %s WHERE `id` = :id", $this->metadata["table"], implode(', ', $champs));
         return $query = $this->createQuery($sql, $values);
     }
 
@@ -142,7 +144,6 @@ abstract class Manager{
         if(!$params){
             return $this->database->query($sql);
         }
-
         $query = $this->database->prepare($sql);
         $query->execute($params);
         return $query;
