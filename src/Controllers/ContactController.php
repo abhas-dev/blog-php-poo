@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Forms\ContactForm;
+use App\Mails\ContactMail;
 use App\Request;
 use App\Response;
 use App\Session;
@@ -16,6 +17,12 @@ class ContactController extends Controller
         $contactForm->objectifyForm($body);
         if ($contactForm->validate())
         {
+            $mail = new ContactMail();
+            $mail->setSubject($contactForm->getSubject());
+            $mail->setFrom($contactForm->getEmail());
+            $mail->setMessage($contactForm->getMessage());
+            $mail->sendMail();
+            var_dump($mail);die();
             // envoi du mail ici
             Session::setFlash('success', 'Le message a été envoyé avec succes');
             $response->redirect('/', 302);
