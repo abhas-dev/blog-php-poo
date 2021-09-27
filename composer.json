@@ -21,6 +21,6 @@
         "twig/twig": "^3.0",
         "symfony/dotenv": "^5.3",
       "ext-pdo": "*",
-      "ext-mysql_xdevapi": "*"
+        "symfony/mailer": "^5.3"
     }
 }
