@@ -35,7 +35,6 @@ $app = new Application($twig);
 $app->router->get('/', [BlogController::class, 'index']);
 
 // Contact
-$app->router->get('/contact', [ContactController::class, 'show']);
 $app->router->post('/contact', [ContactController::class, 'handleContact']);
 // Post
 $app->router->get('/blog', [PostController::class, 'index']);

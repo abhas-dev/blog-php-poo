@@ -159,10 +159,10 @@ class CommentModel extends Model
         $this->idPost = $idPost;
     }
 
-    public function objectifyForm($data): self
-    {
-        $this->setCreatedAt((new \DateTimeImmutable));
-        return parent::objectifyForm($data);
-    }
+//    public function objectifyForm($data): self
+//    {
+//        $this->setCreatedAt((new \DateTimeImmutable));
+//        return parent::objectifyForm($data);
+//    }
 
 }

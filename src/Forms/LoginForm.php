@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Data\Models;
+namespace App\Forms;
 
-class LoginModel extends Model
+class LoginForm extends Form
 {
     /** @var string  */
     protected string $email;
@@ -13,8 +13,6 @@ class LoginModel extends Model
     public static function metadata(): array
     {
         return [
-            "table"            => "User",
-            "primaryKey"       => "id",
             "columns"          => [
                 "email"           => [
                     "type"     => "string",
