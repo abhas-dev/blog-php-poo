@@ -22,8 +22,6 @@ class ContactController extends Controller
             $mail->setFrom($contactForm->getEmail());
             $mail->setMessage($contactForm->getMessage());
             $mail->sendMail();
-            var_dump($mail);die();
-            // envoi du mail ici
             Session::setFlash('success', 'Le message a été envoyé avec succes');
             $response->redirect('/', 302);
         }
