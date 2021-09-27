@@ -20,6 +20,11 @@ abstract class Form
      */
     abstract public function rules(): array;
 
+    /**
+     * @return array
+     */
+    abstract public static function metadata(): array;
+
     public function objectifyForm($data): self
     {
         if(empty($data)){

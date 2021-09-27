@@ -2,7 +2,7 @@
 
 namespace App\Forms;
 
-class PostForm extends Form
+class CommentForm extends Form
 {
 
 

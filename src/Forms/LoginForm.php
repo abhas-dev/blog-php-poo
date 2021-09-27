@@ -13,8 +13,6 @@ class LoginForm extends Form
     public static function metadata(): array
     {
         return [
-            "table"            => "User",
-            "primaryKey"       => "id",
             "columns"          => [
                 "email"           => [
                     "type"     => "string",
