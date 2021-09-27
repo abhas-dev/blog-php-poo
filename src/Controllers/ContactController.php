@@ -15,8 +15,7 @@ class ContactController extends Controller
         $body = $request->getBody();
         $contactForm = new ContactForm();
         $contactForm->objectifyForm($body);
-        if ($contactForm->validate())
-        {
+        if ($contactForm->validate()) {
             $mail = new ContactMail();
             $mail->setSubject($contactForm->getSubject());
             $mail->setFrom($contactForm->getEmail());
@@ -28,5 +27,4 @@ class ContactController extends Controller
         $errors = $contactForm->getErrors();
         echo $this->render('general/home.html.twig', compact('errors', 'contactForm'));
     }
-
 }
