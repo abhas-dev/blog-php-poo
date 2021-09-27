@@ -3,7 +3,7 @@
 {% block title %}{{ parent() }} - Les articles{% endblock %}
 
 {% block body %}
-    <h1>Les derniers articles</h1>
+{#    <h1>Les derniers articles</h1>#}
 
     {% if not session['flash_messages']['error'] is empty %}
         <div class="alert alert-danger" role="alert">
@@ -16,79 +16,44 @@
     {% endif %}
 
     {#    {{ createRoute("getPostById", post.id) }}#}
+{#    <div class="card mb-3">#}
+{#        <div class="card-body">#}
+{#            <h2>{{ post.title }}</h2>#}
+{#            <small class="badge bg-success">Publié le {{ post.createdAt|date("d/m/Y à h:i") }}</small>#}
+{#            <p>{{ post.content }}<p>#}
+{#                <a href="blog/{{ post.id }} " class="btn btn-primary">Lire plus</a>#}
+{#        </div>#}
+{#    </div>#}
 
-
+    <div class="latest-news-area section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <span class="wow fadeInDown" data-wow-delay=".2s">Blog</span>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Les derniers articles</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
+                            Ipsum available, but the majority have suffered alteration in some form.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                    <!-- Single News -->
                 {% for post in posts %}
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h2>{{ post.title }}</h2>
-                            <small class="badge bg-success">Publié le {{ post.createdAt|date("d/m/Y à h:i") }}</small>
-                            <p>{{ post.content }}<p>
-                                <a href="blog/{{ post.id }} " class="btn btn-primary">Lire plus</a>
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="single-news wow fadeInUp" data-wow-delay=".2s">
+                            <div class="image">
+                                <img class="thumb" src="../images/blog/blog-grid1.jpg" alt="#">
+                            </div>
+                            <div class="content-body">
+                                <h4 class="title"><a href="blog/{{ post.id }}">{{ post.title }}</a></h4>
+                                <p>{{ post.introduction }}</p>
+                            </div>
                         </div>
                     </div>
-{#                    <div class="row row-cols-1 row-cols-md-3 g-4">#}
-
-{#                <div class="card">#}
-{#                    <img src="..." class="card-img-top" alt="...">#}
-{#                    <div class="card-body">#}
-{#                        <h5 class="card-title">{{ post.title }}</h5>#}
-{#                        <small class="badge bg-info">Publié le {{ post.createdAt|date("d/m/Y") }}</small>#}
-{#                        <p class="card-text">{{ post.content }}</p>#}
-{#                        <a href="blog/{{ post.id }}" class="btn btn-primary">Lire plus</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#            </div>#}
-        {% endfor %}
-
-
-
-
+            {% endfor %}
+            </div>
+            <!-- End Single News -->
+        </div>
+    </div>
 {% endblock %}
-
-{#<div class="card mb-3">#}
-{#    <div class="card-body">#}
-{#        <h2>{{ post.title }}</h2>#}
-{#        <small>{{ post.createdAt|date("d/m/Y") }}</small>#}
-{#        <p>{{ post.content }}<p>#}
-{#            <a href="blog/{{ post.id }} " class="btn btn-primary">Lire plus</a>#}
-{#    </div>#}
-{#</div>#}
-
-{#<div class="col">#}
-{#    <div class="card">#}
-{#        <img src="..." class="card-img-top" alt="...">#}
-{#        <div class="card-body">#}
-{#            <h5 class="card-title">{{ post.title }}</h5>#}
-{#            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#<div class="col">#}
-{#    <div class="card">#}
-{#        <img src="..." class="card-img-top" alt="...">#}
-{#        <div class="card-body">#}
-{#            <h5 class="card-title">{{ post.title }}</h5>#}
-{#            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#<div class="col">#}
-{#    <div class="card">#}
-{#        <img src="..." class="card-img-top" alt="...">#}
-{#        <div class="card-body">#}
-{#            <h5 class="card-title">Card title</h5>#}
-{#            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#</div>#}
-{#<div class="card" style="width: 18rem;">#}
-{#    <img src="..." class="card-img-top" alt="...">#}
-{#    <div class="card-body">#}
-{#        <h5 class="card-title">{{ post.title }}</h5>#}
-{#        <small>{{ post.createdAt|date("d/m/Y") }}</small>#}
-{#        <p class="card-text">{{ post.content }}</p>#}
-{#        <a href="blog/{{ post.id }}" class="btn btn-primary">Lire plus</a>#}
-{#    </div>#}

@@ -5,43 +5,265 @@
 
 {% block body %}
 
-    <h1>{{ post.title }}</h1>
-    {% for tag in post.tags %}
-    <small class="badge bg-success">{{ tag.name }}</small>
-    {% endfor %}
+{#    <h1>{{ post.title }}</h1>#}
+{#    {% for tag in post.tags %}#}
+{#    <small class="badge bg-success">{{ tag.name }}</small>#}
+{#    {% endfor %}#}
 
-    {#    {{ post.getAuthorName() }}#}
-    <p>{{ post.content }}</p>
+{#    #}{#    {{ post.getAuthorName() }}#}
+{#    <p>{{ post.content }}</p>#}
 {#    {{ dump(post.comments) }}#}
 
-    <h2>Commentaires</h2>
+{#    <h2>Commentaires</h2>#}
 
 {#    <form action="/blog/{{ article.slug }}/{{ article.id }}/comment" method="post">#}
-    <form action="/blog/{{ post.id }}/comment" method="post">
-        <div class="mb-3 col-4">
-            <label for="username" class="form-label">Nom d'utilisateur</label>
-            <input type="text" class="form-control {{ commentModel.hasError('username') ? ' is-invalid' : '' }}" id="username" name="username" value = "{{ commentModel.username ?? '' }}" required>
-            <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                {{ commentModel.getFirstError('username') }}
-            </div>
-        </div>
-        <div class="mb-3 col-4">
-            <label for="content" class="form-label">Contenu</label>
-            <textarea class="form-control {{ comment.hasError('content') ? ' is-invalid' : '' }}" id="content" name="content">{{ comment.content ?? '' }}</textarea>
-            <div id="validationFirstname" class="invalid-feedback">
-                {{ comment.getFirstError('content') }}
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Envoyer</button>
-    </form>
+{#    <form action="/blog/{{ post.id }}/comment" method="post">#}
+{#        <div class="mb-3 col-sm-4">#}
+{#            <label for="username" class="form-label">Nom d'utilisateur</label>#}
+{#            <input type="text" class="form-control {{ commentModel.hasError('username') ? ' is-invalid' : '' }}" id="username" name="username" value = "{{ commentModel.username ?? '' }}" required>#}
+{#            <div id="validationServerUsernameFeedback" class="invalid-feedback">#}
+{#                {{ commentModel.getFirstError('username') }}#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="mb-3 col-sm-4">#}
+{#            <label for="content" class="form-label">Contenu</label>#}
+{#            <textarea class="form-control {{ comment.hasError('content') ? ' is-invalid' : '' }}" id="content" name="content">{{ comment.content ?? '' }}</textarea>#}
+{#            <div id="validationFirstname" class="invalid-feedback">#}
+{#                {{ comment.getFirstError('content') }}#}
+{#            </div>#}
+{#        </div>#}
+{#        <button type="submit" class="btn btn-primary">Envoyer</button>#}
+{#    </form>#}
 
-    {% for comment in post.comments %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <p>{{ comment.content }}</p>
-                <p><small>Par</small> {{ comment.username }} <small class="">Publié le {{ comment.createdAt|date("d/m/Y à h:i") }}</small></p>
+{#    {% for comment in post.comments %}#}
+{#        <div class="card mb-3">#}
+{#            <div class="card-body">#}
+{#                <p>{{ comment.content }}</p>#}
+{#                <p><small>Par</small> {{ comment.username }} <small class="">Publié le {{ comment.createdAt|date("d/m/Y à h:i") }}</small></p>#}
+{#            </div>#}
+{#        </div>#}
+{#    {% endfor %}#}
+
+    <section class="section blog-single">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-12">
+                    <div class="post-thumbnils">
+                        <img src="../images/blog/blog-grid3.jpg" alt="#">
+                    </div>
+                    <div class="post-details">
+                        <div class="detail-inner">
+                            <h2 class="post-title">
+                                <a href="#">{{ post.title }}</a>
+                            </h2>
+
+                            <ul class="custom-flex post-meta">
+                                <li>
+                                    <a href="#">
+                                        <i class="lni lni-calendar"></i> Par {{ post.getAuthorName() }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="lni lni-calendar"></i> Le {{ post.createdAt|date("d/m/Y à h:i") }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="lni lni-comments"></i> {{ post.comments|length}} Commentaire
+                                    </a>
+                                </li>
+                            </ul>
+                            <p>
+                                {{ post.content }}
+                            </p>
+
+                            <div class="post-tags-media">
+                                <div class="post-tags popular-tag-widget mb-xl-40">
+                                    <h5 class="tag-title">Categories</h5>
+                                    <div class="tags">
+                                        {% for tag in post.tags %}
+{#                                            <a href="#">{{ tag }}</a>#}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="post-social-media">
+                                    <h5 class="share-title">Partager l'article</h5>
+                                    <ul class="custom-flex">
+                                        <li>
+                                            <a href="#">
+                                                <i class="lni lni-twitter-original"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="lni lni-facebook-oval"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="lni lni-instagram"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-comments">
+                            <h3 class="comment-title">Commentaires</h3>
+                            <ul class="comments-list">
+                            {% for comment in post.comments %}
+                                <li>
+                                    <div class="comment-img">
+                                        <img src="../images/blog/comment1.png" class="rounded-circle" alt="img">
+                                    </div>
+                                    <div class="comment-desc">
+                                        <div class="desc-top">
+                                            <h6>{{ comment.username }}</h6>
+                                            <span class="date">{{ comment.createdAt|date("d/m/Y à h:i") }}</span>
+                                            <a href="#" class="reply-link"><i class="lni lni-reply"></i>Repondre</a>
+                                        </div>
+                                        <p>{{ comment.content }}</p>
+                                    </div>
+                                </li>
+{#                                <div class="card mb-3">#}
+{#                                    <div class="card-body">#}
+{#                                        <p>{{ comment.content }}</p>#}
+{#                                        <p><small>Par</small> {{ comment.username }} <small class="">Publié le {{ comment.createdAt|date("d/m/Y à h:i") }}</small></p>#}
+{#                                    </div>#}
+{#                                </div>#}
+                            {% endfor %}
+
+{#                                <li>#}
+{#                                    <div class="comment-img">#}
+{#                                        <img src="assets/images/blog/comment1.png" class="rounded-circle" alt="img">#}
+{#                                    </div>#}
+{#                                    <div class="comment-desc">#}
+{#                                        <div class="desc-top">#}
+{#                                            <h6>Rosalina Kelian</h6>#}
+{#                                            <span class="date">19th May 2023</span>#}
+{#                                            <a href="#" class="reply-link"><i class="lni lni-reply"></i>Reply</a>#}
+{#                                        </div>#}
+{#                                        <p>#}
+{#                                            Donec aliquam ex ut odio dictum, ut consequat leo interdum. Aenean nunc ipsum, blandit eu enim sed, facilisis convallis orci. Etiam commodo lectus quis vulputate tincidunt. Mauris tristique velit eu magna maximus condimentum.#}
+{#                                        </p>#}
+{#                                    </div>#}
+{#                                </li>#}
+{#                                <li class="children">#}
+{#                                    <div class="comment-img">#}
+{#                                        <img src="assets/images/blog/comment2.png" class="rounded-circle" alt="img">#}
+{#                                    </div>#}
+{#                                    <div class="comment-desc">#}
+{#                                        <div class="desc-top">#}
+{#                                            <h6>Arista Williamson <span class="saved"><i class="lni lni-bookmark"></i></span></h6>#}
+{#                                            <span class="date">15th May 2023</span>#}
+{#                                            <a href="#" class="reply-link"><i class="lni lni-reply"></i>Reply</a>#}
+{#                                        </div>#}
+{#                                        <p>#}
+{#                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim.#}
+{#                                        </p>#}
+{#                                    </div>#}
+{#                                </li>#}
+{#                                <li>#}
+{#                                    <div class="comment-img">#}
+{#                                        <img src="assets/images/blog/comment3.png" class="rounded-circle" alt="img">#}
+{#                                    </div>#}
+{#                                    <div class="comment-desc">#}
+{#                                        <div class="desc-top">#}
+{#                                            <h6>Arista Williamson</h6>#}
+{#                                            <span class="date">12th May 2023</span>#}
+{#                                            <a href="#" class="reply-link"><i class="lni lni-reply"></i>Reply</a>#}
+{#                                        </div>#}
+{#                                        <p>#}
+{#                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.#}
+{#                                        </p>#}
+{#                                    </div>#}
+{#                                </li>#}
+                            </ul>
+                        </div>
+                        <div class="comment-form">
+                            <h3 class="comment-reply-title">Laissez un commentaire</h3>
+                            <form action="#" method="POST">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-box form-group">
+                                            <input type="text" name="#" class="form-control form-control-custom" placeholder="Votre nom">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-box form-group">
+                                            <input type="email" name="#" class="form-control form-control-custom" placeholder="Votre email" >
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-box form-group">
+                                            <textarea name="#" rows="6" class="form-control form-control-custom" placeholder="Votre Commentaire"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="button">
+                                            <button type="submit" class="btn mouse-dir white-bg">Envoyer <span class="dir-part"></span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+{#                <aside class="col-lg-4 col-md-12 col-12">#}
+{#                    <div class="sidebar">#}
+{#                        <div class="widget popular-tag-widget">#}
+{#                            <h5 class="widget-title">Popular Tags</h5>#}
+{#                            <div class="tags">#}
+{#                                <a href="#">Popular Template</a>#}
+{#                                <a href="#">Design</a>#}
+{#                                <a href="#">UX</a>#}
+{#                                <a href="#">Icon</a>#}
+{#                                <a href="#">Usability</a>#}
+{#                                <a href="#">Tech</a>#}
+{#                                <a href="#">Mouse</a>#}
+{#                                <a href="#">Kit</a>#}
+{#                                <a href="#">Consult</a>#}
+{#                                <a href="#">Business</a>#}
+{#                                <a href="#">Keyboard</a>#}
+{#                                <a href="#">Develop</a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </aside>#}
             </div>
         </div>
-    {% endfor %}
+    </section>
 
+
+    <section class="newsletter-area section">
+        <div class="container">
+            <div class="row ">
+                <div class="col-lg-8 col-12">
+
+                    <div class="subscribe-text wow fadeInLeft" data-wow-delay=".2s" style="visibility: hidden; animation-delay: 0.2s; animation-name: none;">
+                        <h6>Recevoir la Newsletter</h6>
+                        <p class="">Sign Up and start using a free account <br> to see what it's all about.</p>
+                        <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+                            <input name="EMAIL" placeholder="Votre adresse email" class="common-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'" required="" type="email">
+                            <div class="button">
+                                <button class="btn">S'inscrire maintenant!</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="mini-call-action wow fadeInRight" data-wow-delay=".4s" style="visibility: hidden; animation-delay: 0.4s; animation-name: none;">
+                        <h4>Do you want to grow your online business with Massive?</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <div class="button">
+                            <a href="#" class="btn">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

@@ -43,11 +43,11 @@ class Route
      */
     public function call(self $route, Request $request, Response $response)
     {
-
         $controller = $this->action[0];
         $action = $this->action[1];
         // On instancie dynamiquement le contrôleur
         $controller = new $controller();
+        // si le controller est admincontroller on appelle isAdmin si true ok sinon redirection
         $this->params[] = $request;
         $this->params[] = $response;
         // call_user_func_array permet d'appeler une méthode d'une classe et de lui passer des arguments
