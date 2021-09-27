@@ -6,6 +6,7 @@ use App\Application;
 use App\Data\Managers\UserManager;
 use App\Data\Models\LoginModel;
 use App\Data\Models\UserModel;
+use App\Forms\LoginForm;
 use App\Request;
 use App\Response;
 use App\Session;
@@ -24,19 +25,19 @@ class AuthController extends Controller
     {
         if(!isset($_SESSION['auth'])){
             unset($_SESSION['flash_messages']['error']);
-            $loginModel = new LoginModel();
+            $loginForm = new LoginForm();
             if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
                 $body = $request->getBody();
 //            $body['password'] = password_hash($body['password'], PASSWORD_ARGON2I);
-                $loginModel->objectifyForm($body);
-                if ($loginModel->validate()) {
-                    $user = $this->userManager->findBy(['email' => $loginModel->getEmail()]);
+                $loginForm->objectifyForm($body);
+                if ($loginForm->validate()) {
+                    $user = $this->userManager->findBy(['email' => $loginForm->getEmail()]);
                     if(!$user)
                     {
                         Session::setFlash('error',"L'adresse et/ou le mot de passe est incorrect ");
                         $response->redirect('/login');
                     }
-                    if(password_verify($loginModel->getPassword(), $user->getPassword()))
+                    if(password_verify($loginForm->getPassword(), $user->getPassword()))
                     {
                         Session::setUserSession($user);
                         Session::setFlash('success', 'Bienvenue '. $user->getUsername());
@@ -48,8 +49,8 @@ class AuthController extends Controller
                         Application::$app->response->redirect('/login');
                     }
                 }
-                $errors = $loginModel->getErrors();
-                echo $this->render('auth/login.html.twig', compact('errors', 'loginModel'));
+                $errors = $loginForm->getErrors();
+                echo $this->render('auth/login.html.twig', compact('errors', 'loginForm'));
             }
             if ($request->getMethod() == 'get') {
                 echo $this->render('auth/login.html.twig');

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Data\Models;
+namespace App\Forms;
 
-class LoginModel extends Model
+class LoginForm extends Form
 {
     /** @var string  */
     protected string $email;

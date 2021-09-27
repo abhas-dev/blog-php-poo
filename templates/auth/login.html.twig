@@ -14,17 +14,17 @@
     <form action="" method="post" class="g-3" novalidate>
         <div class="col-md-6">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control {{ loginModel.hasError('email') ? ' is-invalid' : '' }}" id="email" name="email" value = "{{ loginModel.email ?? '' }}" required>
+            <input type="email" class="form-control {{ loginForm.hasError('email') ? ' is-invalid' : '' }}" id="email" name="email" value = "{{ loginForm.email ?? '' }}" required>
             <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                {{ loginModel.getFirstError('email') }}
+                {{ loginForm.getFirstError('email') }}
             </div>
         </div>
 
         <div class="col-md-6">
             <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control {{ loginModel.hasError('password') ? ' is-invalid' : '' }}" id="password" name="password" value = "{{ loginModel.password ?? '' }}" required>
+            <input type="password" class="form-control {{ loginForm.hasError('password') ? ' is-invalid' : '' }}" id="password" name="password" value = "{{ loginForm.password ?? '' }}" required>
             <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                {{ loginModel.getFirstError('password') }}
+                {{ loginForm.getFirstError('password') }}
             </div>
         </div>
 

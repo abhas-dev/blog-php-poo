@@ -20,8 +20,7 @@
     "require": {
         "twig/twig": "^3.0",
         "symfony/dotenv": "^5.3",
-      "ext-pdo": "*",
-        "symfony/mailer": "^5.3",
+        "ext-pdo": "*",
         "twbs/bootstrap": "5.0.2"
     }
 }
