@@ -1,11 +1,25 @@
 <!doctype html>
 <html lang="en">
+{#"ext-mysql_xdevapi": "*"#}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="../css/animate.css" />
+    <link rel="stylesheet" href="../css/tiny-slider.css" />
+    <link rel="stylesheet" href="../css/glightbox.min.css" />
+    <link rel="stylesheet" href="../css/main.css" />
+
+
     <title>{% block title %}Blog{% endblock %}</title>
 </head>
 <body>
@@ -56,9 +70,112 @@
             </div>
         </div>
     </nav>
-    {% block body %}{% endblock %}
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
 </div>
+{% block navbar %}{% endblock %}
+
+{% block body %}{% endblock %}
+
+{% block footer %}
+    <!-- Start Footer Area -->
+    <footer class="footer mt-5">
+        <!-- Start Middle Top -->
+        <div class="footer-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Single Widget -->
+                        <div class="f-about single-footer">
+                            <div class="logo">
+                                <a href="index.html"><img src="assets/images/logo/footer-logo.svg" alt="Logo"></a>
+                            </div>
+                            <p>Start building your creative website with our awesome template Massive.</p>
+                            <div class="footer-social">
+                                <ul>
+                                    <li><a href="#"><i class="lni lni-instagram"></i></a></li>
+                                    <li><a href="#"><i class="lni lni-twitter"></i></a></li>
+                                    <li><a href="#"><i class="lni lni-linkedin"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Single Widget -->
+                        <div class="single-footer f-link">
+                            <h3>Pages</h3>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Our Services</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">Our Blog</a></li>
+                            </ul>
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Single Widget -->
+                        <div class="single-footer f-link">
+                            <h3>More Links</h3>
+                            <ul>
+                                <li><a href="#">Topics</a></li>
+                                <li><a href="#">Terms of Use</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">License</a></li>
+                            </ul>
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <!-- Single Widget -->
+                        <div class="single-footer f-link">
+                            <h3>Support</h3>
+                            <ul>
+                                <li><a href="#">Cookies</a></li>
+                                <li><a href="#">Forum</a></li>
+                                <li><a href="#">Support Team</a></li>
+                                <li><a href="#">Sitemap</a></li>
+                            </ul>
+                        </div>
+                        <!-- End Single Widget -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Footer Middle -->
+        <!-- Start Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="left">
+                                <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow"
+                                                               target="_blank">GrayGrids</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Footer Middle -->
+    </footer>
+    <!--/ End Footer Area -->
+{% endblock %}
+
+
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top btn-hover">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- ========================= JS here ========================= -->
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/count-up.min.js"></script>
+    <script src="../js/wow.min.js"></script>
+    <script src="../js/tiny-slider.js"></script>
+    <script src="../js/glightbox.min.js"></script>
+    <script src="../js/imagesloaded.min.js"></script>
+    <script src="../js/isotope.min.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>

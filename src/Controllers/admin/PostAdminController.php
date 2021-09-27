@@ -54,9 +54,6 @@ class PostAdminController extends AdminController
             if ($request->getMethod() == 'get') {
                 echo $this->render('blog/postForm.html.twig');
             }
-        } else {
-            Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
-            Application::$app->response->redirect('/', 401);
         }
     }
 

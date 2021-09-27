@@ -3,7 +3,6 @@
 {% block title %} {{ parent() }} - Accueil{% endblock %}
 
 {% block body %}
-    <h1>Accueil</h1>
 
     {% if not session['flash_messages']['error'] is empty %}
         <div class="alert alert-danger" role="alert">
@@ -14,4 +13,484 @@
             {{ session['flash_messages']['success'] }}
         </div>
     {% endif %}
+    <!-- Start Hero Area -->
+    <section class="hero-area index4">
+
+        <div class="hero-inner">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-lg-6 co-12">
+                        <div class="home-slider">
+                            <div class="hero-text">
+                                <h5 class="small wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">Hello There...</h5>
+                                <h1 class="wow fadeInUp" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;"><span>I am</span> Stiven Milner</h1>
+                                <ul class="wow fadeInUp" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+                                    <li>Web Developer</li>
+                                    <li>Graphics Designer</li>
+                                    <li>Ui/Ux Designer</li>
+                                </ul>
+                                <p class="wow fadeInUp" data-wow-delay=".9s" style="visibility: visible; animation-delay: 0.9s; animation-name: fadeInUp;">Lorem Ipsum is simply dummy text of the printing and typesetting <br> industry. Lorem Ipsum has been the industry's standard
+                                    <br>dummy text ever since.</p>
+                                <div class="button wow fadeInUp" data-wow-delay="1.1s" style="visibility: visible; animation-delay: 1.1s; animation-name: fadeInUp;">
+                                    <a href="about-us.html" class="btn">Hire Me Now!</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="personal-image wow fadeInRight" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+                            <img src="../images/hero/man.png" alt="#">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!--/ End Hero Area -->
+
+    <!-- Start Service Area -->
+    <section class="services section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title align-left">
+                        <span class="wow fadeInDown" data-wow-delay=".2s">Core Features</span>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Provide Awesome Service With Our Tools</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
+                            Ipsum available, but the majority have suffered alteration in some form.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="single-head">
+                <img class="service-patern wow fadeInLeft" data-wow-delay=".5s"
+                     src="../images/service/service-patern.png" alt="#">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="single-service wow fadeInUp" data-wow-delay=".2s">
+                            <h3><a href="service-single.html">Discover, Explore the Product</a></h3>
+                            <div class="icon">
+                                <i class="lni lni-microscope"></i>
+                            </div>
+                            <p>Discover, Explore & Understanding The Product</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="single-service wow fadeInUp" data-wow-delay=".4s">
+                            <h3><a href="service-single.html">Art Direction & Brand Strategy</a></h3>
+                            <div class="icon">
+                                <i class="lni lni-blackboard"></i>
+                            </div>
+                            <p>Art Direction & Brand Communication</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="single-service wow fadeInUp" data-wow-delay=".6s">
+                            <h3><a href="service-single.html">Product UX, Design & Development‎‎</a></h3>
+                            <div class="icon">
+                                <i class="lni lni-ux"></i>
+                            </div>
+                            <p>Digital Product UX, Design & Development</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="single-service wow fadeInUp" data-wow-delay=".8s">
+                            <h3><a href="service-single.html">Marketing Strategy & SEO Campaigns</a></h3>
+                            <div class="icon">
+                                <i class="lni lni-graph"></i>
+                            </div>
+                            <p>Marketing Strategy & SEO Campaigns</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /End Services Area -->
+    <!-- About Me Section -->
+    <section id="about-me" class="about-us index-4 section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <div class="about-left">
+                        <div class="section-title align-left">
+                            <span class="wow fadeInDown" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInDown;">my story</span>
+                            <h2 class="wow fadeInUp" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">About Me</h2>
+                            <p class="wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">We're a digital product and UX agency Strategy, design and development across all platforms.</p>
+                        </div>
+                        <div class="about-tab wow fadeInUp" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#t-tab1" role="tab" aria-selected="true">About Me</a></li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#t-tab2" role="tab" aria-selected="false">Experience</a></li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#t-tab3" role="tab" aria-selected="false">Education</a></li>
+                            </ul>
+
+                            <div class="tab-content" id="myTabContent">
+
+                                <div class="tab-pane fade active show" id="t-tab1" role="tabpanel">
+                                    <div class="tab-content">
+                                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla .Nemo en ipsam voluptatem quia voluptas sit asper.</p>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-12">
+                                                <ul>
+                                                    <li><span>Name : </span>Stiven Milner</li>
+                                                    <li><span>Age : </span>27 Years</li>
+                                                    <li><span>Nationality :</span>American</li>
+                                                    <li><span>Freelance :</span> Available</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <ul>
+                                                    <li><span>Address :</span> New York</li>
+                                                    <li><span>Phone :</span>+21621184010</li>
+                                                    <li><span>Email : </span>you@mail.com</li>
+                                                    <li><span>Skype : </span>steve.milner</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane fade" id="t-tab2" role="tabpanel">
+                                    <div class="tab-content">
+                                        <h3>UI/UX Designer <span> 2015 - 2017, Google INC | New York</span></h3>
+                                        <p>Faucibus sed tristique fames sed aliquet ultricies eget viverra arcu vitae faucibus diam consequat.</p>
+                                        <h3>Web Designer <span> 2017 - 2018, Facebook INC | New York</span></h3>
+                                        <p>Faucibus sed tristique fames sed aliquet ultricies eget viverra arcu vitae faucibus diam consequat.</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="tab-pane fade" id="t-tab3" role="tabpanel">
+                                    <div class="tab-content">
+                                        <h3>Stanford University <span> 2016 - 2017, Specialization Course | New
+York</span></h3>
+                                        <p>Faucibus sed tristique fames sed aliquet ultricies eget viverra arcu vitae faucibus diam consequat.</p>
+                                        <h3>Stanford University <span> 2017 - 2020, Bachelor Degree | New York</span>
+                                        </h3>
+                                        <p>Faucibus sed tristique fames sed aliquet ultricies eget viverra arcu vitae faucibus diam consequat, Molestie, a laoreet urna tempor vivamus vel gravida augue, quis imperdiet sem etiam sedio</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="about-right wow fadeInRight" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+                        <img src="../images/about/personal-pleople.png" alt="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of About Me Section -->
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="portfolio-section section">
+        <div id="container" class="container">
+            <div class="row">
+                <div class="col-lg-5 col-12">
+                    <div class="section-title align-left">
+                        <span class="wow fadeInDown" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInDown;">Latest Cases</span>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;"> My projects</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.</p>
+                    </div>
+                </div>
+                <div class="col-lg-7 col-12">
+                    <div class="portfolio-button-head">
+                        <div class="portfolio-btn-wrapper wow fadeInUp" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                            <button class="portfolio-btn active" data-filter="*">All</button>
+                            <button class="portfolio-btn" data-filter=".branding">Branding</button>
+                            <button class="portfolio-btn" data-filter=".marketing">Marketing</button>
+                            <button class="portfolio-btn" data-filter=".web">Web Design</button>
+                            <button class="portfolio-btn" data-filter=".graphic">Graphic Design</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row grid" style="position: relative; height: 1147.41px;">
+                <div class="col-lg-4 col-md-6 grid-item marketing" style="position: absolute; left: 0px; top: 0px;">
+                    <div class="portfolio-item-wrapper wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                        <div class="portfolio-img">
+                            <img src="../images/portfolio/img-1.jpg" alt="">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <div class="pf-content">
+                                <span class="category">Marketing</span>
+                                <h4><a href="#">Best Marketing tips &amp; tricks</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 grid-item marketing" style="position: absolute; left: 440px; top: 0px;">
+                    <div class="portfolio-item-wrapper wow fadeInUp" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                        <div class="portfolio-img">
+                            <img src="../images/portfolio/img-2.jpg" alt="">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <div class="pf-content">
+                                <span class="category">Marketing</span>
+                                <h4><a href="#">Unique Marketing tips &amp; tricks</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 grid-item web" style="position: absolute; left: 880px; top: 0px;">
+                    <div class="portfolio-item-wrapper wow fadeInUp" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                        <div class="portfolio-img">
+                            <img src="../images/portfolio/img-3.jpg" alt="">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <div class="pf-content">
+                                <span class="category">Web Design</span>
+                                <h4><a href="#">Best Web Design in 2023</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 grid-item branding" style="position: absolute; left: 440px; top: 373.328px;">
+                    <div class="portfolio-item-wrapper wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+                        <div class="portfolio-img">
+                            <img src="../images/portfolio/img-4.jpg" alt="">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <div class="pf-content">
+                                <span class="category">Branding</span>
+                                <h4><a href="#">Best Branding Solutions </a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 grid-item web" style="position: absolute; left: 0px; top: 442.656px;">
+                    <div class="portfolio-item-wrapper wow fadeInUp" data-wow-delay=".7s" style="visibility: visible; animation-delay: 0.7s; animation-name: fadeInUp;">
+                        <div class="portfolio-img">
+                            <img src="../images/portfolio/img-5.jpg" alt="">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <div class="pf-content">
+                                <span class="category">Web Design</span>
+                                <h4><a href="#">Best Web Design in 2023</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 grid-item graphic" style="position: absolute; left: 880px; top: 581.328px;">
+                    <div class="portfolio-item-wrapper wow fadeInUp" data-wow-delay=".8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInUp;">
+                        <div class="portfolio-img">
+                            <img src="../images/portfolio/img-6.jpg" alt="">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <div class="pf-content">
+                                <span class="category">Graphic Design</span>
+                                <h4><a href="#">Best Graphic Design in 2023</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 grid-item graphic" style="position: absolute; left: 440px; top: 792.703px;">
+                    <div class="portfolio-item-wrapper wow fadeInUp" data-wow-delay=".8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInUp;">
+                        <div class="portfolio-img">
+                            <img src="../images/portfolio/img-7.jpg" alt="">
+                        </div>
+                        <div class="portfolio-overlay">
+                            <div class="pf-content">
+                                <span class="category">Graphic Design</span>
+                                <h4><a href="#">Best Graphic Design in 2023</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Portfolio -->
+
+    <!-- Start Latest News Area -->
+    <div class="latest-news-area section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-title">
+                        <span class="wow fadeInDown" data-wow-delay=".2s">latest news</span>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Latest News & Blog</h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
+                            Ipsum available, but the majority have suffered alteration in some form.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12">
+                    <!-- Single News -->
+                    <div class="single-news wow fadeInUp" data-wow-delay=".2s">
+                        <div class="image">
+                            <img class="thumb" src="../images/blog/blog-grid1.jpg" alt="#">
+                            <div class="meta-details">
+                                <img src="../images/blog/author.jpg" alt="#"> <span>BY TIM NORTON</span>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <h4 class="title"><a href="blog-single-sidebar.html">Make your team a Design driven
+                                    company</a></h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard.</p>
+                        </div>
+                    </div>
+                    <!-- End Single News -->
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <!-- Single News -->
+                    <div class="single-news wow fadeInUp" data-wow-delay=".4s">
+                        <div class="image">
+                            <img class="thumb" src="../images/blog/blog-grid2.jpg" alt="#">
+                            <div class="meta-details">
+                                <img src="../images/blog/author.jpg" alt="#"> <span>BY TIM NORTON</span>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <h4 class="title"><a href="blog-single-sidebar.html">The newest web framework that changed
+                                    the world</a></h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard.</p>
+                        </div>
+                    </div>
+                    <!-- End Single News -->
+                </div>
+                <div class="col-lg-4 col-md-6 col-12">
+                    <!-- Single News -->
+                    <div class="single-news wow fadeInUp" data-wow-delay=".6s">
+                        <div class="image">
+                            <img class="thumb" src="../images/blog/blog-grid3.jpg" alt="#">
+                            <div class="meta-details">
+                                <img src="../images/blog/author.jpg" alt="#"> <span>BY TIM NORTON</span>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <h4 class="title"><a href="blog-single-sidebar.html">5 ways to improve user retention for
+                                    your startup</a></h4>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard.</p>
+                        </div>
+                    </div>
+                    <!-- End Single News -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Latest News Area -->
+
+    <!-- Start Contact Area -->
+    <section id="contact-us" class="contact-us section">
+        <div class="container">
+            <div class="contact-head wow fadeInUp" data-wow-delay=".4s">
+                <div class="row">
+                    <div class="col-lg-5 col-12">
+                        <div class="single-head">
+                            <div class="contant-inner-title">
+                                <h4>Contact Information</h4>
+                                <p>Business consulting excepteur sint occaecat cupidatat consulting non proident.</p>
+                            </div>
+                            <div class="single-info">
+                                <i class="lni lni-phone"></i>
+                                <ul>
+                                    <li>+522 672-452-1120</li>
+                                </ul>
+                            </div>
+                            <div class="single-info">
+                                <i class="lni lni-envelope"></i>
+                                <ul>
+                                    <li><a href="mailto:info@yourwebsite.com">example@yourwebsite.com</a></li>
+                                </ul>
+                            </div>
+                            <div class="single-info">
+                                <i class="lni lni-map"></i>
+                                <ul>
+                                    <li>KA-62/1, Travel Agency, 45 Grand Central Terminal, New York.</li>
+                                </ul>
+                            </div>
+                            <div class="contact-social">
+                                <h5>Follow Us on</h5>
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <span class="icon-1"><i class="lni lni-facebook-filled"></i></span>
+                                            <span class="icon-2"><i class="lni lni-facebook-filled"></i></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="icon-1"><i class="lni lni-twitter-original"></i></span>
+                                            <span class="icon-2"><i class="lni lni-twitter-original"></i></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="icon-1"><i class="lni lni-linkedin-original"></i></span>
+                                            <span class="icon-2"><i class="lni lni-linkedin-original"></i></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="icon-1"><i class="lni lni-instagram"></i></span>
+                                            <span class="icon-2"><i class="lni lni-instagram"></i></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="icon-1"><i class="lni lni-behance-original"></i></span>
+                                            <span class="icon-2"><i class="lni lni-behance-original"></i></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-12">
+                        <div class="form-main">
+                            <form class="form" method="post" action="assets/mail/mail.php">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <input name="name" type="text" placeholder="Your Name" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <input name="subject" type="text" placeholder="Your Subject"
+                                                   required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <input name="email" type="email" placeholder="Your Email"
+                                                   required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group">
+                                            <input name="phone" type="text" placeholder="Your Phone"
+                                                   required="required">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group message">
+                                            <textarea name="message" placeholder="Your Message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group button">
+                                            <button type="submit" class="btn ">Submit Message</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ End Contact Area -->
 {% endblock %}
