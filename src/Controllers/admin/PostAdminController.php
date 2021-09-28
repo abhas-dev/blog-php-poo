@@ -103,9 +103,9 @@ class PostAdminController extends AdminController
     {
         if ($this->isAdmin($response)) {
             if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
-            $this->postManager->delete($id);
-            Session::setFlash('success', "L'article à été supprimé avec succes");
-            $response->redirect('/secadmin/posts');
+                $this->postManager->delete($id);
+                Session::setFlash('success', "L'article à été supprimé avec succes");
+                $response->redirect('/secadmin/posts');
             }
         }
     }
