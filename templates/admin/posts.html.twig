@@ -36,6 +36,7 @@
                 <td>
                     <a href="/secadmin/{{ post.id }}/post-update" class="btn btn-warning">Modifier</a>
                     <form action="/secadmin/{{ post.id }}/post-remove" method="post" class="d-inline">
+                        <input type="hidden" name="token" value="{{ session['token'] }}"/>
                         <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>
                     </form>
 {#                    <a href="/secadmin/{{ post.id }}/post-remove" class="btn btn-danger">Supprimer</a>#}

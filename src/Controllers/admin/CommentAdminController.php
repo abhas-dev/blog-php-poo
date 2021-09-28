@@ -35,26 +35,23 @@ class CommentAdminController extends AdminController
     {
         if($this->isAdmin($response))
         {
-            $comment = $this->commentManager->find($id);
-            $comment->setIsApprouved($comment->getIsApprouved() ? 0 : 1);
-            $this->commentManager->update($comment);
-            $response->redirect('/secadmin/comments');
-        }
-        else{
-            Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
-            $response->redirect('/');
+            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+                $comment = $this->commentManager->find($id);
+                $comment->setIsApprouved($comment->getIsApprouved() ? 0 : 1);
+                $this->commentManager->update($comment);
+                $response->redirect('/secadmin/comments');
+            }
         }
     }
 
     public function remove(int $id, Request $request,Response $response)
     {
         if ($this->isAdmin($response)) {
-            $this->commentManager->delete($id);
-            Session::setFlash('success', "Le commentaire à été supprimé avec succes");
-            $response->redirect('/secadmin/comments');
-        } else {
-            Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
-            $response->redirect('/', 401);
+            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+                $this->commentManager->delete($id);
+                Session::setFlash('success', "Le commentaire à été supprimé avec succes");
+                $response->redirect('/secadmin/comments');
+            }
         }
     }
 }

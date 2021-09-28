@@ -4,9 +4,9 @@ namespace App\Controllers;
 
 use App\Application;
 use App\Data\Managers\UserManager;
-use App\Data\Models\LoginModel;
 use App\Data\Models\UserModel;
 use App\Forms\LoginForm;
+use App\Forms\RegisterForm;
 use App\Request;
 use App\Response;
 use App\Session;
@@ -25,11 +25,12 @@ class AuthController extends Controller
     {
         if(!isset($_SESSION['auth'])){
             unset($_SESSION['flash_messages']['error']);
-            $loginForm = new LoginForm();
+
             if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+                $loginForm = new LoginForm();
                 $body = $request->getBody();
-//            $body['password'] = password_hash($body['password'], PASSWORD_ARGON2I);
                 $loginForm->objectifyForm($body);
+
                 if ($loginForm->validate()) {
                     $user = $this->userManager->findBy(['email' => $loginForm->getEmail()]);
                     if(!$user)
@@ -64,19 +65,27 @@ class AuthController extends Controller
 
     public function register(Request $request, Response $response)
     {
-        $registerModel = new UserModel();
-
         if ($request->getMethod() == 'post') {
+            $registerForm = new RegisterForm();
             $body = $request->getBody();
-            $registerModel->objectifyForm($body);
-            if ($registerModel->validate()) {
+            $registerForm->objectifyForm($body);
+            if ($registerForm->validate()) {
+
+                $registerModel = new UserModel();
+                $registerModel->setFirstname($registerForm->getFirstname());
+                $registerModel->setLastname($registerForm->getLastname());
+                $registerModel->setUsername($registerForm->getUsername());
+                $registerModel->setEmail($registerForm->getEmail());
+                $registerModel->setPassword(password_hash($registerForm->getPassword(),PASSWORD_ARGON2I));
+                $registerModel->setCreatedAt((new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'))));
+
                 $this->userManager->save($registerModel);
                 Session::setFlash('success', 'Le compte a bien été enregistré');
                 $response->redirect('/');
             }
 
-            $errors = $registerModel->getErrors();
-            echo $this->render('auth/register.html.twig', compact('errors', 'registerModel'));
+            $errors = $registerForm->getErrors();
+            echo $this->render('auth/register.html.twig', compact('errors', 'registerForm'));
         }
 
         if ($request->getMethod() == 'get'){

@@ -27,9 +27,9 @@ abstract class Form
 
     public function objectifyForm($data): self
     {
-        if(empty($data)){
-            throw new \Exception("Le formulaire n'est pas correct ! ");
-        }
+//        if(empty($data)){
+//            throw new \Exception("Le formulaire n'est pas correct ! ");
+//        }
         $this->originalData = $data;
         if(property_exists($this, 'createdAt'))
         {
@@ -60,10 +60,6 @@ abstract class Form
                 break;
             case "string":
                 $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($value);
-                break;
-            case "datetime":
-                $datetime = \DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $value);
-                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
                 break;
         }
     }

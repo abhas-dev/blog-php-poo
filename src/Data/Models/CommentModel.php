@@ -10,15 +10,15 @@ class CommentModel extends Model
 
     private ?int $id = null;
 
-    private ?string $content = '';
+    private string $content;
 
-    private ?string $username = '';
+    private string $username;
 
     private int $isApprouved = 0;
 
-    private ?int $idPost = null;
+    private int $idPost;
 
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     public static function metadata(): array
     {
@@ -134,13 +134,6 @@ class CommentModel extends Model
     public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
-    }
-
-    public function rules(): array
-    {
-        // TODO: Implement rules() method.
-
-        return [];
     }
 
     /**

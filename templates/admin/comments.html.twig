@@ -21,6 +21,7 @@
         <th>Commentaire</th>
         <th>Publié le</th>
         <th>Approuvé</th>
+        <th>Article</th>
         <th>Actions</th>
         </thead>
         <tbody>
@@ -31,11 +32,14 @@
                 <td>{{ comment.content }}</td>
                 <td>{{ comment.createdAt|date("d/m/Y") }}</td>
                 <td>{{ comment.isApprouved }}</td>
+                <td>{{ comment.idPost }}</td>
                 <td>
                     <form action="/secadmin/{{ comment.id }}/comment-approuve" method="post" class="d-inline">
+                        <input type="hidden" name="token" value="{{ session['token'] }}"/>
                         <button type="submit" name="delete" class="btn btn-warning">Approuver</button>
                     </form>
                     <form action="/secadmin/{{ comment.id }}/comment-remove" method="post" class="d-inline">
+                        <input type="hidden" name="token" value="{{ session['token'] }}"/>
                         <button type="submit" name="delete" class="btn btn-danger">Supprimer</button>
                     </form>
                 </td>

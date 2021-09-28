@@ -4,8 +4,10 @@ namespace App\Controllers;
 
 use App\Data\Managers\CommentManager;
 use App\Data\Models\CommentModel;
+use App\Forms\CommentForm;
 use App\Request;
 use App\Response;
+use App\Session;
 
 class CommentController extends Controller
 {
@@ -20,11 +22,20 @@ class CommentController extends Controller
     public function insert(int $id, Request $request, Response $response)
     {
         try {
-            $comment = new CommentModel();
+            $commentForm = new CommentForm();
+            $commentModel = new CommentModel();
             $body = $request->getBody();
-            $comment->objectifyForm($body);
-            $comment->setIdPost($id);
-            $this->commentManager->save($comment);
+            $commentForm->objectifyForm($body);
+            if($commentForm->validate())
+            {
+                $commentModel->setIdPost($id);
+                $commentModel->setUsername($commentForm->getAuthor());
+                $commentModel->setContent($commentForm->getContent());
+                $commentModel->setCreatedAt((new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'))));
+                $this->commentManager->save($commentModel);
+                Session::setFlash('success', 'Votre commentaire apparaitra quand il sera approuvé par un administrateur');
+                $response->redirect("/blog/$id");
+            }
             $response->redirect("/blog/$id");
         } catch (\Exception $e) {
             var_dump($e);
