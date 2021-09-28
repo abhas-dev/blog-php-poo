@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Application;
 use App\Data\Managers\UserManager;
-use App\Data\Models\LoginModel;
 use App\Data\Models\UserModel;
 use App\Forms\LoginForm;
 use App\Forms\RegisterForm;

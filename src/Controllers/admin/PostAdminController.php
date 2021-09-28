@@ -3,9 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\AdminController;
-use App\Data\Managers\CommentManager;
 use App\Data\Managers\PostManager;
-use App\Data\Managers\UserManager;
 use App\Data\Models\PostModel;
 use App\Forms\PostForm;
 use App\Request;

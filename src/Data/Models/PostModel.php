@@ -225,13 +225,4 @@ class PostModel extends Model
     {
         $this->updatedAt = $updatedAt;
     }
-
-//    public function rules(): array
-//    {
-//        return [
-//            'title' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 5]],
-//            'content' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 100]]
-//        ];
-//    }
-
 }
