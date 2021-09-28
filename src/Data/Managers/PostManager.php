@@ -32,8 +32,8 @@ class PostManager extends Manager
         $post = $this->findPostBySlug($id);
         $tags = $this->getTags($id);
         $post->setTags($tags);
-        $sql = "SELECT `id`, `content`, `username`,`is_approuved`,`created_at`,`id_post` FROM `comment` WHERE id_post = ?";
-        $query = $this->createQuery($sql, [$id]);
+        $sql = "SELECT `id`, `content`, `username`,`is_approuved`,`created_at`,`id_post` FROM `comment` WHERE id_post = ? AND `is_approuved` = ?";
+        $query = $this->createQuery($sql, [$id, 1]);
         $data = $query->fetchAll();
         if ($data) {
             foreach ($data as $comment) {

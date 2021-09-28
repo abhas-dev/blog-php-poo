@@ -4,6 +4,15 @@
 {% block title %} {{ post.title }} - {{ parent() }}{% endblock %}
 
 {% block body %}
+    {% if not session['flash_messages']['error'] is empty %}
+        <div class="alert alert-danger" role="alert">
+            {{ session['flash_messages']['error'] }}
+        </div>
+    {% elseif not session['flash_messages']['success'] is empty %}
+        <div class="alert alert-success" role="alert">
+            {{ session['flash_messages']['success'] }}
+        </div>
+    {% endif %}
 
     <section class="section blog-single">
         <div class="container">
@@ -36,7 +45,7 @@
                                 </li>
                             </ul>
                             <p>
-                                {{ post.content }}
+                                {{ post.content|raw }}
                             </p>
 
                             <div class="post-tags-media">

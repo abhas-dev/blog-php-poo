@@ -124,7 +124,7 @@ class PostModel extends Model
      */
     public function setContent(string $content): PostModel
     {
-        $this->content = $content;
+        $this->content = htmlspecialchars_decode($content);
         return $this;
     }
 

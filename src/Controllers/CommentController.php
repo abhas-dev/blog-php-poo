@@ -7,6 +7,7 @@ use App\Data\Models\CommentModel;
 use App\Forms\CommentForm;
 use App\Request;
 use App\Response;
+use App\Session;
 
 class CommentController extends Controller
 {
@@ -32,6 +33,7 @@ class CommentController extends Controller
                 $commentModel->setContent($commentForm->getContent());
                 $commentModel->setCreatedAt((new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'))));
                 $this->commentManager->save($commentModel);
+                Session::setFlash('success', 'Votre commentaire apparaitra quand il sera approuvé par un administrateur');
                 $response->redirect("/blog/$id");
             }
             $response->redirect("/blog/$id");
