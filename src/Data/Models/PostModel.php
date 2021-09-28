@@ -9,8 +9,8 @@ class PostModel extends Model
     /** @var int|null */
     protected ?int $id = null;
 
-    /** @var string|null  */
-    protected ?string $introduction = '';
+    /** @var string */
+    protected string $introduction;
 
     /** @var string */
     protected string $title;
@@ -27,8 +27,8 @@ class PostModel extends Model
     /** @var array  */
     protected array $comments = [];
 
-    /** @var \DateTimeImmutable|null */
-    protected ?\DateTimeImmutable $createdAt = null;
+    /** @var \DateTimeImmutable */
+    protected \DateTimeImmutable $createdAt;
 
     /** @var \DateTimeImmutable|null */
     protected ?\DateTimeImmutable $updatedAt = null;
@@ -187,9 +187,9 @@ class PostModel extends Model
     }
 
     /**
-     * @param string|null $introduction
+     * @param string $introduction
      */
-    public function setIntroduction(?string $introduction): void
+    public function setIntroduction(string $introduction): void
     {
         $this->introduction = $introduction;
     }
@@ -226,13 +226,12 @@ class PostModel extends Model
         $this->updatedAt = $updatedAt;
     }
 
-    public function rules(): array
-    {
-        // TODO: Implement rules() method.
-        return [
-            'title' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 5]],
-            'content' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 100]]
-        ];
-    }
+//    public function rules(): array
+//    {
+//        return [
+//            'title' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 5]],
+//            'content' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 100]]
+//        ];
+//    }
 
 }

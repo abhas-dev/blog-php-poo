@@ -26,6 +26,8 @@
             <label for="avatar" class="form-label">Image</label>
             <input type="file" class="form-control" id="image" name="image">
         </div>
+        <input type="hidden" name="token" value="{{ session['token'] }}"/>
+        <br/>
         <button type="submit" class="btn btn-primary">Envoyer</button>
     </form>
 

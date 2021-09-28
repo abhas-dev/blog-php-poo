@@ -61,10 +61,6 @@ abstract class Form
             case "string":
                 $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($value);
                 break;
-            case "datetime":
-                $datetime = \DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $value);
-                $this->{sprintf("set%s", ucfirst($this::metadata()["columns"][$column]["property"]))}($datetime);
-                break;
         }
     }
 

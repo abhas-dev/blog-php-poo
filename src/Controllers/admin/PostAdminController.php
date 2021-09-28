@@ -7,6 +7,7 @@ use App\Data\Managers\CommentManager;
 use App\Data\Managers\PostManager;
 use App\Data\Managers\UserManager;
 use App\Data\Models\PostModel;
+use App\Forms\PostForm;
 use App\Request;
 use App\Response;
 use App\Session;
@@ -33,26 +34,33 @@ class PostAdminController extends AdminController
     public function insert(Request $request, Response $response)
     {
         if ($this->isAdmin($response)) {
-            if ($request->getMethod() == 'post') {
+            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
                 try {
-                    $post = new PostModel();
+                    $postModel = new PostModel();
+                    $postForm = new PostForm();
                     $body = $request->getBody();
-                    $post->objectifyForm($body);
-                    $post->setIdUser($_SESSION['auth']['id']);
-                    if (!$post->validate()) {
-                        $errors = $post->getErrors();
-                        echo $this->render('/blog/postForm.html.twig', compact('errors', 'post'));
+                    $postForm->objectifyForm($body);
+                    if (!$postForm->validate()) {
+                        $errors = $postForm->getErrors();
+                        echo $this->render('/admin/postForm.html.twig', compact('errors', 'postForm'));
                     } else {
-                        $this->postManager->save($post);
+                        $postModel->setIdUser($_SESSION['auth']['id']);
+                        $postModel->setTitle($postForm->getTitle());
+                        $postModel->setIntroduction(substr($postForm->getContent(), 0, 100));
+                        $postModel->setContent($postForm->getContent());
+                        $datetime = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
+                        $postModel->setCreatedAt($datetime);
+
+                        $this->postManager->save($postModel);
                         Session::setFlash('success', "L'article a été crée avec succes");
                         $response->redirect('/secadmin/posts');
                     }
                 } catch (\Exception $e) {
-                    var_dump($e);
+                    echo $e;
                 }
             }
             if ($request->getMethod() == 'get') {
-                echo $this->render('blog/postForm.html.twig');
+                echo $this->render('/admin/postForm.html.twig');
             }
         }
     }
@@ -72,40 +80,36 @@ class PostAdminController extends AdminController
                 $response->redirect('/');
             }
 
-            if ($request->getMethod() == 'post') {
+            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
                 $body = $request->getBody();
-                $updatedPost = new PostModel();
-                $updatedPost->objectifyForm($body);
-                $updatedPost->setIntroduction('aaa');
-                $updatedPost->setId($post->getId());
-                $updatedPost->setIdUser($post->getIdUser());
-                $updatedPost->setCreatedAt($post->getCreatedAt());
-                $updatedPost->setUpdatedAt((new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'))));
-                if ($updatedPost->validate()) {
-                    $this->postManager->update($updatedPost);
+                $updatedForm = new PostForm();
+                $updatedForm->objectifyForm($body);
+
+                if ($updatedForm->validate()) {
+                    $post->setIntroduction(substr($updatedForm->getContent(), 0, 100));
+                    $post->setTitle($updatedForm->getTitle());
+                    $post->setContent($updatedForm->getContent());
+                    $post->setUpdatedAt((new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'))));
+
+                    $this->postManager->update($post);
                     Session::setFlash('success', "L'article a été modifié avec succes");
                     $response->redirect('/secadmin/posts');
-//                    echo $this->render('blog/index.html.twig', compact('post'));
                 }
             }
             if ($request->getMethod() == 'get') {
-                echo $this->render('blog/postForm.html.twig', compact('post'));
+                echo $this->render('/admin/postForm.html.twig', compact('post'));
             }
-        } else {
-            Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
-            $response->redirect('/', 401);
         }
     }
 
     public function remove(int $id, Request $request, Response $response)
     {
         if ($this->isAdmin($response)) {
+            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
             $this->postManager->delete($id);
             Session::setFlash('success', "L'article à été supprimé avec succes");
             $response->redirect('/secadmin/posts');
-        } else {
-            Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
-            $response->redirect('/', 401);
+            }
         }
     }
 }
