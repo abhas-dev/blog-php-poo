@@ -8,7 +8,7 @@ use App\Forms\Form;
 
 abstract class Model
 {
-    
+
     /** @var array  */
     private $originalData = [];
 

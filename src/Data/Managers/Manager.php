@@ -91,7 +91,6 @@ abstract class Manager{
         $values = [];
         foreach(array_keys($this->metadata["columns"]) as $column)
         {
-            if($column !== 'confirmationPassword'){
                 // On rempli les ? dans un array
                 $question[] = "?";
                 // On recupere les getters puis la valeur
@@ -102,7 +101,6 @@ abstract class Manager{
                 $values[] = $sqlValue;
                 // On enregistre le nom des champs
                 $champs[] = $column;
-            }
         }
         $sql = sprintf("INSERT INTO %s (%s) VALUES (%s)", $this->metadata["table"], implode(', ', $champs), implode(", ", $question));
         $model->setPrimaryKey($this->database->lastInsertId());
@@ -118,7 +116,6 @@ abstract class Manager{
         // On boucle pour eclater le tableau
         foreach(array_keys($this->metadata["columns"]) as $column)
         {
-            if($column !== 'confirmationPassword'){
                 // On recupere les getters puis la valeur
                 $sqlValue = $model->getSQLValueByColumn($column);
                 // On enregistre les datas qu'on va mettre en bdd dans un array
@@ -127,7 +124,6 @@ abstract class Manager{
                 $values[$column] = $sqlValue;
                 // On enregistre le nom des champs
                 $champs[] = sprintf("%s = :%s", $column, $column);
-            }
         }
 //        $values['id'] = $model->getId();
 

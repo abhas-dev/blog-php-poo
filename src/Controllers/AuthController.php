@@ -26,11 +26,12 @@ class AuthController extends Controller
     {
         if(!isset($_SESSION['auth'])){
             unset($_SESSION['flash_messages']['error']);
-            $loginForm = new LoginForm();
+
             if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+                $loginForm = new LoginForm();
                 $body = $request->getBody();
-//            $body['password'] = password_hash($body['password'], PASSWORD_ARGON2I);
                 $loginForm->objectifyForm($body);
+
                 if ($loginForm->validate()) {
                     $user = $this->userManager->findBy(['email' => $loginForm->getEmail()]);
                     if(!$user)
