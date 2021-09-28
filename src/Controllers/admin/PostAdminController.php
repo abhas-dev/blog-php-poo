@@ -48,8 +48,7 @@ class PostAdminController extends AdminController
                         $postModel->setTitle($postForm->getTitle());
                         $postModel->setIntroduction(substr($postForm->getContent(), 0, 100));
                         $postModel->setContent($postForm->getContent());
-                        $datetime = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
-                        $postModel->setCreatedAt($datetime);
+                        $postModel->setCreatedAt((new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'))));
 
                         $this->postManager->save($postModel);
                         Session::setFlash('success', "L'article a été crée avec succes");

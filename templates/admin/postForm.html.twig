@@ -1,4 +1,4 @@
-{% extends 'layouts/main.html.twig' %}
+{% extends 'layouts/admin_layout.html.twig' %}
 
 {% block title %} {{ parent() }} - Edition d'un Article{% endblock %}
 
@@ -16,7 +16,7 @@
 
         <div class="mb-3">
             <label for="content" class="form-label">Contenu</label>
-            <textarea class="form-control {{ post.hasError('content') ? ' is-invalid' : '' }}" id="content" name="content">{{ post.content ?? '' }}</textarea>
+            <textarea class="form-control {{ post.hasError('content') ? ' is-invalid' : '' }}" id="content" name="content" rows="10">{{ post.content ?? '' }}</textarea>
             <div id="validationFirstname" class="invalid-feedback">
                 {{ post.getFirstError('content') }}
             </div>

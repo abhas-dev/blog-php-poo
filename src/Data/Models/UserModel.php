@@ -12,22 +12,19 @@ class UserModel extends Model
     private ?int $id = null;
 
     /** @var string  */
-    protected ?string $username = null;
+    protected string $username;
 
     /** @var string  */
-    protected ?string $email = null;
+    protected string $email;
 
     /** @var string  */
-    protected ?string $password = null;
+    protected string $password;
 
     /** @var string  */
-    public ?string $confirmationPassword = null;
+    protected string $firstname;
 
     /** @var string  */
-    protected ?string $firstname = null;
-
-    /** @var string  */
-    protected ?string $lastname = null;
+    protected string $lastname;
 //
 //    /** @var string  */
 //    protected string $role = "user";
@@ -35,6 +32,7 @@ class UserModel extends Model
     /** @var bool */
     protected bool $isActive = false;
 
+    /** @var int|null  */
     protected ?int $isAdmin = 0;
 
     /** @var int  */
@@ -73,10 +71,6 @@ class UserModel extends Model
                 "password"        => [
                     "type"     => "string",
                     "property" => "password"
-                ],
-                "confirmationPassword"        => [
-                    "type"     => "string",
-                    "property" => "confirmationPassword"
                 ],
                 "firstname"        => [
                     "type"     => "string",
@@ -174,22 +168,6 @@ class UserModel extends Model
     /**
      * @return string
      */
-    public function getConfirmationPassword(): ?string
-    {
-        return $this->confirmationPassword;
-    }
-
-    /**
-     * @param string $confirmationPassword
-     */
-    public function setConfirmationPassword(?string $confirmationPassword): void
-    {
-        $this->confirmationPassword = $confirmationPassword;
-    }
-
-    /**
-     * @return string
-     */
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -277,35 +255,10 @@ class UserModel extends Model
     }
 
     /**
-     * @param \DateTimeImmutable|null $createdAt
+     * @param \DateTimeImmutable $createdAt
      */
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
-
-    public function encryptPassword(): string
-    {
-        return $this->password = password_hash($this->password, PASSWORD_ARGON2I);
-    }
-
-    public function objectifyForm($data): self
-    {
-        $this->setCreatedAt((new \DateTimeImmutable));
-        return parent::objectifyForm($data);
-    }
-
-
-    public function rules(): array
-    {
-        return [
-            'username' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 4]],
-            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => self::class]],
-            'firstname' => [self::RULE_REQUIRED],
-            'lastname' => [self::RULE_REQUIRED],
-            'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8], [self::RULE_MAX, 'max' => 24]],
-            'confirmationPassword' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']],
-        ];
-    }
-
 }

@@ -21,12 +21,4 @@ class UserManager extends Manager
     {
         return UserModel::class;
     }
-
-    public function save(Model &$model)
-    {
-        $model->encryptPassword();
-//        $model->setStatus($model::STATUS_INACTIVE);
-        return parent::save($model);
-    }
-
 }
