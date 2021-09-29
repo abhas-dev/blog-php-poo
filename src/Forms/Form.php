@@ -27,10 +27,6 @@ abstract class Form
 
     public function objectifyForm($data): self
     {
-//        if(empty($data)){
-//            throw new \Exception("Le formulaire n'est pas correct ! ");
-//        }
-        $this->originalData = $data;
         if(property_exists($this, 'createdAt'))
         {
             $datetime = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
@@ -41,7 +37,6 @@ abstract class Form
                 $this->objectifyFormProperty($column, $value);
             }
         }
-
         return $this;
     }
 

@@ -10,20 +10,13 @@ abstract class Model
 {
 
     /** @var array  */
-    private $originalData = [];
+    public array $orignalData = [];
 
     /**
      * @return array
      */
     abstract public static function metadata(): array;
 
-    /**
-     * @return array
-     */
-    public function getErrors(): array
-    {
-        return $this->errors;
-    }
 
     /**
      * @param $value

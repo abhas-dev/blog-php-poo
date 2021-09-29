@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\AdminController;
+use App\Data\Managers\Manager;
 use App\Data\Managers\PostManager;
 use App\Data\Models\PostModel;
 use App\Forms\PostForm;
@@ -12,6 +13,9 @@ use App\Session;
 
 class PostAdminController extends AdminController
 {
+
+    protected Manager $postManager;
+
     public function __construct()
     {
         $this->postManager = new PostManager();
