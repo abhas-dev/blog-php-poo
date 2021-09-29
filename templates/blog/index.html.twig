@@ -46,7 +46,9 @@
                                 <img class="thumb" src="../images/blog/blog-grid1.jpg" alt="#">
                             </div>
                             <div class="content-body">
-                                <h4 class="title"><a href="blog/{{ post.id }}">{{ post.title }}</a></h4>
+                                <h4 class="title"><a href="blog/{{ post.id }}">{{ post.title }}</a> </h4>
+                                <small>Derniere modification le {{ post.updatedAt|date("d/m/Y à h:i")}}</small>
+
                                 <p>{{ post.introduction }}</p>
                             </div>
                         </div>

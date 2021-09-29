@@ -137,7 +137,7 @@ class PostModel extends Model
     }
 
     /**
-     * @param array $tag
+     * @param array $tags
      */
     public function setTags(array $tags): void
     {
