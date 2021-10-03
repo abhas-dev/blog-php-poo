@@ -25,7 +25,7 @@ class PostAdminController extends AdminController
         unset($_SESSION['flash_messages']);
         if ($this->redirectIfNotAdmin($response)) {
             $posts = $this->postManager->findAll();
-            echo $this->render('/admin/posts.html.twig', compact('posts'));
+            $this->render('/admin/posts.html.twig', compact('posts'));
         } else {
             Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
             $response->redirect('/');
@@ -43,7 +43,7 @@ class PostAdminController extends AdminController
                     $postForm->objectifyForm($body);
                     if (!$postForm->validate()) {
                         $errors = $postForm->getErrors();
-                        echo $this->render('/admin/postForm.html.twig', compact('errors', 'postForm'));
+                        $this->render('/admin/postForm.html.twig', compact('errors', 'postForm'));
                     } else {
                         $postModel->setIdUser($_SESSION['auth']['id']);
                         $postModel->setTitle($postForm->getTitle());
@@ -60,7 +60,7 @@ class PostAdminController extends AdminController
                 }
             }
             if ($request->getMethod() == 'get') {
-                echo $this->render('/admin/postForm.html.twig');
+                $this->render('/admin/postForm.html.twig');
             }
         }
     }
@@ -68,7 +68,7 @@ class PostAdminController extends AdminController
     public function modify(int $id, Request $request, Response $response)
     {
         if ($this->redirectIfNotAdmin($response)) {
-            $id = intval($id);
+            $id = (int)$id;
             $post = new PostModel();
             $post = $this->postManager->find($id);
             if (!$post) {
@@ -97,7 +97,7 @@ class PostAdminController extends AdminController
                 }
             }
             if ($request->getMethod() == 'get') {
-                echo $this->render('/admin/postForm.html.twig', compact('post'));
+                $this->render('/admin/postForm.html.twig', compact('post'));
             }
         }
     }
