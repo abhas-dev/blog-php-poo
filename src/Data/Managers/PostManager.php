@@ -43,14 +43,13 @@ class PostManager extends Manager
             foreach ($data as $comment) {
                 $post->setComments((new CommentModel())->hydrate($comment));
             }
-        }
-        else{
+        } else {
             throw new \Exception('requete ratée');
         }
 
         return $post;
     }
-    
+
     private function getTags(int $id)
     {
         $sql = "
@@ -89,4 +88,3 @@ class PostManager extends Manager
 //        return $post;
 //    }
 }
-
