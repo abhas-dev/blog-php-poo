@@ -23,6 +23,7 @@
             <th>Publié le</th>
             <th>Par</th>
             <th>Mis a jour le</th>
+            <th>Lien</th>
             <th>Actions</th>
         </thead>
         <tbody>
@@ -33,6 +34,7 @@
                 <td>{{ post.createdAt|date("d/m/Y") }}</td>
                 <td>{{ post.idUser }}</td>
                 <td>{{ post.updatedAt|date("d/m/Y") }}</td>
+                <td><a href="/blog/{{ post.id }}">Article</a></td>
                 <td>
                     <a href="/secadmin/{{ post.id }}/post-update" class="btn btn-warning">Modifier</a>
                     <form action="/secadmin/{{ post.id }}/post-remove" method="post" class="d-inline">

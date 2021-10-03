@@ -59,13 +59,13 @@ abstract class Model
      * @return $this
      * @throws \Exception
      */
-    public function hydrate($datas): self
+    public function hydrate($data): self
     {
-        if(empty($datas)){
+        if(empty($data)){
             throw new \Exception("Les données sont incorrects ! ");
         }
-        $this->originalData = $datas;
-        foreach($datas as $column => $value) {
+        $this->originalData = $data;
+        foreach($data as $column => $value) {
             $this->hydrateProperty($column, $value);
         }
         return $this;

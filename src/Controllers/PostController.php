@@ -28,8 +28,8 @@ class PostController extends Controller
     public function show(int $id)
     {
         unset($_SESSION['flash_messages']);
-        $id = intval($id);
-        $post = $this->postManager->findPostBySlugWithValidatedComments($id);
+        $id = (int)$id;
+        $post = $this->postManager->findPostByIdWithValidateComment($id);
         $this->render('blog/show.html.twig', compact('post'));
     }
 }

@@ -21,6 +21,9 @@ class PostModel extends Model
     /** @var int  */
     protected int $idUser;
 
+    /** @var string  */
+    protected string $author;
+
     /** @var array|null */
     protected ?array $tags = [];
 
@@ -61,6 +64,10 @@ class PostModel extends Model
                 "id_user"      => [
                     "type"     => "integer",
                     "property" => "idUser"
+                ],
+                "author"      => [
+                    "type"     => "string",
+                    "property" => "author"
                 ],
                 "created_at"        => [
                     "type"     => "datetime",
@@ -158,6 +165,22 @@ class PostModel extends Model
     public function setIdUser(int|string $idUser): void
     {
         $this->idUser = $idUser;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAuthor(): string
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param string $author
+     */
+    public function setAuthor(string $author): void
+    {
+        $this->author = $author;
     }
 
     /**

@@ -80,7 +80,7 @@ class PostAdminController extends AdminController
                 $response->redirect('/');
             }
 
-            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+            if ($request->getMethod() == 'post' && isset($_POST['token']) && Session::getSession()['token'] === $_POST['token']) {
                 $body = $request->getBody();
                 $updatedForm = new PostForm();
                 $updatedForm->objectifyForm($body);
@@ -105,7 +105,7 @@ class PostAdminController extends AdminController
     public function remove(int $id, Request $request, Response $response)
     {
         if ($this->redirectIfNotAdmin($response)) {
-            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+            if ($request->getMethod() == 'post' && isset($_POST['token']) && Session::getSession()['token'] === $_POST['token']) {
             $this->postManager->delete($id);
             Session::setFlash('success', "L'article à été supprimé avec succes");
             $response->redirect('/secadmin/posts');
