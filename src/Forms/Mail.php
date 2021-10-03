@@ -4,7 +4,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception as PHPMailerException;
 
-
 $mail = new PHPMailer(true);
 $mail->setLanguage('fr');
 
@@ -45,5 +44,4 @@ try {
     $mail->send();
 } catch (PHPMailerException $e) {
     echo "Le message n'a pas pu etre envoyé. Erreur: {$mail->ErrorInfo}";
-
 }

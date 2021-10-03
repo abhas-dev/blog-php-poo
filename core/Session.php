@@ -10,8 +10,7 @@ class Session
     {
         session_start();
 
-        if(!isset($_SESSION['token']))
-        {
+        if (!isset($_SESSION['token'])) {
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
 //        $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
@@ -61,14 +60,11 @@ class Session
 
     public function getFlash($key)
     {
-
     }
     public static function setCsrfToken()
     {
-        if($_SESSION['token'] === null)
-        {
+        if ($_SESSION['token'] === null) {
             $_SESSION['token'] = bin2hex(random_bytes(32));
-
         }
     }
 }

@@ -31,7 +31,7 @@ class AdminController extends Controller
 //        echo $this->render('/admin/users.html.twig', compact('comments'));
 //    }
 
-// TODO: changement ici
+    // TODO: changement ici
     protected function redirectIfNotAdmin(Response $response)
     {
         if (isset(Session::getSession()['auth']) && Session::getSession()['auth']['admin'] === 1) {

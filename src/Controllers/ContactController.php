@@ -15,8 +15,7 @@ class ContactController extends Controller
         $body = $request->getBody();
         $contactForm = new ContactForm();
         $contactForm->objectifyForm($body);
-        if ($contactForm->validate())
-        {
+        if ($contactForm->validate()) {
             $mail = new ContactMail();
             $mail->setSubject($contactForm->getSubject());
             $mail->setFrom($contactForm->getEmail());
@@ -25,14 +24,11 @@ class ContactController extends Controller
                 $mail->sendMail();
                 Session::setFlash('success', 'Le message a été envoyé avec succes');
                 $response->redirect('/', 302);
-            } catch (\Exception $e)
-            {
-                if($_ENV['ENV'] === 'dev'){
+            } catch (\Exception $e) {
+                if ($_ENV['ENV'] === 'dev') {
                     echo $e;
                     die();
-                }
-                else if($_ENV['ENV'] === 'prod')
-                {
+                } elseif ($_ENV['ENV'] === 'prod') {
                     Session::setFlash('error', "Une erreur interne s'est produite");
                     $response->redirect('/');
 //                $this->render('/general/_500.html.twig');
@@ -42,5 +38,4 @@ class ContactController extends Controller
         $errors = $contactForm->getErrors();
         $this->render('general/home.html.twig', compact('errors', 'contactForm'));
     }
-
 }
