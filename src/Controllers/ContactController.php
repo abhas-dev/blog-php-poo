@@ -21,12 +21,19 @@ class ContactController extends Controller
             $mail->setSubject($contactForm->getSubject());
             $mail->setFrom($contactForm->getEmail());
             $mail->setMessage($contactForm->getMessage());
-            $mail->sendMail();
-            Session::setFlash('success', 'Le message a été envoyé avec succes');
-            $response->redirect('/', 302);
+            try {
+                $mail->sendMail();
+                Session::setFlash('success', 'Le message a été envoyé avec succes');
+                $response->redirect('/', 302);
+            } catch (\Exception $e)
+            {
+                var_dump($e);
+             // return template erreur
+                //  ou setflash erreur + redirection sur /
+            }
         }
         $errors = $contactForm->getErrors();
-        echo $this->render('general/home.html.twig', compact('errors', 'contactForm'));
+        $this->render('general/home.html.twig', compact('errors', 'contactForm'));
     }
 
 }

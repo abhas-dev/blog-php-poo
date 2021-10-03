@@ -48,9 +48,11 @@ class Router
                 return $route;
             }
         }
-
         // Sinon on soulève une erreur
-        throw new RouterException("Aucune route ne correspond à la requete !");
+//        http_response_code(404);
+//        include('my_404.php'); // provide your own HTML for the error page
+        return end($this->routes['get']);
+//        throw new RouterException("Aucune route ne correspond à la requete !");
     }
 
     /**

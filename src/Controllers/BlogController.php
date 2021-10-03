@@ -9,6 +9,6 @@ class BlogController extends Controller
     public function index()
     {
         unset($_SESSION['flash_messages']);
-        echo $this->render('general/home.html.twig');
+        $this->render('general/home.html.twig');
     }
 }

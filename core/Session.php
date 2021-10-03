@@ -5,15 +5,12 @@ namespace App;
 class Session
 {
     protected const FLASH_KEY = 'flash_messages';
-    protected array $session;
 
     public function __construct()
     {
         session_start();
 
-        $this->session = $_SESSION;
-
-        if($_SESSION['token'] == null)
+        if(!isset($_SESSION['token']))
         {
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
@@ -25,6 +22,31 @@ class Session
 //        }
 //
 //        $_SESSION[self::FLASH_KEY] = $flashMessages;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getSession(): array
+    {
+        return $_SESSION;
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     */
+    public static function setSession($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
+    /**
+     * @param $key
+     */
+    public static function unsetSession($key)
+    {
+        unset($_SESSION[$key]);
     }
 
     public static function setUserSession($user)

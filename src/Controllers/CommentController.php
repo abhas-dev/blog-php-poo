@@ -21,7 +21,6 @@ class CommentController extends Controller
 
     public function insert(int $id, Request $request, Response $response)
     {
-        try {
             $commentForm = new CommentForm();
             $commentModel = new CommentModel();
             $body = $request->getBody();
@@ -29,6 +28,7 @@ class CommentController extends Controller
             if($commentForm->validate())
             {
                 $commentModel->setIdPost($id);
+                // Session::getSession()['auth'] ? $commentModel->setUsername(Session::getSession()['username'] : $commentModel->setUsername($commentForm->getAuthor());
                 $commentModel->setUsername($commentForm->getAuthor());
                 $commentModel->setContent($commentForm->getContent());
                 $commentModel->setCreatedAt((new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'))));
@@ -37,8 +37,5 @@ class CommentController extends Controller
                 $response->redirect("/blog/$id");
             }
             $response->redirect("/blog/$id");
-        } catch (\Exception $e) {
-            var_dump($e);
-        }
     }
 }

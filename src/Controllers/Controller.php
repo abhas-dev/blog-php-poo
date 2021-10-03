@@ -15,16 +15,14 @@ abstract class Controller
     protected Environment $twig;
 
     public function __construct()
-    {
-    }
+    {}
 
-
-    protected function render(string $path, array $params = []): string
+    protected function render(string $path, array $params = [])
     {
         $this->twig = Application::$app->twig;
 
         try {
-            return $this->twig->render($path, $params);
+            echo $this->twig->render($path, $params);
         } catch (LoaderError | RuntimeError | SyntaxError $e) {
             return $e->getMessage();
         }

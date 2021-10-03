@@ -13,7 +13,6 @@ use App\Session;
 
 class PostAdminController extends AdminController
 {
-
     protected Manager $postManager;
 
     public function __construct()
@@ -24,7 +23,7 @@ class PostAdminController extends AdminController
     public function index(Request $request, Response $response)
     {
         unset($_SESSION['flash_messages']);
-        if ($this->isAdmin($response)) {
+        if ($this->redirectIfNotAdmin($response)) {
             $posts = $this->postManager->findAll();
             echo $this->render('/admin/posts.html.twig', compact('posts'));
         } else {
@@ -35,7 +34,7 @@ class PostAdminController extends AdminController
 
     public function insert(Request $request, Response $response)
     {
-        if ($this->isAdmin($response)) {
+        if ($this->redirectIfNotAdmin($response)) {
             if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
                 try {
                     $postModel = new PostModel();
@@ -68,7 +67,7 @@ class PostAdminController extends AdminController
 
     public function modify(int $id, Request $request, Response $response)
     {
-        if ($this->isAdmin($response)) {
+        if ($this->redirectIfNotAdmin($response)) {
             $id = intval($id);
             $post = new PostModel();
             $post = $this->postManager->find($id);
@@ -105,7 +104,7 @@ class PostAdminController extends AdminController
 
     public function remove(int $id, Request $request, Response $response)
     {
-        if ($this->isAdmin($response)) {
+        if ($this->redirectIfNotAdmin($response)) {
             if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
             $this->postManager->delete($id);
             Session::setFlash('success', "L'article à été supprimé avec succes");
