@@ -27,9 +27,16 @@ class ContactController extends Controller
                 $response->redirect('/', 302);
             } catch (\Exception $e)
             {
-                var_dump($e);
-             // return template erreur
-                //  ou setflash erreur + redirection sur /
+                if($_ENV['ENV'] === 'dev'){
+                    echo $e;
+                    die();
+                }
+                else if($_ENV['ENV'] === 'prod')
+                {
+                    Session::setFlash('error', "Une erreur interne s'est produite");
+                    $response->redirect('/');
+//                $this->render('/general/_500.html.twig');
+                }
             }
         }
         $errors = $contactForm->getErrors();

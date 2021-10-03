@@ -3,5 +3,30 @@
 {% block title %}{{ parent() }} - Not Found{% endblock %}
 
 {% block body %}
-<h1>Ce contenu n'éxiste pas</h1>
+    <!-- Start Error Page Area -->
+    <section class="error-page section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <!-- Error Image -->
+                    <div class="error-image">
+                        <img src="../images/error.svg" alt="#">
+                    </div>
+                    <!--/ End Error Image -->
+                </div>
+                <div class="col-lg-6 col-12">
+                    <!-- Error Text -->
+                    <div class="error-text">
+                        <h2><span>Desolé!</span>Page non trouvée</h2>
+                        <p>Oops! La page que vous cherchez ne semble pas exister. Elle a peut etre été deplacée ou suprimée.</p>
+                        <div class="button">
+                            <a href="/" class="btn">Retourner à l'Accueil</a>
+                        </div>
+                    </div>
+                    <!--/ End Error Text -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Error Page Area-->
 {% endblock %}
