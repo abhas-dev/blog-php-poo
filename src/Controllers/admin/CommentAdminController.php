@@ -23,7 +23,7 @@ class CommentAdminController extends AdminController
         if($this->redirectIfNotAdmin($response))
         {
             $comments = $this->commentManager->findAll();
-            echo $this->render('/admin/comments.html.twig', compact('comments'));
+            $this->render('/admin/comments.html.twig', compact('comments'));
         }
         else{
             Session::setFlash('error', "Vous n'etes pas autorisés à acceder a cette page");
@@ -35,7 +35,7 @@ class CommentAdminController extends AdminController
     {
         if($this->redirectIfNotAdmin($response))
         {
-            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+            if ($request->getMethod() == 'post' && isset($_POST['token']) && Session::getSession()['token'] === $_POST['token']) {
                 $comment = $this->commentManager->find($id);
                 $comment->setIsApprouved($comment->getIsApprouved() ? 0 : 1);
                 $this->commentManager->update($comment);
@@ -47,7 +47,7 @@ class CommentAdminController extends AdminController
     public function remove(int $id, Request $request,Response $response)
     {
         if ($this->redirectIfNotAdmin($response)) {
-            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+            if ($request->getMethod() == 'post' && isset($_POST['token']) && Session::getSession()['token'] === $_POST['token']) {
                 $this->commentManager->delete($id);
                 Session::setFlash('success', "Le commentaire à été supprimé avec succes");
                 $response->redirect('/secadmin/comments');

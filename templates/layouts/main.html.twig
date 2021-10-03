@@ -23,6 +23,7 @@
     <title>{% block title %}Blog{% endblock %}</title>
 </head>
 <body>
+{% block navbar %}
 <!--[if lte IE 9]>
 <p class="browserupgrade">
     You are using an <strong>outdated</strong> browser. Please
@@ -42,55 +43,65 @@
 </div>
 <!-- /End Preloader -->
 
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Blog</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/blog">Les articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact-us">Contact</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-{#                    {{ dump(session) }}#}
-                    {% if session['auth'] is defined and not session['auth']['id'] is empty%}
-                    {% if session['auth']['admin'] is defined and session['auth']['admin'] == 1%}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/secadmin">Administration</a>
-                        </li>
-                    {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profil">Profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Deconnexion</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Connexion</a>
-                        </li>
+<!-- Start Header Area -->
+<header class="header">
+    <div class="navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand logo" href="/">Blog</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                            <span class="toggler-icon"></span>
+                        </button>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Inscription</a>
-                        </li>
-                    {% endif %}
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            <ul id="nav" class="navbar-nav ml-auto">
+                                <li class="nav-item">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li class="nav-item"><a href="/blog">Blog</a></li>
+                                <li class="nav-item"><a href="/#contact-us">Contact</a></li>
+                                {% if session['auth'] is defined and not session['auth']['id'] is empty%}
+                                    {% if session['auth']['admin'] is defined and session['auth']['admin'] == 1%}
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/secadmin">Administration</a>
+                                        </li>
+                                    {% endif %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/profil">Profil</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/logout">Deconnexion</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/login">Connexion</a>
+                                    </li>
+                            </ul>
+                            <div class="button">
+                            <a href="/register" class="btn">Inscription</a>
+                            </div>
+                            {% endif %}
 
-                </ul>
+                        </div>
+                    </nav>
+                    <!-- navbar -->
+
+                </div>
             </div>
+            <!-- row -->
         </div>
-    </nav>
-</div>
-{% block navbar %}{% endblock %}
+        <!-- container -->
+    </div>
+    <!-- navbar area -->
+</header>
+<!-- End Header Area -->
+{% endblock %}
 
 {% block body %}{% endblock %}
 
@@ -104,10 +115,9 @@
                     <div class="col-lg-3 col-md-6 col-12">
                         <!-- Single Widget -->
                         <div class="f-about single-footer">
-                            <div class="logo">
-                                <a href="index.html"><img src="assets/images/logo/footer-logo.svg" alt="Logo"></a>
-                            </div>
-                            <p>Start building your creative website with our awesome template Massive.</p>
+                            <h2 class="logo">
+                                <a href="/">Blog</a>
+                            </h2>
                             <div class="footer-social">
                                 <ul>
                                     <li><a href="#"><i class="lni lni-instagram"></i></a></li>
@@ -168,8 +178,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="left">
-                                <p>Designed and Developed by<a href="https://graygrids.com/" rel="nofollow"
-                                                               target="_blank">GrayGrids</a></p>
+                                <p>Developed by Redpanda Dev</p>
                             </div>
                         </div>
                     </div>
