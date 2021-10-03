@@ -20,7 +20,7 @@ class CommentAdminController extends AdminController
     public function index(Request $request, Response $response)
     {
         unset($_SESSION['flash_messages']);
-        if($this->isAdmin($response))
+        if($this->redirectIfNotAdmin($response))
         {
             $comments = $this->commentManager->findAll();
             echo $this->render('/admin/comments.html.twig', compact('comments'));
@@ -33,7 +33,7 @@ class CommentAdminController extends AdminController
 
     public function approuve(int $id, Request $request, Response $response)
     {
-        if($this->isAdmin($response))
+        if($this->redirectIfNotAdmin($response))
         {
             if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
                 $comment = $this->commentManager->find($id);
@@ -46,7 +46,7 @@ class CommentAdminController extends AdminController
 
     public function remove(int $id, Request $request,Response $response)
     {
-        if ($this->isAdmin($response)) {
+        if ($this->redirectIfNotAdmin($response)) {
             if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
                 $this->commentManager->delete($id);
                 Session::setFlash('success', "Le commentaire à été supprimé avec succes");

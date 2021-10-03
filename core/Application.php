@@ -16,8 +16,8 @@ class Application
     public function __construct(Environment $twig)
     {
         self::$app = $this;
-        $this->session = new Session();
         $this->request = new Request();
+        $this->session = new Session();
         $this->response = new Response();
         $this->twig = $twig;
         $this->twig->addGlobal('session', $_SESSION);
@@ -26,6 +26,12 @@ class Application
 
     public function run()
     {
-        echo $this->router->resolve();
+        try {
+            $this->router->resolve();
+        }
+        catch (\Exception $e)
+        {
+            echo $e;
+        }
     }
 }

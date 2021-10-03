@@ -104,6 +104,7 @@ abstract class Manager{
         }
         $sql = sprintf("INSERT INTO %s (%s) VALUES (%s)", $this->metadata["table"], implode(', ', $champs), implode(", ", $question));
         $model->setPrimaryKey($this->database->lastInsertId());
+        // TODO: modifier la colonne created_at ici
 
         return $query = $this->createQuery($sql, $values);
     }
@@ -126,7 +127,7 @@ abstract class Manager{
                 $champs[] = sprintf("%s = :%s", $column, $column);
         }
 //        $values['id'] = $model->getId();
-
+        // TODO: modifier la colonne updated_at ici
         $sql = sprintf("UPDATE %s SET %s WHERE `id` = :id", $this->metadata["table"], implode(', ', $champs));
         return $query = $this->createQuery($sql, $values);
     }

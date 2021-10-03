@@ -22,7 +22,7 @@ class PostController extends Controller
     {
         unset($_SESSION['flash_messages']);
         $posts = $this->postManager->findAll();
-        echo $this->render('blog/index.html.twig', compact('posts'));
+        $this->render('blog/index.html.twig', compact('posts'));
     }
 
     public function show(int $id)
@@ -30,6 +30,6 @@ class PostController extends Controller
         unset($_SESSION['flash_messages']);
         $id = intval($id);
         $post = $this->postManager->findPostBySlugWithValidatedComments($id);
-        echo $this->render('blog/show.html.twig', compact('post'));
+        $this->render('blog/show.html.twig', compact('post'));
     }
 }

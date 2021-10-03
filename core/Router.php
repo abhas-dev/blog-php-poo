@@ -48,9 +48,8 @@ class Router
                 return $route;
             }
         }
-
-        // Sinon on soulève une erreur
-        throw new RouterException("Aucune route ne correspond à la requete !");
+        // Appel du controlleur pour la 404 qui doit etre la derniere route de la liste.
+        return end($this->routes['get']);
     }
 
     /**
@@ -69,8 +68,8 @@ class Router
         }
         // On récupère la route correspondant à la requête
         $route = $this->getRouteByRequest();
-        // On récupère une réponse en appelant dynamiquement l'action d'un contrôleur
-        $response = $route->call($route, $this->request, $this->response);
+        // On appelle dynamiquement le controlleur
+        $route->call($route, $this->request, $this->response);
 
 //        // Soit ca, On test si notre route se trouve dans l'array des routes sinon on renvoi false
 //       $route = $this->routes[$method][$path] ?? false;

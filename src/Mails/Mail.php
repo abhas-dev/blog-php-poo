@@ -23,7 +23,6 @@ abstract class Mail
 
     public function sendMail()
     {
-        try {
             //Server settings
             $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $this->mail->isSMTP();                                            //Send using SMTP
@@ -49,10 +48,7 @@ abstract class Mail
             $this->mail->Body    = $this->message;
             $this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-            $this->mail->send();
-        } catch (Exception $e) {
-            echo "Le message n'a pas pu etre envoyé. Erreur: {$this->mail->ErrorInfo}";
-        }
+            $this->mail->send() ?? throw new Exception("Le message n'a pas pu etre envoyé. Erreur: {$this->mail->ErrorInfo}");
     }
 
     /**

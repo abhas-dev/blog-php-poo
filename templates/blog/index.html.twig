@@ -40,16 +40,16 @@
             <div class="row">
                     <!-- Single News -->
                 {% for post in posts %}
-                    <div class="col-lg-4 col-md-6 col-12">
+                    <div class="col-lg-4 col-md-6 col-12 mb-2">
                         <div class="single-news wow fadeInUp" data-wow-delay=".2s">
                             <div class="image">
                                 <img class="thumb" src="../images/blog/blog-grid1.jpg" alt="#">
                             </div>
                             <div class="content-body">
                                 <h4 class="title"><a href="blog/{{ post.id }}">{{ post.title }}</a> </h4>
-                                <small>Derniere modification le {{ post.updatedAt|date("d/m/Y à h:i")}}</small>
 
-                                <p>{{ post.introduction }}</p>
+                                <p>{{ post.introduction }}...</p>
+                                <p><small>Derniere modification le {{ post.updatedAt|date("d/m/Y à h:i")}}</small></p>
                             </div>
                         </div>
                     </div>

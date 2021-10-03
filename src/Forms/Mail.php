@@ -2,7 +2,7 @@
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\Exception as PHPMailerException;
 
 
 $mail = new PHPMailer(true);
@@ -43,6 +43,7 @@ try {
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
-} catch (Exception $e) {
+} catch (PHPMailerException $e) {
     echo "Le message n'a pas pu etre envoyé. Erreur: {$mail->ErrorInfo}";
+
 }

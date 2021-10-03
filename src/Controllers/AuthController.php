@@ -23,10 +23,10 @@ class AuthController extends Controller
 
     public function login(Request $request, Response $response)
     {
-        if(!isset($_SESSION['auth'])){
-            unset($_SESSION['flash_messages']['error']);
+        if(!isset(Session::getSession()['auth'])){
+            unset(Session::getSession()['flash_messages']['error']);
 
-            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+            if ($request->getMethod() == 'post' && Session::getSession()['token'] === $_POST['token']) {
                 $loginForm = new LoginForm();
                 $body = $request->getBody();
                 $loginForm->objectifyForm($body);
@@ -51,10 +51,10 @@ class AuthController extends Controller
                     }
                 }
                 $errors = $loginForm->getErrors();
-                echo $this->render('auth/login.html.twig', compact('errors', 'loginForm'));
+                $this->render('auth/login.html.twig', compact('errors', 'loginForm'));
             }
             if ($request->getMethod() == 'get') {
-                echo $this->render('auth/login.html.twig');
+                $this->render('auth/login.html.twig');
             }
         }
         else{
@@ -85,19 +85,18 @@ class AuthController extends Controller
             }
 
             $errors = $registerForm->getErrors();
-            echo $this->render('auth/register.html.twig', compact('errors', 'registerForm'));
+            $this->render('auth/register.html.twig', compact('errors', 'registerForm'));
         }
 
         if ($request->getMethod() == 'get'){
-            echo $this->render('auth/register.html.twig');
+            $this->render('auth/register.html.twig');
         }
     }
 
     public function logout(Request $request,Response $response)
     {
-        unset($_SESSION['auth']);
+        Session::unsetSession('auth');
         // On redirige a l'endroit ou on se trouvais lors de la deconnexion
         $response->redirect($request->getReferer());
-//        $response->redirect('/');
     }
 }

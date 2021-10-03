@@ -27,8 +27,8 @@ class PostModel extends Model
     /** @var array  */
     protected array $comments = [];
 
-    /** @var \DateTimeImmutable */
-    protected \DateTimeImmutable $createdAt;
+    /** @var \DateTimeImmutable|null */
+    protected ?\DateTimeImmutable $createdAt = null;
 
     /** @var \DateTimeImmutable|null */
     protected ?\DateTimeImmutable $updatedAt = null;

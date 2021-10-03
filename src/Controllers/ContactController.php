@@ -21,12 +21,26 @@ class ContactController extends Controller
             $mail->setSubject($contactForm->getSubject());
             $mail->setFrom($contactForm->getEmail());
             $mail->setMessage($contactForm->getMessage());
-            $mail->sendMail();
-            Session::setFlash('success', 'Le message a été envoyé avec succes');
-            $response->redirect('/', 302);
+            try {
+                $mail->sendMail();
+                Session::setFlash('success', 'Le message a été envoyé avec succes');
+                $response->redirect('/', 302);
+            } catch (\Exception $e)
+            {
+                if($_ENV['ENV'] === 'dev'){
+                    echo $e;
+                    die();
+                }
+                else if($_ENV['ENV'] === 'prod')
+                {
+                    Session::setFlash('error', "Une erreur interne s'est produite");
+                    $response->redirect('/');
+//                $this->render('/general/_500.html.twig');
+                }
+            }
         }
         $errors = $contactForm->getErrors();
-        echo $this->render('general/home.html.twig', compact('errors', 'contactForm'));
+        $this->render('general/home.html.twig', compact('errors', 'contactForm'));
     }
 
 }
