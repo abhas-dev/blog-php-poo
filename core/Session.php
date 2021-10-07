@@ -4,7 +4,6 @@ namespace App;
 
 class Session
 {
-    protected const FLASH_KEY = 'flash_messages';
 
     public function __construct()
     {
@@ -14,14 +13,6 @@ class Session
         {
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
-//        $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
-//        foreach ($flashMessages as $key => $flashMessage)
-//        {
-//            // Mark to be removed
-//            $flashMessage['remove'] = true;
-//        }
-//
-//        $_SESSION[self::FLASH_KEY] = $flashMessages;
     }
 
     /**
@@ -56,13 +47,14 @@ class Session
 
     public static function setFlash($key, $message)
     {
-        $_SESSION[self::FLASH_KEY][$key] = $message;
+        $_SESSION['flash_messages'][$key] = $message;
     }
 
     public function getFlash($key)
     {
-
+        return $_SESSION['flash_messages'][$key];
     }
+
     public static function setCsrfToken()
     {
         if($_SESSION['token'] === null)

@@ -26,7 +26,7 @@ class AuthController extends Controller
         if(!isset(Session::getSession()['auth'])){
             unset(Session::getSession()['flash_messages']['error']);
 
-            if ($request->getMethod() == 'post' && Session::getSession()['token'] === $_POST['token']) {
+            if ($request->getMethod() == 'post' && isset($_POST['token']) && Session::getSession()['token'] === $_POST['token']) {
                 $loginForm = new LoginForm();
                 $body = $request->getBody();
                 $loginForm->objectifyForm($body);
@@ -54,7 +54,7 @@ class AuthController extends Controller
                 $this->render('auth/login.html.twig', compact('errors', 'loginForm'));
             }
             if ($request->getMethod() == 'get') {
-                $this->render('auth/login.html.twig');
+                $this->render('/auth/login.html.twig');
             }
         }
         else{
@@ -89,7 +89,7 @@ class AuthController extends Controller
         }
 
         if ($request->getMethod() == 'get'){
-            $this->render('auth/register.html.twig');
+            $this->render('/auth/register.html.twig');
         }
     }
 

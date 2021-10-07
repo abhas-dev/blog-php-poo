@@ -5,6 +5,7 @@ namespace App\Data\Managers;
 use App\Data\Models\CommentModel;
 use App\Data\Models\Model;
 use App\Data\Models\PostModel;
+use App\Data\Models\TagModel;
 
 class PostManager extends Manager
 {
@@ -19,7 +20,7 @@ class PostManager extends Manager
         return PostModel::class;
     }
 
-    public function findPostBySlug(int $id): PostModel
+    public function findPostById(int $id): PostModel
     {
         $sql = "
                 SELECT post.*, user.username author 
@@ -28,14 +29,24 @@ class PostManager extends Manager
                 WHERE post.id = ?";
         $query = $this->createQuery($sql, [$id]);
         $data = $query->fetch();
-        return (new PostModel())->hydrate($data);
+        $postModel = (new PostModel())
+                        ->setId($data->id)
+                        ->setTitle($data->title)
+                        ->setIntroduction($data->introduction)
+                        ->setContent($data->content)
+                        ->setAuthor($data->author)
+                        ->setIdUser($data->id_user)
+                        ->setCreatedAt(\DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $data->created_at))
+                        ?->setUpdatedAt(\DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $data->updated_at));
+        return $postModel;
     }
 
     public function findPostByIdWithValidateComment(int $id): PostModel
     {
-        $post = $this->findPostBySlug($id);
+        $post = $this->findPostById($id);
         $tags = $this->getTags($id);
         $post->setTags($tags);
+//        var_dump($tags);die();
         $sql = "SELECT `id`, `content`, `username`,`is_approuved`,`created_at`,`id_post` FROM `comment` WHERE id_post = ? AND `is_approuved` = ?";
         $query = $this->createQuery($sql, [$id, 1]);
         $data = $query->fetchAll();
@@ -44,14 +55,10 @@ class PostManager extends Manager
                 $post->setComments((new CommentModel())->hydrate($comment));
             }
         }
-        else{
-            throw new \Exception('requete ratée');
-        }
-
         return $post;
     }
     
-    private function getTags(int $id)
+    private function getTags(int $id): array
     {
         $sql = "
                 SELECT `t`.* from `tag` t
@@ -59,7 +66,14 @@ class PostManager extends Manager
                 INNER  JOIN `post` p ON `pt`.`post_id` = `p`.`id`
                 WHERE p.id = ?";
         $query = $this->createQuery($sql, [$id]);
-        return $query->fetchAll();
+        $data =  $query->fetchAll();
+        $tags = [];
+        if ($data) {
+            foreach ($data as $tag) {
+                $tags[] = (new TagModel())->setName($tag->name);
+            }
+        }
+        return $tags;
     }
 
 

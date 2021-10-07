@@ -8,9 +8,9 @@ use App\Forms\Form;
 
 abstract class Model
 {
-
-    /** @var array  */
-    public array $orignalData = [];
+//
+//    /** @var array  */
+//    public array $orignalData = [];
 
     /**
      * @return array
@@ -64,7 +64,7 @@ abstract class Model
         if(empty($data)){
             throw new \Exception("Les données sont incorrects ! ");
         }
-        $this->originalData = $data;
+//        $this->originalData = $data;
         foreach($data as $column => $value) {
             $this->hydrateProperty($column, $value);
         }
