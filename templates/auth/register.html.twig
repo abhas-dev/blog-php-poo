@@ -1,4 +1,4 @@
-{% extends 'layouts/auth_layout.html.twig' %}
+{% extends 'layouts/main.html.twig' %}
 
 {% import 'layouts/form.html.twig' as form %}
 
@@ -67,30 +67,4 @@
                 <button type="submit" class="btn btn-primary">Envoyer</button>
             </div>
     </form>
-
-    {#            {{ form.inputSemiText('firstname', 'Prenom') }}#}
-    {#            {{ form.inputSemiText('lastname', 'Nom') }}#}
-    {#            {{ form.inputLongText('username', 'Nom d\'utilisateur') }}#}
-    {#            {{ form.inputLongEmail('email', 'Email') }}#}
-    {#            {{ form.inputSemiPassword('password', 'Mot de passe') }}#}
-    {#            {{ form.inputSemiPassword('confirmationPassword', 'Confirmation') }}#}
-    {#            {{ form.inputGenderRadio('gender', 'Genre') }}#}
-    {#            {{ form.inputFile('avatar', 'Avatar') }}#}
-    {#            <div class="col-sm-2">#}
-    {#                <button type="submit" class="btn btn-primary">Envoyer</button>#}
-    {#            </div>#}
-    {#        </form>#}
-
-
-
-    {#    {% if errors %}#}
-{#        <ul>#}
-{#            {% for attribute,error in errors %}#}
-{#                <li>{{ attribute }}</li>#}
-{#                {% for value in error %}#}
-{#                    <li>{{ value }}</li>#}
-{#                {% endfor %}#}
-{#            {% endfor %}#}
-{#        </ul>#}
-{#    {% endif %}#}
 {% endblock %}

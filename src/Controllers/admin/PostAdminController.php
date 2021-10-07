@@ -35,7 +35,7 @@ class PostAdminController extends AdminController
     public function insert(Request $request, Response $response)
     {
         if ($this->redirectIfNotAdmin($response)) {
-            if ($request->getMethod() == 'post' && $_SESSION['token'] === $_POST['token']) {
+            if ($request->getMethod() == 'post' && isset($_POST['token']) && Session::getSession()['token'] === $_POST['token']) {
                 try {
                     $postModel = new PostModel();
                     $postForm = new PostForm();
@@ -75,7 +75,7 @@ class PostAdminController extends AdminController
                 Session::setFlash('error', "Ce post n'existe pas");
                 $response->redirect('/', 404);
             }
-            if ($post->getIdUser() !== $_SESSION['auth']['id'] && !$_SESSION['auth']['admin']) {
+            if ($post->getIdUser() !== Session::getSession()['auth']['id'] && !Session::getSession()['auth']['admin']) {
                 Session::setFlash('error', "Vous n'avez pas acces à cette page");
                 $response->redirect('/');
             }

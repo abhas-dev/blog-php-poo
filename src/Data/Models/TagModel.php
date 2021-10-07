@@ -4,19 +4,38 @@ namespace App\Data\Models;
 
 class TagModel extends Model
 {
-
+    /** @var string  */
+    protected string $name;
 
     public static function metadata(): array
     {
-
-        return [];
+        return [
+            "table"            => "Tag",
+            "primaryKey"       => "id",
+            "columns"          => [
+                "name"      => [
+                    "type"     => "string",
+                    "property" => "name"
+                ]
+            ]
+        ];
     }
 
-    public function rules(): array
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
-        // TODO: Implement rules() method.
-
-        return [];
+        return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return TagModel
+     */
+    public function setName(string $name): TagModel
+    {
+        $this->name = $name;
+        return $this;
+    }
 }

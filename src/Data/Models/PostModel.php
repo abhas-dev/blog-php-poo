@@ -21,8 +21,8 @@ class PostModel extends Model
     /** @var int  */
     protected int $idUser;
 
-    /** @var string  */
-    protected string $author;
+    /** @var string|null */
+    protected ?string $author = null;
 
     /** @var array|null */
     protected ?array $tags = [];
@@ -64,10 +64,6 @@ class PostModel extends Model
                 "id_user"      => [
                     "type"     => "integer",
                     "property" => "idUser"
-                ],
-                "author"      => [
-                    "type"     => "string",
-                    "property" => "author"
                 ],
                 "created_at"        => [
                     "type"     => "datetime",
@@ -131,7 +127,7 @@ class PostModel extends Model
      */
     public function setContent(string $content): PostModel
     {
-        $this->content = htmlspecialchars_decode($content);
+        $this->content = $content;
         return $this;
     }
 
@@ -152,35 +148,39 @@ class PostModel extends Model
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getIdUser(): int|string
+    public function getIdUser(): int
     {
         return $this->idUser;
     }
 
     /**
-     * @param string $idUser
+     * @param int $idUser
+     * @return PostModel
      */
-    public function setIdUser(int|string $idUser): void
+    public function setIdUser(int $idUser): PostModel
     {
         $this->idUser = $idUser;
+        return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAuthor(): string
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
 
     /**
-     * @param string $author
+     * @param string|null $author
+     * @return PostModel
      */
-    public function setAuthor(string $author): void
+    public function setAuthor(?string $author): PostModel
     {
         $this->author = $author;
+        return $this;
     }
 
     /**
@@ -211,10 +211,12 @@ class PostModel extends Model
 
     /**
      * @param string $introduction
+     * @return PostModel
      */
-    public function setIntroduction(string $introduction): void
+    public function setIntroduction(string $introduction): PostModel
     {
         $this->introduction = $introduction;
+        return $this;
     }
 
     /**
@@ -243,9 +245,12 @@ class PostModel extends Model
 
     /**
      * @param \DateTimeImmutable|null $updatedAt
+     * @return PostModel
      */
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): PostModel
     {
         $this->updatedAt = $updatedAt;
+        return $this;
     }
+
 }
