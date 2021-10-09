@@ -8,7 +8,7 @@ class CommentForm extends Form
     protected string $content;
 
     /** @var string  */
-    protected string $author;
+    protected ?string $author = null;
 
     public static function metadata(): array
     {

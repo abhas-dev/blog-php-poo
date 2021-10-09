@@ -5,20 +5,21 @@
 {% block body %}
     <!-- Start Hero Area -->
     <section class="hero-area index4">
-
         <div class="hero-inner">
             <div class="container">
-                {% if not session['flash_messages']['error'] is empty %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ session['flash_messages']['error'] }}
-                    </div>
-                {% elseif not session['flash_messages']['success'] is empty %}
-                    <div class="alert alert-success" role="alert">
-                        {{ session['flash_messages']['success'] }}
-                    </div>
-                {% endif %}
                 <div class="row ">
                     <div class="col-lg-6 co-12">
+                        <div class="row">
+                            {% if not session['flash_messages']['error'] is empty %}
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session['flash_messages']['error'] }}
+                                </div>
+                            {% elseif not session['flash_messages']['success'] is empty %}
+                                <div class="alert alert-success" role="alert">
+                                    {{ session['flash_messages']['success'] }}
+                                </div>
+                            {% endif %}
+                        </div>
                         <div class="home-slider">
                             <div class="hero-text">
                                 <h5 class="small wow fadeInUp" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">Hello There...</h5>
@@ -54,8 +55,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-title align-left">
-                        <span class="wow fadeInDown" data-wow-delay=".2s">Core Features</span>
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Provide Awesome Service With Our Tools</h2>
+                        <span class="wow fadeInDown" data-wow-delay=".2s">Mes Competences</span>
+                        <h2 class="wow fadeInUp" data-wow-delay=".4s">Services</h2>
                         <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
                             Ipsum available, but the majority have suffered alteration in some form.</p>
                     </div>
@@ -113,7 +114,7 @@
                 <div class="col-lg-6 col-12">
                     <div class="about-left">
                         <div class="section-title align-left">
-                            <span class="wow fadeInDown" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInDown;">my story</span>
+                            <span class="wow fadeInDown" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInDown;">Mon Histoire</span>
                             <h2 class="wow fadeInUp" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">A Propos de Moi</h2>
                             <p class="wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">Je suis un passioné d'informatique sous toutes ses formes. <br /> Developpement, Backend, Reseau, Systeme, Securité des SI.</p>
                         </div>

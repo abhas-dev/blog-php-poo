@@ -29,9 +29,18 @@ class Application
         try {
             $this->router->resolve();
         }
-        catch (\Exception $e)
+        catch (\Exception $exception)
         {
-            echo $e;
+            if($_ENV['ENV'] === 'dev'){
+                echo $exception->getMessage();
+                die();
+            }
+            else if($_ENV['ENV'] === 'prod')
+            {
+//                Session::setFlash('error', "Une erreur interne s'est produite");
+                $this->twig->render('/general/_500.html.twig');
+
+            }
         }
     }
 }

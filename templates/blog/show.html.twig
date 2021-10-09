@@ -102,11 +102,14 @@
                             <h3 class="comment-reply-title">Laissez un commentaire</h3>
                             <form action="/blog/{{ post.id }}/comment" method="post">
                                 <div class="row">
+                                    {% if session['auth']['id'] is empty %}
                                     <div class="col-12">
                                         <div class="form-box form-group">
-                                            <input type="text" name="author" class="form-control form-control-custom" placeholder="Votre nom">
+                                            <label for="author">Votre nom</label>
+                                            <input type="text" name="author" class="form-control form-control-custom">
                                         </div>
                                     </div>
+                                    {% endif %}
 {#                                    <div class="col-lg-6 col-12">#}
 {#                                        <div class="form-box form-group">#}
 {#                                            <input type="email" name="email" class="form-control form-control-custom" placeholder="Votre email" >#}
@@ -115,7 +118,8 @@
 
                                     <div class="col-12">
                                         <div class="form-box form-group">
-                                            <textarea name="content" rows="6" class="form-control form-control-custom" placeholder="Votre Commentaire"></textarea>
+                                            <label for="content">Commentaire</label>
+                                            <textarea name="content" rows="6" class="form-control form-control-custom"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-12">

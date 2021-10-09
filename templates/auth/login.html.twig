@@ -3,35 +3,54 @@
 
 {% block title %} {{ parent() }} - Connexion{% endblock %}
 
-{% block body %}
-    {% if not session['flash_messages']['error'] is empty %}
-    <div class="alert alert-danger" role="alert">
-        {{ session['flash_messages']['error'] }}
-    </div>
-    {% endif %}
-    <h1>Connexion</h1>
+{% block main %}
+    <section class="my-auto">
+        <div class="d-flex">
+            <h1 class="mx-auto">Connexion</h1>
+        </div>
+        <div class="container-fluid h-custom">
+            {% if not session['flash_messages']['error'] is empty %}
+                <div class="alert alert-danger container" role="alert">
+                    {{ session['flash_messages']['error'] }}
+                </div>
+            {% endif %}
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-9 col-lg-6 col-xl-5">
+                    <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.png" class="img-fluid"
+                         alt="Sample image">
+                </div>
+                <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                    <form action="" method="post">
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <input type="email" id="email" id="email" name="email" class="form-control form-control-lg mb-2 {{ loginForm.hasError('email') ? ' is-invalid' : '' }}" value = "{{ loginForm.email ?? '' }}" />
+                            <label class="form-label" for="form3Example3">Email</label>
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                {{ loginForm.getFirstError('email') }}
+                            </div>
+                        </div>
 
-    <form action="" method="post" class="g-3" novalidate>
-        <div class="col-md-6">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control {{ loginForm.hasError('email') ? ' is-invalid' : '' }}" id="email" name="email" value = "{{ loginForm.email ?? '' }}" required>
-            <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                {{ loginForm.getFirstError('email') }}
+                        <!-- Password input -->
+                        <div class="form-outline mb-3">
+                            <input type="password" id="password" name="password" class="form-control form-control-lg mb-3 {{ loginForm.hasError('password') ? ' is-invalid' : '' }}" value = "{{ loginForm.password ?? '' }}"/>
+                            <label class="form-label" for="password">Mot de Passe</label>
+                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                {{ loginForm.getFirstError('password') }}
+                            </div>
+                        </div>
+                        <input type="hidden" name="token" value="{{ session['token'] }}"/>
+                        <br />
+
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                                Envoyer
+                            </button>
+                            <p class="small fw-bold mt-2 pt-1 mb-0">Pas encore inscrit? <a href="/register" class="link-danger">S'enregistrer</a></p>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control {{ loginForm.hasError('password') ? ' is-invalid' : '' }}" id="password" name="password" value = "{{ loginForm.password ?? '' }}" required>
-            <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                {{ loginForm.getFirstError('password') }}
-            </div>
-        </div>
-
-        <input type="hidden" name="token" value="{{ session['token'] }}"/>
-        <br />
-        <div class="col-sm-2">
-            <button type="submit" class="btn btn-primary">Envoyer</button>
-        </div>
-    </form>
+    </section>
 {% endblock %}

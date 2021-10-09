@@ -63,8 +63,5 @@ $app->router->post('/secadmin/:id/comment-remove', [CommentAdminController::clas
 // 404
 $app->router->get('/404', [NotFoundController::class, 'show']);
 
-try {
-    $app->run();
-} catch (Exception $exception) {
-    echo $exception->getMessage();
-}
+$app->run();
+
