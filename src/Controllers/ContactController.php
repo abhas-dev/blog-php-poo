@@ -25,17 +25,16 @@ class ContactController extends Controller
                 $mail->sendMail();
                 Session::setFlash('success', 'Le message a été envoyé avec succes');
                 $response->redirect('/', 302);
-            } catch (\Exception $e)
+            } catch (\MailException $e)
             {
                 if($_ENV['ENV'] === 'dev'){
                     echo $e;
-                    die();
                 }
                 else if($_ENV['ENV'] === 'prod')
                 {
-                    Session::setFlash('error', "Une erreur interne s'est produite");
-                    $response->redirect('/');
-//                $this->render('/general/_500.html.twig');
+//                    Session::setFlash('error', "Une erreur interne s'est produite");
+//                    $response->redirect('/');
+                $this->render('/general/_500.html.twig');
                 }
             }
         }

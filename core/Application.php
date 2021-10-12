@@ -24,6 +24,12 @@ class Application
         $this->router = new Router($this->request, $this->response);
     }
 
+    public function exception_handler($exception)
+    {
+        $this->response->redirect('/error');
+        exit;
+    }
+
     public function run()
     {
         try {
@@ -31,16 +37,12 @@ class Application
         }
         catch (\Exception $exception)
         {
-            if($_ENV['ENV'] === 'dev'){
-                echo $exception->getMessage();
-                die();
+            if ($_ENV['ENV'] === 'prod') {
+                $this->response->redirect('/error');
             }
-            else if($_ENV['ENV'] === 'prod')
-            {
-//                Session::setFlash('error', "Une erreur interne s'est produite");
-                $this->twig->render('/general/_500.html.twig');
-
+            elseif($_ENV['ENV'] === 'dev') {
+                echo $exception;
+            }
             }
         }
-    }
 }

@@ -8,6 +8,7 @@ use App\Controllers\AuthController;
 use App\Controllers\BlogController;
 use App\Controllers\CommentController;
 use App\Controllers\ContactController;
+use App\Controllers\ErrorController;
 use App\Controllers\NotFoundController;
 use App\Controllers\PostController;
 use Symfony\Component\Dotenv\Dotenv;
@@ -60,6 +61,8 @@ $app->router->post('/secadmin/:id/post-remove', [PostAdminController::class, 're
 $app->router->get('/secadmin/comments', [CommentAdminController::class, 'index']);
 $app->router->post('/secadmin/:id/comment-approuve', [CommentAdminController::class, 'approuve']);
 $app->router->post('/secadmin/:id/comment-remove', [CommentAdminController::class, 'remove']);
+//500
+$app->router->get('error', [ErrorController::class, 'show']);
 // 404
 $app->router->get('/404', [NotFoundController::class, 'show']);
 

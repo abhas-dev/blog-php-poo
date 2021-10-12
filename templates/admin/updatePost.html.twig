@@ -1,26 +1,23 @@
 {% extends 'layouts/admin_layout.html.twig' %}
 
-{% block title %} {{ parent() }} - Ajout d'un Article{% endblock %}
+{% block title %} {{ parent() }} - Edition d'un Article{% endblock %}
 
 {% block body %}
-    <h1>Ajouter un article</h1>
+    <h1>Modifier un article</h1>
 
     <form action="" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="title" class="form-label">Titre de l'article</label>
-            <input type="text" class="form-control {{ postForm.hasError('title') ? ' is-invalid' : '' }}" id="title" name="title">
-            <div id="validationFirstname" class="invalid-feedback">
-                {{ postForm.getFirstError('title') }}
-            </div>
+            <input type="text" class="form-control {{ errors['title'] ? ' is-invalid' : '' }}" id="title" name="title" value="{{ post.title ?? '' }}"/>
+            {{ errors['title'][0] ?? ''}}
         </div>
 
         <div class="mb-3">
             <label for="content" class="form-label">Contenu</label>
-            <textarea class="form-control {{ postForm.hasError('content') ? ' is-invalid' : '' }}" id="content" name="content" rows="10"></textarea>
-            <div id="validationFirstname" class="invalid-feedback">
-                {{ postForm.getFirstError('content') }}
-            </div>
+            <textarea class="form-control {{ errors['content'] ? ' is-invalid' : '' }}" id="content" name="content" rows="10">{{ post.content ?? '' }}</textarea>
         </div>
+        {{ errors['content'][0] ?? ''}}
+
 
         <div class="mb-3">
             <label for="avatar" class="form-label">Image</label>

@@ -37,7 +37,7 @@ class PostManager extends Manager
                         ->setAuthor($data->author)
                         ->setIdUser($data->id_user)
                         ->setCreatedAt(\DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $data->created_at))
-                        ?->setUpdatedAt(\DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $data->updated_at));
+                        ->setUpdatedAt(\DateTimeImmutable::createFromFormat("Y-m-d H:i:s", $data->updated_at ?? $data->created_at));
         return $postModel;
     }
 
@@ -46,7 +46,6 @@ class PostManager extends Manager
         $post = $this->findPostById($id);
         $tags = $this->getTags($id);
         $post->setTags($tags);
-//        var_dump($tags);die();
         $sql = "SELECT `id`, `content`, `username`,`is_approuved`,`created_at`,`id_post` FROM `comment` WHERE id_post = ? AND `is_approuved` = ?";
         $query = $this->createQuery($sql, [$id, 1]);
         $data = $query->fetchAll();
