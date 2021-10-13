@@ -39,5 +39,4 @@ PHP packages, included via Composer:
 ### Mail Sending
 Configuration is in /src/Mails/Mail.php
 
-1. TCP port to connect to is set on 1025.
-2. Host is set to localhost.
+1. TCP port to connect to and host are set on .env.
