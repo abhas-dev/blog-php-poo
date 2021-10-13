@@ -4,13 +4,11 @@ namespace App;
 
 class Session
 {
-
     public function __construct()
     {
         session_start();
 
-        if(!isset($_SESSION['token']))
-        {
+        if (!isset($_SESSION['token'])) {
             $_SESSION['token'] = bin2hex(random_bytes(32));
         }
     }
@@ -57,10 +55,8 @@ class Session
 
     public static function setCsrfToken()
     {
-        if($_SESSION['token'] === null)
-        {
+        if ($_SESSION['token'] === null) {
             $_SESSION['token'] = bin2hex(random_bytes(32));
-
         }
     }
 }

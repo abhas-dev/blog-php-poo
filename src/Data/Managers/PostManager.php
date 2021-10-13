@@ -56,7 +56,7 @@ class PostManager extends Manager
         }
         return $post;
     }
-    
+
     private function getTags(int $id): array
     {
         $sql = "
@@ -102,4 +102,3 @@ class PostManager extends Manager
 //        return $post;
 //    }
 }
-

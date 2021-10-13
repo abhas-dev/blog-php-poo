@@ -67,4 +67,3 @@ $app->router->get('error', [ErrorController::class, 'show']);
 $app->router->get('/404', [NotFoundController::class, 'show']);
 
 $app->run();
-
