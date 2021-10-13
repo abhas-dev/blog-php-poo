@@ -30,9 +30,9 @@ PHP packages, included via Composer:
 
 1. Download project zip or clone it from git.
 2. Unzip
-3. Open terminal and get into the project folder  
+3. Open terminal and get into the project folder
    ` cd blog-php-poo`
-4. Install dependencies with composer  
+4. Install dependencies with composer
    `composer install `
 
 ## Database
