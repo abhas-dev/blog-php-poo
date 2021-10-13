@@ -23,7 +23,7 @@ class PostManager extends Manager
     public function findPostById(int $id): PostModel
     {
         $sql = "
-                SELECT post.*, user.username author 
+                SELECT post.*, user.username author
                 FROM $this->table
                 INNER JOIN user ON post.id_user = user.id
                 WHERE post.id = ?";
