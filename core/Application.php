@@ -24,12 +24,6 @@ class Application
         $this->router = new Router($this->request, $this->response);
     }
 
-    public function exception_handler($exception)
-    {
-        $this->response->redirect('/error');
-        exit;
-    }
-
     public function run()
     {
         try {

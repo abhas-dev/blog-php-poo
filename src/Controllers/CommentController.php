@@ -28,7 +28,6 @@ class CommentController extends Controller
             if($commentForm->validate())
             {
                 $commentModel->setIdPost($id);
-                var_dump(Session::getSession());
                 $commentModel->setUsername(Session::getSession()['auth']['username'] ?? $commentForm->getAuthor());
                 $commentModel->setContent($commentForm->getContent());
                 $commentModel->setCreatedAt((new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'))));
