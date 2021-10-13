@@ -13,7 +13,6 @@ abstract class Mail
     protected string $message;
     protected string $to = 'contact@myblog.fr';
     protected string $from;
-    protected string $host = 'localhost';
 
     public function __construct()
     {
@@ -26,12 +25,8 @@ abstract class Mail
             //Server settings
             $this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $this->mail->isSMTP();                                            //Send using SMTP
-            $this->mail->Host = $this->host;                     //Set the SMTP server to send through
-//    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-//    $mail->Username   = 'user@example.com';                     //SMTP username
-//    $mail->Password   = 'secret';                               //SMTP password
-//    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $this->mail->Port = 1025;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $this->mail->Host =$_ENV['MAIL_HOST'];                     //Set the SMTP server to send through
+            $this->mail->Port = $_ENV['MAIL_PORT'];               //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Charset
             $this->mail->CharSet = "utf-8";
