@@ -42,7 +42,7 @@ class Session
 
     public static function setUserSession($user)
     {
-        $_SESSION['auth'] = ['id' => $user->getId(), 'email' => $user->getEmail(), 'admin' => $user->getIsAdmin()];
+        $_SESSION['auth'] = ['id' => $user->getId(), 'email' => $user->getEmail(), 'username' => $user->getUsername(), 'admin' => $user->getIsAdmin()];
     }
 
     public static function setFlash($key, $message)

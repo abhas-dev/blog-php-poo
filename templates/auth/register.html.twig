@@ -1,70 +1,117 @@
-{% extends 'layouts/main.html.twig' %}
+{% extends 'layouts/auth_layout.html.twig' %}
 
-{% import 'layouts/form.html.twig' as form %}
+{#{% import 'layouts/form.html.twig' as form %}#}
 
 {% block title %} {{ parent() }} - Inscription{% endblock %}
 
-{% block body %}
+{% block main %}
     {% set errors =  registerForm.errors %}
-    <h1>Inscription</h1>
+    {{ dump(registerForm) }}
+    <section class="my-5">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-12 col-xl-11">
+                    <div class="card text-black" style="border-radius: 25px;">
+                        <div class="card-body p-md-5">
+                            <div class="row justify-content-center">
+                                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-    <form action="" method="post" enctype="multipart/form-data" class="row g-3" novalidate>
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Inscription</p>
 
-                <div class="col-md-6">
-                    <label for="firstname" class="form-label">Prenom</label>
-                    <input type="text" class="form-control {{ registerForm.hasError('firstname') ? ' is-invalid' : '' }}" id="firstname" name="firstname" value="{{ registerModel.firstname ?? ''}}" required>
-                    <div id="validationFirstname" class="invalid-feedback">
-                        {{ registerForm.getFirstError('firstname') }}
+                                    <form  action="" method="post" enctype="multipart/form-data" class="mx-1 mx-md-4" novalidate>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="firstname">Prenom</label>
+                                                <input type="text" id="firstname" class="form-control {{ registerForm.hasError('firstname') ? ' is-invalid' : '' }}" name="firstname" value="{{ registerModel.firstname ?? ''}}" required/>
+                                                <div id="validationFirstname" class="invalid-feedback">
+                                                    {{ registerForm.getFirstError('firstname') }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="lastname">Nom</label>
+                                                <input type="text" id="lastname" class="form-control {{ registerForm.hasError('lastname') ? ' is-invalid' : '' }}" name="lastname" value="{{ registerForm.lastname ?? ''}}" required/>
+                                                <div id="validationLastname" class="invalid-feedback">
+                                                    {{ registerForm.getFirstError('lastname') }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="username">Nom d'utilisateur</label>
+                                                <input type="text" id="username" class="form-control {{ registerForm.hasError('username') ? ' is-invalid' : '' }}" name="username" value="{{ registerForm.username ?? ''}}" required/>
+                                                <div id="validationUsername" class="invalid-feedback">
+                                                    {{ registerForm.getFirstError('username') }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="email">Email</label>
+                                                <input type="email" id="email" class="form-control {{ registerForm.hasError('email') ? ' is-invalid' : '' }}" name="email" value = "{{ registerForm.email ?? '' }}" required/>
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                    {{ registerForm.getFirstError('email') }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="password">Mot de passe</label>
+                                                <input type="password" id="password" class="form-control {{ registerForm.hasError('confirmationPassword') ? ' is-invalid' : '' }}" name="password" value = "{{ registerForm.password ?? '' }}" required/>
+                                                <div id="passwordError" class="invalid-feedback">
+                                                    {{ registerForm.getFirstError('password') }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="form3Example4cd">Confirmation</label>
+                                                <input type="password" id="form3Example4cd" class="form-control {{ registerForm.hasError('confirmationPassword') ? ' is-invalid' : '' }}" value = "{{ registerForm.confirmationPassword ?? '' }}" name="confirmationPassword" required/>
+                                                <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                    {{ registerForm.getFirstError('confirmationPassword') }}
+                                                </div>
+                                            </div>
+                                        </div>
+{#                                        <div class="form-check d-flex justify-content-center mb-5">#}
+{#                                            <input#}
+{#                                                    class="form-check-input me-2"#}
+{#                                                    type="checkbox"#}
+{#                                                    value=""#}
+{#                                                    id="form2Example3c"#}
+{#                                            />#}
+{#                                            <label class="form-check-label" for="form2Example3">#}
+{#                                                I agree all statements in <a href="#!">Terms of service</a>#}
+{#                                            </label>#}
+{#                                        </div>#}
+                                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                            <button type="submit" class="btn btn-primary btn-lg">S'enregistrer</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                    <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-registration/draw1.png" class="img-fluid" alt="Sample image">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-            <div class="col-md-6">
-                <label for="lastname" class="form-label">Nom</label>
-                <input type="text" class="form-control {{ registerForm.hasError('lastname') ? ' is-invalid' : '' }}" id="lastname" name="lastname" value="{{ registerForm.lastname?? ''}}" required>
-                <div id="validationFirstname" class="invalid-feedback">
-                    {{ registerForm.getFirstError('lastname') }}
-                </div>
             </div>
-
-            <div class="col-12">
-                <label for="username" class="form-label">Nom d'utilisateur</label>
-                <input type="text" class="form-control {{ registerForm.hasError('username') ? ' is-invalid' : '' }}" id="username" name="username" value = "{{ registerForm.username ?? '' }}" required>
-                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                    {{ registerForm.getFirstError('username') }}
-                </div>
-            </div>
-
-            <div class="col-12">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control {{ registerForm.hasError('email') ? ' is-invalid' : '' }}" id="email" name="email" value = "{{ registerForm.email ?? '' }}" required>
-                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                    {{ registerForm.getFirstError('email') }}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <label for="password" class="form-label">Mot de passe</label>
-                <input type="password" class="form-control {{ registerForm.hasError('password') ? ' is-invalid' : '' }}" id="password" name="password" value = "{{ registerForm.password ?? '' }}" required>
-                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                    {{ registerForm.getFirstError('password') }}
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <label for="confirmationPassword" class="form-label">Confirmation</label>
-                <input type="password" class="form-control {{ registerForm.hasError('confirmationPassword') ? ' is-invalid' : '' }}" id="confirmationPassword" name="confirmationPassword" value = "{{ registerForm.confirmationPassword ?? '' }}" required>
-                <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                    {{ registerForm.getFirstError('confirmationPassword') }}
-                </div>
-            </div>
-
-            <div class="col-12">
-                <label for="avatar" class="form-label">Avatar</label>
-                <input type="file" class="form-control" id="avatar" name="avatar">
-            </div>
-            <br />
-            <div class="col-sm-2">
-                <button type="submit" class="btn btn-primary">Envoyer</button>
-            </div>
-    </form>
+        </div>
+    </section>
 {% endblock %}

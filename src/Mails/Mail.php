@@ -48,7 +48,18 @@ abstract class Mail
             $this->mail->Body    = $this->message;
             $this->mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-            $this->mail->send() ?? throw new Exception("Le message n'a pas pu etre envoyé. Erreur: {$this->mail->ErrorInfo}");
+        try {
+            $this->mail->send();
+        }catch (Exception $exception)
+        {
+            if($_ENV['ENV'] === 'dev'){
+            echo "$exception Erreur: {$this->mail->ErrorInfo}";
+        }
+            else if($_ENV['ENV'] === 'prod')
+            {
+                throw new MailException("Le message n'a pas pu etre envoyé.");
+            }
+        };
     }
 
     /**

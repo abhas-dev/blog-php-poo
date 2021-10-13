@@ -47,7 +47,7 @@ class Route
         $action = $this->action[1];
         // On instancie dynamiquement le contrôleur
         $controller = new $controller();
-        // si le controller est admincontroller on appelle isAdmin si true ok sinon redirection
+        // TODO: si le controller est admincontroller on appelle isAdmin si true ok sinon redirection
         $this->params[] = $request;
         $this->params[] = $response;
         // call_user_func_array permet d'appeler une méthode d'une classe et de lui passer des arguments

@@ -1,0 +1,15 @@
+{% extends 'layouts/main.html.twig' %}
+
+{% block title %}{{ parent() }} - Something Went Wrong{% endblock %}
+
+{% block body %}
+<div class="notfound">
+    <div class="Wrong-500">
+        <h1>Oops!</h1>
+    </div>
+    <h2>500 - Something Went Wrong</h2>
+    <p>Une erreur inattendue s'est produite.</p>
+    <a href="/">Retourner a l'Acceuil</a>
+</div>
+
+{% endblock %}

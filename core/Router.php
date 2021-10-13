@@ -60,6 +60,7 @@ class Router
      */
     public function resolve()
     {
+//        Session::unsetSession('flash_messages');
         $method = $this->request->getMethod();
 
         if(!$this->routes[$method])

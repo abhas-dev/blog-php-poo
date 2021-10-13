@@ -24,14 +24,25 @@ class Application
         $this->router = new Router($this->request, $this->response);
     }
 
+    public function exception_handler($exception)
+    {
+        $this->response->redirect('/error');
+        exit;
+    }
+
     public function run()
     {
         try {
             $this->router->resolve();
         }
-        catch (\Exception $e)
+        catch (\Exception $exception)
         {
-            echo $e;
+            if ($_ENV['ENV'] === 'prod') {
+                $this->response->redirect('/error');
+            }
+            elseif($_ENV['ENV'] === 'dev') {
+                echo $exception;
+            }
+            }
         }
-    }
 }
